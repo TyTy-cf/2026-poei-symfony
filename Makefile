@@ -16,14 +16,14 @@ init:
 
 db-reset:
 	@echo "DELETE DB..."
-	@docker compose exec -T mariadb mysql -uroot -proot -e "DROP database IF EXISTS db_steamish;"
+	@docker compose exec -T mariadb mysql -uroot -proot -e "DROP database IF EXISTS data.sql;"
 
 	@echo "CREATE DB..."
 	@docker compose exec -T php php bin/console doctrine:database:create
 	@docker compose exec -T php php bin/console d:m:m -n
 
 	@echo "Importing initial database structure and data..."
-	@docker compose exec -T mariadb mysql -uroot -proot $(DB_NAME) < ./docker/db_steamish.sql
+	@docker compose exec -T mariadb mysql -uroot -proot $(DB_NAME) < ./docker/data.sql
 	@echo "Database import completed."
 
 db:
@@ -32,6 +32,11 @@ db:
 
 	@echo "CREATE DB..."
 	@docker compose exec -T php php bin/console doctrine:database:create
+	@echo "Database import completed."
+
+db-data:
+	@echo "Importing initial database structure and data..."
+	@docker compose exec -T mariadb mysql -uroot -proot $(DB_NAME) < ./docker/data.sql
 	@echo "Database import completed."
 
 up:

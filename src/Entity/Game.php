@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -16,7 +17,7 @@ class Game
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $name = null;
 
     #[ORM\Column]
@@ -26,7 +27,7 @@ class Game
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?\DateTime $publishedAt = null;
+    private ?DateTime $publishedAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $thumbnailCover = null;
@@ -34,11 +35,14 @@ class Game
     #[ORM\Column(length: 255, unique: true)]
     private ?string $slug = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $thumbnailCoverLink = null;
-
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'games')]
     private ?Publisher $publisher = null;
+
+    /**
+     * @var Collection<int, Country>
+     */
+    #[ORM\ManyToMany(targetEntity: Country::class)]
+    private Collection $countries;
 
     /**
      * @var Collection<int, Category>
@@ -47,15 +51,23 @@ class Game
     private Collection $categories;
 
     /**
-     * @var Collection<int, Country>
+     * @var Collection<int, Review>
      */
-    #[ORM\ManyToMany(targetEntity: Country::class, inversedBy: 'games')]
-    private Collection $countries;
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'game')]
+    private Collection $reviews;
+
+    /**
+     * @var Collection<int, UserOwnGame>
+     */
+    #[ORM\OneToMany(targetEntity: UserOwnGame::class, mappedBy: 'game')]
+    private Collection $userOwnGames;
 
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
         $this->countries = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        $this->userOwnGames = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -99,12 +111,12 @@ class Game
         return $this;
     }
 
-    public function getPublishedAt(): ?\DateTime
+    public function getPublishedAt(): ?DateTime
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(\DateTime $publishedAt): static
+    public function setPublishedAt(DateTime $publishedAt): static
     {
         $this->publishedAt = $publishedAt;
 
@@ -135,18 +147,6 @@ class Game
         return $this;
     }
 
-    public function getThumbnailCoverLink(): ?string
-    {
-        return $this->thumbnailCoverLink;
-    }
-
-    public function setThumbnailCoverLink(?string $thumbnailCoverLink): static
-    {
-        $this->thumbnailCoverLink = $thumbnailCoverLink;
-
-        return $this;
-    }
-
     public function getPublisher(): ?Publisher
     {
         return $this->publisher;
@@ -155,6 +155,30 @@ class Game
     public function setPublisher(?Publisher $publisher): static
     {
         $this->publisher = $publisher;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Country>
+     */
+    public function getCountries(): Collection
+    {
+        return $this->countries;
+    }
+
+    public function addCountry(Country $country): static
+    {
+        if (!$this->countries->contains($country)) {
+            $this->countries->add($country);
+        }
+
+        return $this;
+    }
+
+    public function removeCountry(Country $country): static
+    {
+        $this->countries->removeElement($country);
 
         return $this;
     }
@@ -184,25 +208,61 @@ class Game
     }
 
     /**
-     * @return Collection<int, Country>
+     * @return Collection<int, Review>
      */
-    public function getCountries(): Collection
+    public function getReviews(): Collection
     {
-        return $this->countries;
+        return $this->reviews;
     }
 
-    public function addCountry(Country $country): static
+    public function addReview(Review $review): static
     {
-        if (!$this->countries->contains($country)) {
-            $this->countries->add($country);
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setGame($this);
         }
 
         return $this;
     }
 
-    public function removeCountry(Country $country): static
+    public function removeReview(Review $review): static
     {
-        $this->countries->removeElement($country);
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getGame() === $this) {
+                $review->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserOwnGame>
+     */
+    public function getUserOwnGames(): Collection
+    {
+        return $this->userOwnGames;
+    }
+
+    public function addUserOwnGame(UserOwnGame $userOwnGame): static
+    {
+        if (!$this->userOwnGames->contains($userOwnGame)) {
+            $this->userOwnGames->add($userOwnGame);
+            $userOwnGame->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserOwnGame(UserOwnGame $userOwnGame): static
+    {
+        if ($this->userOwnGames->removeElement($userOwnGame)) {
+            // set the owning side to null (unless already changed)
+            if ($userOwnGame->getGame() === $this) {
+                $userOwnGame->setGame(null);
+            }
+        }
 
         return $this;
     }

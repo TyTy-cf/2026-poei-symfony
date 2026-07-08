@@ -9,123 +9,120 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
 class Review
 {
-  #[ORM\Id]
-  #[ORM\GeneratedValue]
-  #[ORM\Column]
-  private ?int $id = null;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-  #[ORM\Column(type: Types::TEXT)]
-  private ?string $content = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $content = null;
 
-  #[ORM\Column]
-  private ?\DateTime $createdAt = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
-  #[ORM\Column]
-  private ?int $downvote = 0;
+    #[ORM\Column]
+    private ?int $downvote = null;
 
-  #[ORM\Column]
-  private ?int $upvote = 0;
+    #[ORM\Column]
+    private ?int $upvote = null;
 
+    #[ORM\Column]
+    private ?int $rating = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Game $game = null;
 
-  #[ORM\Column]
-  private ?int $rating = null;
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-  #[ORM\ManyToOne]
-  #[ORM\JoinColumn(nullable: false)]
-  private ?User $user = null;
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
 
-  #[ORM\ManyToOne]
-  #[ORM\JoinColumn(nullable: false)]
-  private ?Game $game = null;
+    public function setContent(string $content): static
+    {
+        $this->content = $content;
 
-  public function getId(): ?int
-  {
-    return $this->id;
-  }
+        return $this;
+    }
 
-  public function getContent(): ?string
-  {
-    return $this->content;
-  }
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
 
-  public function setContent(string $content): static
-  {
-    $this->content = $content;
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getCreatedAt(): ?\DateTime
-  {
-    return $this->createdAt;
-  }
+    public function getDownvote(): ?int
+    {
+        return $this->downvote;
+    }
 
-  public function setCreatedAt(\DateTime $createdAt): static
-  {
-    $this->createdAt = $createdAt;
+    public function setDownvote(int $downvote): static
+    {
+        $this->downvote = $downvote;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getDownvote(): ?int
-  {
-    return $this->downvote;
-  }
+    public function getUpvote(): ?int
+    {
+        return $this->upvote;
+    }
 
-  public function setDownvote(int $downvote): static
-  {
-    $this->downvote = $downvote;
+    public function setUpvote(int $upvote): static
+    {
+        $this->upvote = $upvote;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getUpvote(): ?int
-  {
-    return $this->upvote;
-  }
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
 
-  public function setUpvote(int $upvote): static
-  {
-    $this->upvote = $upvote;
+    public function setRating(int $rating): static
+    {
+        $this->rating = $rating;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getRating(): ?int
-  {
-    return $this->rating;
-  }
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
 
-  public function setRating(int $rating): static
-  {
-    $this->rating = $rating;
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getUser(): ?User
-  {
-    return $this->user;
-  }
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
 
-  public function setUser(?User $user): static
-  {
-    $this->user = $user;
+    public function setGame(?Game $game): static
+    {
+        $this->game = $game;
 
-    return $this;
-  }
-
-  public function getGame(): ?Game
-  {
-    return $this->game;
-  }
-
-  public function setGame(?Game $game): static
-  {
-    $this->game = $game;
-
-    return $this;
-  }
+        return $this;
+    }
 }

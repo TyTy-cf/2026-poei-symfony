@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PublisherRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PublisherRepository::class)]
@@ -13,32 +15,56 @@ class Publisher
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?\DateTime $createdAt = null;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Country $country = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, unique: true)]
     private ?string $slug = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $website = null;
 
-    #[ORM\ManyToOne(inversedBy: 'publishers')]
-    private ?Country $country = null;
+    /**
+     * @var Collection<int, Game>
+     */
+    #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'publisher')]
+    private Collection $games;
+
+    public function __construct()
+    {
+        $this->games = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): static
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 
@@ -74,21 +100,39 @@ class Publisher
         return $this->website;
     }
 
-    public function setWebsite(?string $website): static
+    public function setWebsite(string $website): static
     {
         $this->website = $website;
 
         return $this;
     }
 
-    public function getCountry(): ?Country
+    /**
+     * @return Collection<int, Game>
+     */
+    public function getGames(): Collection
     {
-        return $this->country;
+        return $this->games;
     }
 
-    public function setCountry(?Country $country): static
+    public function addGame(Game $game): static
     {
-        $this->country = $country;
+        if (!$this->games->contains($game)) {
+            $this->games->add($game);
+            $game->setPublisher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGame(Game $game): static
+    {
+        if ($this->games->removeElement($game)) {
+            // set the owning side to null (unless already changed)
+            if ($game->getPublisher() === $this) {
+                $game->setPublisher(null);
+            }
+        }
 
         return $this;
     }
