@@ -158,7 +158,7 @@ Représente un avis/critique laissé par un utilisateur sur un jeu.
 | createdAt | datetime | not null |
 | downvote | integer | not null, default 0 |
 | upvote | integer | not null, default 0 |
-| rating | integer/smallint | not null (échelle observée 0 à 5, avec une anomalie à 88 — à valider/contraindre via une assertion `Range(min=0, max=5)`) |
+| rating | integer/smallint | not null (échelle observée 0 à 5 ) |
 
 **Relations**
 - `ManyToOne` vers `User`.
