@@ -200,3 +200,13 @@ Pour les catégories vous afficherez :
 - `name`
 - `image`
 
+
+### 3. Faire la page de détail d'un jeu
+
+
+- Créer le Controller : `Game`
+- Créer une fonction `show` dans celui-ci, dont la route sera : `/game/{slug}`
+- La fonction doit afficher le détail d'un jeu dont le slug est passé en paramètre
+- Inspirez vous de la page de détail d'Instant-Gaming : https://www.instant-gaming.com/fr/22977-acheter-halo-campaign-evolved-premium-edition-xbox-series-x-s-pc-microsoft-store/
+- Faites en sorte que lorsque l'on clique sur une card d'un jeu depuis la home, on soit redirigé sur ce controller
+- Pareil depuis le nom d'un jeu depuis un commentaire
