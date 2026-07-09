@@ -4,111 +4,48 @@
     Toute l'actu G4ming !
 {% endblock %}
 
-{% block stylesheets %}
-    {# parent() call back the parent code, like in a class #}
-    {{ parent() }}
-    {# import a specific CSS for this page, if necessary ! #}
-{% endblock %}
-
 {% block body %}
 
     <div class="container">
         <h1 class="text-center">SteamIsh : l'actu G4ming !</h1>
-        <h2>Les tendances</h2>
-        <div class ="row">
-            {% for lastGamePublished in lastPublished %}
 
-                <div class="card col-3 m-3" style="width: 18rem;">
-                    <img src="{{ lastGamePublished.thumbnailCover }}" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ lastGamePublished.name }}</h5>
-                        <p class="card-text">{{ lastGamePublished.price }} $</p>
-                        <a href="{{ path("app_game_show", {"id" : lastGamePublished.id}) }}" class="btn btn-primary">Go voir le jeu</a>
-                    </div>
-                </div>
-
-            {% endfor %}
-    </div>
-
-
-
-
-        <h2>Les meilleures sorties</h2>
-        <div class ="row">
-            {% for lastGamePublishedByPrice in lastPublishedByPrice %}
-
-                <div class="card col-3 m-3" style="width: 18rem;">
-                    <img src="{{ lastGamePublishedByPrice.thumbnailCover }}" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ lastGamePublishedByPrice.name }}</h5>
-                        <p class="card-text">{{ lastGamePublishedByPrice.price }} $</p>
-                        <a href="{{ path("app_game_show", {"id" : lastGamePublishedByPrice.id}) }}" class="btn btn-primary">Go voir le jeu</a>
-                    </div>
-                </div>
-
-            {% endfor %}
-        </div>
-    </div>
-
-
-<h2>Il nous font confiance</h2>
-        <div class="row justify-content-center">
-            {% for review in trustPilot %}
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ review.user.profileImage }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ review.game.name }}</h5>
-                        <p class="card-text">{{ review.content|slice(50) }}</p>
-                        <a href="{{ path("app_game_show", {"id" : review.game.id}) }}" class="btn btn-primary">Go voir le jeu</a>
-                    </div>
-                </div>
-
-
-
-            {% endfor %}
-        </div>
-<h2>Les tops jeux</h2>
-    <div class="container">
-        <div class="row">
-            {% for gameDCBA in gamesDCBA %}
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ gameDCBA.thumbnailCover}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ gameDCBA.name }}</h5>
-                        <a href="{{ path("app_game_show", {"id" : gameDCBA.id}) }}" class="btn btn-primary">Go voir le jeu</a>
-                    </div>
-                </div>
-            {% endfor %}
-
-        </div>
-    </div>
-
-
-
-<h2>Categories</h2>
-    <div class="container">
-        <div class="row">
-            {% for categoryABCD in categoriesABCD %}
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ categoryABCD.image }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ categoryABCD.name }}</h5>
-
-                    </div>
-                </div>
-            {% endfor %}
-
-        </div>
-    </div>
-
-        {% include "partials/_game_loop.html.twig" with{
-            "games" : lastPublished,
-            "title" : "Les tendances"
+        {% include 'front/partials/_game_loop.html.twig' with {
+            'games': trends,
+            'title': "Les tendances"
         } %}
 
+        {% include 'front/partials/_game_loop.html.twig' with {
+            'games': bests,
+            'title': "Les meilleures sorties"
+        } %}
+    </div>
 
+    <section>
+        <div class="d-md-flex justify-content-evenly">
+            {% for review in reviews %}
+                <div class="col-md-2 col-12 p-md-0 p-4">
+                    {% include 'front/partials/_review_card.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 
+    <div class="container">
+        {% include 'front/partials/_game_loop.html.twig' with {
+            'games': tops,
+            'title': "Les tops jeux"
+        } %}
 
+        <section>
+            <h2>Catégories</h2>
+            <div class="row">
+                {% for category in categories %}
+                    <div class="col-md-4 col-12 p-3">
+                        {% include 'front/partials/_category_card.html.twig' %}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
 
-
+    </div>
 {% endblock %}

@@ -1,5 +1,19 @@
 # Cours Symfony
 
+
+## Sommaire
+
+
+- [1. L'injection de dépendance](#1-linjection-de-dépendance)
+- [2. Les Repository](#2-les-repository)
+    - [2.1. Méthodes natives aux `Repository $repository`](#21-méthodes-natives-aux-repository-repository)
+    - [2.2. Critères des `Repository $repository`](#22-critères-des-repository-repository)
+- [3. Twig](#3-twig)
+    - [3.1. Extends](#31-extends)
+    - [3.2. Inclusion de template](#32-inclusion-de-template)
+    - [3.3. Instruction Twig](#33-instruction-twig)
+
+
 ## 1. L'injection de dépendance
 
 
@@ -26,10 +40,10 @@ public function __construct(private GameRepository $gameRepository) {
 }
 ```
 
-## 1. Les Repository
+## 2. Les Repository
 
 
-### 1.1. Méthodes natives aux `Repository $repository` :
+### 2.1. Méthodes natives aux `Repository $repository` :
 
 
 - `$repository->count()` : comptez le nombre de lignes corespondant aux critères (par défaut : `SELECT COUNT(*) FROM _table`)
@@ -40,7 +54,7 @@ public function __construct(private GameRepository $gameRepository) {
 - `$repository->createQueryBuilder()` : permet de créer nos propres requêtes SQL, une requête qui ne serait pas faisable avec les `find` de base 
 
 
-### 1.2. Critères des `Repository $repository` :
+### 2.2. Critères des `Repository $repository` :
 
 
 Les fonctions `findOneBy()`, `findBy()` et `count()` peuvent avoir des crtières (le premier paramère de la fonction), il s'agit d'un tableau associatif permettant d'avoir un `WHERE` et des `AND`, si nécessaire, ils servent à affiner la requête.
@@ -112,9 +126,63 @@ $items = $repository->findBy([], ['createdAt' => 'DESC'], 10, 10);
 => Affiche seulement 10 `item` à partir du 11ème
 
 
+## 3. Twig
 
 
+### 3.1. Extends
 
+
+Un template `twig` peut `extends` d'un autre template, pour cela on utilise :
+
+```html
+{% extends 'front/base.html.twig' %}
+
+{% block title %}
+    Toute l'actu G4ming !
+{% endblock %}
+```
+
+Cela impliquera que notre template courant aura accès aux différents "block" du template parent et pourra les redéfinir, au même titre que l'héritage de classe.
+
+
+Un template enfant peut choisir de redéfinir et conserver le comportement du block parent avec la fonction `parent()` :
+
+```html
+{% block title %}
+    {{ parent() }}
+    Toute l'actu G4ming !
+{% endblock %}
+```
+
+### 3.2. Inclusion de template
+
+
+Twig permet d'inclure un template dans un autre template, on utilise `include` :
+
+```html
+{% include 'front/partials/_game_loop.html.twig' %}
+```
+
+Il peut arriver que l'on veuille dynamiser le template inclus, pour cela on peut passer des variables à celui-ci :
+
+```html
+{% include 'front/partials/_game_loop.html.twig' with {
+    'games': trends, <!-- 'games' coresponds à une variable utilisée dans le template inclus -->
+    'title': "Les tendances"
+} %}
+```
+
+
+### 3.3. Instruction Twig
+
+
+- On vérifier l'existance d'une variable dans un template twig via `defined`, si la variable existe, alors on passe dans la condition, sinon non :
+
+```html
+{% if title is defined %}
+    <h2>{{ title }}</h2>
+{% endif %}
+```
 
 
 

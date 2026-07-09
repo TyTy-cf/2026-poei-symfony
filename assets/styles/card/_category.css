@@ -1,0 +1,24 @@
+
+.card-category {
+    position: relative;
+    height: 12rem;
+
+    .fake-container, img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        opacity: .5;
+    }
+
+    .fake-container {
+        background-color: var(--default-card-background-color);
+    }
+
+    .card-category-title {
+        font-size: 1.2rem;
+        position: absolute;
+        left: 10%;
+        top: 40%;
+    }
+
+}
