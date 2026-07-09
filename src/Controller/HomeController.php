@@ -2,17 +2,20 @@
 
 namespace App\Controller;
 
+use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')]
-    public function index(): Response
+    #[Route('/', name: 'app_home')]
+    public function home(GameRepository $gameRepository): Response
     {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+        $games = $gameRepository->findAll();
+
+        return $this->render('front/home/index.html.twig', [
+            'games' => $games,
         ]);
     }
 }
