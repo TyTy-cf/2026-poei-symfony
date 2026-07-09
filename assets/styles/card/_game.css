@@ -1,0 +1,14 @@
+.card-game {
+
+    img {
+        height: 10rem;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    span {
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+
+}

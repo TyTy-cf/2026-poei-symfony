@@ -12,23 +12,24 @@ use Symfony\Component\Routing\Attribute\Route;
 final class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function home(GameRepository $gameRepository, ReviewRepository $reviewRepository, CategoryRepository $categoryRepository): Response
+    public function home(
+        GameRepository     $gameRepository,
+        ReviewRepository   $reviewRepository,
+        CategoryRepository $categoryRepository,
+    ): Response
     {
-        $games = $gameRepository->findAll();
-        $gamesBy = $gameRepository->findBy([], ['publishedAt' => 'DESC'], 9);
-        $gamesByPrice = $gameRepository->findBy([], ['price' => 'DESC'], 9);
-        $reviews = $reviewRepository->findBy(['rating' => '5'], ['createdAt' => 'DESC'], 5);
-        $gamesTop = $gameRepository->findBy([], ['name' => 'ASC'], 6);
+        $trends = $gameRepository->findBy([], ['publishedAt' => 'DESC'], 9);
+        $bests = $gameRepository->findBy([], ['price' => 'DESC'], 9);
+        $reviews = $reviewRepository->findBy(['rating' => 5], ['createdAt' => 'DESC'], 5);
+        $tops = $gameRepository->findBy([], ['name' => 'ASC'], 6);
         $categories = $categoryRepository->findBy([], ['name' => 'ASC'], 9);
 
-
         return $this->render('front/home/index.html.twig', [
-            'games' => $games,
-            'gamesBy' => $gamesBy,
-            'gamesByPrice' => $gamesByPrice,
+            'trends' => $trends,
+            'bests' => $bests,
             'reviews' => $reviews,
-            'gamesTop' => $gamesTop,
-            'categories' => $categories
+            'tops' => $tops,
+            'categories' => $categories,
         ]);
     }
 }

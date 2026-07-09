@@ -1,0 +1,8 @@
+
+:root {
+    --default-background-color: #272727;
+    --default-color: #fff;
+    --default-card-background-color: #323232;
+    --default-card-content-color: #a8a8a8;
+    --default-fire-gradient: linear-gradient(10deg, #ff8a15, #ff3131);
+}

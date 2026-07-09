@@ -1,5 +1,5 @@
 
 body {
-    background-color: #272727;
-    color: #fff;
+    background-color: var(--default-background-color);
+    color: var(--default-color);
 }
