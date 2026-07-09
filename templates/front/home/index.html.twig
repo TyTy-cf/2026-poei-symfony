@@ -19,6 +19,20 @@
             'title': "Les meilleures sorties"
         } %}
 
+        {% include 'front/partials/_comment_loop.html.twig' with {
+            'comment': reviews,
+            'title': "Ils nous font confiance"
+        } %}
+
+        {% include 'front/partials/_game_loop.html.twig' with {
+            'games': tops,
+            'title': "Les tops jeux"
+        } %}
+
+        {% include 'front/partials/_category_loop.html.twig' with {
+            'categories': categories,
+            'title': "Categories"
+        } %}
     </div>
 
 {% endblock %}

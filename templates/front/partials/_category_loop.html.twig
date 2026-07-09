@@ -1,0 +1,15 @@
+{# Inside a partial you don't need to extends base.html.twig ! #}
+
+<section class="my-3">
+    {% if title is defined %}
+        <h2>{{ title }}</h2>
+    {% endif %}
+
+    <div class="row">
+        {% for category in categories %}
+            <div class="col-md-4 col-12">
+                {% include 'front/partials/_category_card.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
+</section>

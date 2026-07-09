@@ -1,0 +1,14 @@
+
+<section class="my-3">
+    {% if title is defined %}
+        <h2>{{ title }}</h2>
+    {% endif %}
+
+    <div class="row justify-content-center">
+        {% for comment in comment %}
+            <div class="col-md-4 col-12">
+            {% include 'front/partials/_comment_card.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
+</section>
