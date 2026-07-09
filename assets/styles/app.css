@@ -1,4 +1,7 @@
 @import "bootstrap";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
+@import "common/_variables.css";
 @import "common/default.css";
+
+@import "card/_game.css";

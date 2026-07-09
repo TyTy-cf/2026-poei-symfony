@@ -4,16 +4,21 @@
     Toute l'actu G4ming !
 {% endblock %}
 
-{% block stylesheets %}
-    {# parent() call back the parent code, like in a class #}
-    {{ parent() }}
-    {# import a specific CSS for this page, if necessary ! #}
-{% endblock %}
-
 {% block body %}
 
     <div class="container">
         <h1 class="text-center">SteamIsh : l'actu G4ming !</h1>
+
+        {% include 'front/partials/_game_loop.html.twig' with {
+            'games': trends,
+            'title': "Les tendances"
+        } %}
+
+        {% include 'front/partials/_game_loop.html.twig' with {
+            'games': bests,
+            'title': "Les meilleures sorties"
+        } %}
+
     </div>
 
 {% endblock %}
