@@ -174,7 +174,7 @@ Représente un avis/critique laissé par un utilisateur sur un jeu.
 Vous devez créer les blocs suivants sur la page Twig :
 - H2 : "Les tendances" ; on affichera ici les 9 derniers jeux sortis
 - H2 : "Les meilleurs sorties" ; on affichera ici les 9 derniers par prix décroissants
-- H2 : "Ils nous font confiance" ; on affichera les 5 derniers commentaires (Cette partie n'est pas dans une div ayant la classe container)
+- H2 : "Ils nous font confiance" ; on affichera les 5 derniers commentaires dont le `rating` est 5 (Cette partie n'est pas dans une div ayant la classe container)
 - H2 : "Les tops jeux" ; on affichera 6 jeux triés par nom décroisants
 - H2 : "Catégories" ; on affichera 9 catégories triés par ordre alphabétique
 
