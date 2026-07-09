@@ -8,105 +8,105 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: UserOwnGameRepository::class)]
 class UserOwnGame
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column]
+  private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'userOwnGames')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Game $game = null;
+  #[ORM\ManyToOne(inversedBy: 'userOwnGames')]
+  #[ORM\JoinColumn(nullable: false)]
+  private ?Game $game = null;
 
-    #[ORM\ManyToOne(inversedBy: 'userOwnGames')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+  #[ORM\ManyToOne(inversedBy: 'userOwnGames')]
+  #[ORM\JoinColumn(nullable: false)]
+  private ?User $user = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+  #[ORM\Column]
+  private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
-    private ?int $gameTime = null;
+  #[ORM\Column]
+  private ?int $gameTime = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTime $lastUsedAt = null;
+  #[ORM\Column(nullable: true)]
+  private ?\DateTime $lastUsedAt = null;
 
-    #[ORM\Column]
-    private ?bool $isInstalled = null;
+  #[ORM\Column]
+  private ?bool $isInstalled = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+  public function getId(): ?int
+  {
+    return $this->id;
+  }
 
-    public function getGame(): ?Game
-    {
-        return $this->game;
-    }
+  public function getGame(): ?Game
+  {
+    return $this->game;
+  }
 
-    public function setGame(?Game $game): static
-    {
-        $this->game = $game;
+  public function setGame(?Game $game): static
+  {
+    $this->game = $game;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
+  public function getUser(): ?User
+  {
+    return $this->user;
+  }
 
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
+  public function setUser(?User $user): static
+  {
+    $this->user = $user;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
+  public function getCreatedAt(): ?\DateTimeImmutable
+  {
+    return $this->createdAt;
+  }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
+  public function setCreatedAt(\DateTimeImmutable $createdAt): static
+  {
+    $this->createdAt = $createdAt;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getGameTime(): ?int
-    {
-        return $this->gameTime;
-    }
+  public function getGameTime(): ?int
+  {
+    return $this->gameTime;
+  }
 
-    public function setGameTime(int $gameTime): static
-    {
-        $this->gameTime = $gameTime;
+  public function setGameTime(int $gameTime): static
+  {
+    $this->gameTime = $gameTime;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getLastUsedAt(): ?\DateTime
-    {
-        return $this->lastUsedAt;
-    }
+  public function getLastUsedAt(): ?\DateTime
+  {
+    return $this->lastUsedAt;
+  }
 
-    public function setLastUsedAt(\DateTime $lastUsedAt): static
-    {
-        $this->lastUsedAt = $lastUsedAt;
+  public function setLastUsedAt(\DateTime $lastUsedAt): static
+  {
+    $this->lastUsedAt = $lastUsedAt;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function isInstalled(): ?bool
-    {
-        return $this->isInstalled;
-    }
+  public function isInstalled(): ?bool
+  {
+    return $this->isInstalled;
+  }
 
-    public function setIsInstalled(bool $isInstalled): static
-    {
-        $this->isInstalled = $isInstalled;
+  public function setIsInstalled(bool $isInstalled): static
+  {
+    $this->isInstalled = $isInstalled;
 
-        return $this;
-    }
+    return $this;
+  }
 }
