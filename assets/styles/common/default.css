@@ -1,4 +1,22 @@
-
 body {
     background-color: #272727;
+}
+.smile {
+    height: 200px;
+    width: 200px;
+}
+.size-up {
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    img {
+        transition: transform 0.2s ease;
+        object-fit: contain;
+    }
+}
+
+.size-up:hover {
+    transform: scale(1.01);
+    img {
+        transform: scale(1.03);
+    }
 }

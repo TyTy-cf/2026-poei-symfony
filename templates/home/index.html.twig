@@ -1,8 +1,45 @@
-<!DOCTYPE html>
+{% extends './front/base.html.twig' %}
+
+{% block header %}
+	<nav class="navbar bg-body-tertiary mb-4 border-bottom border-2 border-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Steam Ish
+			</a>
+		</div>
+	</nav>
+{% endblock %}
 
 
 {% block body %}
 
-{% endblock %}
+	<section>
+		<div class="container mb-5 h-50">
+			{%include './component/gameCard.html.twig' with  {"games": latestGames} %}
+		</div>
+	</section>
 
-e
+
+	<section class="bg-dark text-light py-5">
+		<div class="container mb-5">
+			{%include './component/gameCard.html.twig' with  {"games": highestPricedGames} %}
+		</div>
+	</section>
+
+
+	<div class="reviews d-flex justify-content-between align-items-center flex-row flex-wrap">
+		{% 	for latestReview in latestReviews %}
+			{%include './component/commentCard.html.twig' with  {"latestReview": latestReview} %}
+		{% endfor %}
+	</div>
+
+
+	<div class="container">
+		<div class="row">
+			{%include './component/gameCard.html.twig' with  {"games": topGames} %}
+			{% 	for category in categories %}
+				{%include './component/categoryCard.html.twig' with  {"category": category} %}
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

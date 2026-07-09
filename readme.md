@@ -163,3 +163,50 @@ Représente un avis/critique laissé par un utilisateur sur un jeu.
 **Relations**
 - `ManyToOne` vers `User`.
 - `ManyToOne` vers `Game`.
+
+
+### 2. Faire la home de SteamIsh
+
+
+**Fichiers impactés : ** `HomeController` & `front/home/index.html.twig`
+
+
+Vous devez créer les blocs suivants sur la page Twig :
+- H2 : "Les tendances" ; on affichera ici les 9 derniers jeux sortis
+- H2 : "Les meilleurs sorties" ; on affichera ici les 9 derniers par prix décroissants
+- H2 : "Ils nous font confiance" ; on affichera les 5 derniers commentaires dont le `rating` est 5 (Cette partie n'est pas dans une div ayant la classe container)
+- H2 : "Les tops jeux" ; on affichera 6 jeux triés par nom décroisants
+- H2 : "Catégories" ; on affichera 9 catégories triés par ordre alphabétique
+
+
+Vous essairai de faire un CSS convenable... inspirez vous d'Instant-Gaming : https://www.instant-gaming.com/fr
+
+
+Pour les jeux vous afficherez :
+- `name`
+- `price`
+- `thumbnailCover`
+
+
+Pour les commentaires vous afficherez :
+- `rating`
+- `content` (si vous vous en sentez => tronquer à 50 caractères, utiliser `|slice`)
+- `user.profileImage`
+- `game.name`
+- `createdAt` ("Le xx/xx/xx")
+
+
+Pour les catégories vous afficherez :
+- `name`
+- `image`
+
+
+### 3. Faire la page de détail d'un jeu
+
+
+- Créer le Controller : `Game`
+- Créer une fonction `show` dans celui-ci, dont la route sera : `/game/{slug}`
+- La fonction doit afficher le détail d'un jeu dont le slug est passé en paramètre
+- Inspirez vous de la page de détail d'Instant-Gaming : https://www.instant-gaming.com/fr/22977-acheter-halo-campaign-evolved-premium-edition-xbox-series-x-s-pc-microsoft-store/
+- Faites en sorte que lorsque l'on clique sur une card d'un jeu depuis la home, on soit redirigé sur ce controller
+- Pareil depuis le nom d'un jeu depuis un commentaire
