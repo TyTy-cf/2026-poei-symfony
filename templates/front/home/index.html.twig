@@ -18,11 +18,34 @@
             'games': bests,
             'title': "Les meilleures sorties"
         } %}
-
     </div>
 
-    {% for review in reviews %}
+    <section>
+        <div class="d-md-flex justify-content-evenly">
+            {% for review in reviews %}
+                <div class="col-md-2 col-12 p-md-0 p-4">
+                    {% include 'front/partials/_review_card.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 
-    {% endfor %}
+    <div class="container">
+        {% include 'front/partials/_game_loop.html.twig' with {
+            'games': tops,
+            'title': "Les tops jeux"
+        } %}
 
+        <section>
+            <h2>Catégories</h2>
+            <div class="row">
+                {% for category in categories %}
+                    <div class="col-md-4 col-12 p-3">
+                        {% include 'front/partials/_category_card.html.twig' %}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+    </div>
 {% endblock %}

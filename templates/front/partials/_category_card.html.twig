@@ -1,0 +1,12 @@
+
+<div class="card-category">
+    {% if category.image is not null %}
+        <img src="{{ category.image }}" alt="Catégorie {{ category.name }}">
+    {% else %}
+        <div class="fake-container">
+        </div>
+    {% endif %}
+    <div class="card-category-title">
+        {{ category.name }}
+    </div>
+</div>

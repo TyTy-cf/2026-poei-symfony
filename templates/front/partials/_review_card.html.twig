@@ -1,0 +1,21 @@
+
+<div class="card-review">
+    <div class="row">
+        {% for i in 1..review.rating %}
+            <i class="fa-solid fa-star"></i>
+        {% endfor %}
+    </div>
+    <p>{{ review.game.name }}</p>
+    <p class="card-review-content">
+        {% set max = 20 %}
+        {% if review.content|length > max %}
+            {{ review.content|slice(0, max) }}...
+        {% else %}
+            {{ review.content }}
+        {% endif %}
+    </p>
+    <div class="mt-auto">
+        <p class="mb-0">Le {{ review.createdAt|date('d/m/Y') }}</p>
+        <span>par {{ review.user.nickname }}</span>
+    </div>
+</div>
