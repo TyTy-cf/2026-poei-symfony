@@ -158,8 +158,44 @@ Représente un avis/critique laissé par un utilisateur sur un jeu.
 | createdAt | datetime | not null |
 | downvote | integer | not null, default 0 |
 | upvote | integer | not null, default 0 |
-| rating | integer/smallint | not null (échelle observée 0 à 5, avec une anomalie à 88 — à valider/contraindre via une assertion `Range(min=0, max=5)`) |
+| rating | integer/smallint | not null (échelle observée 0 à 5 ) |
 
 **Relations**
 - `ManyToOne` vers `User`.
 - `ManyToOne` vers `Game`.
+
+
+### 2. Faire la home de SteamIsh
+
+
+**Fichiers impactés : ** `HomeController` & `front/home/index.html.twig`
+
+
+Vous devez créer les blocs suivants sur la page Twig :
+- H2 : "Les tendances" ; on affichera ici les 9 derniers jeux sortis
+- H2 : "Les meilleurs sorties" ; on affichera ici les 9 derniers par prix décroissants
+- H2 : "Ils nous font confiance" ; on affichera les 5 derniers commentaires (Cette partie n'est pas dans une div ayant la classe container)
+- H2 : "Les tops jeux" ; on affichera 6 jeux triés par nom décroisants
+- H2 : "Catégories" ; on affichera 9 catégories triés par ordre alphabétique
+
+
+Vous essairai de faire un CSS convenable... inspirez vous d'Instant-Gaming : https://www.instant-gaming.com/fr
+
+
+Pour les jeux vous afficherez :
+- `name`
+- `price`
+- `thumbnailCover`
+
+
+Pour les commentaires vous afficherez :
+- `rating`
+- `content` (si vous vous en sentez => tronquer à 50 caractères, utiliser `|slice`)
+- `user.profileImage`
+- `game.name`
+- `createdAt` ("Le xx/xx/xx")
+
+
+Pour les catégories vous afficherez :
+- `name`
+- `image`
