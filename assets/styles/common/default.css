@@ -1,0 +1,13 @@
+.jumbotron-custom {
+    height: 100px;
+    display: block;
+    z-index: -1;
+}
+
+.img-jumbotron {
+    height: 250px;
+}
+
+.bg-blur {
+    backdrop-filter: blur(20px);
+}

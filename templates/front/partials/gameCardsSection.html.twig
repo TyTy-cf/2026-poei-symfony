@@ -16,7 +16,7 @@
                         <p class="card-text m-0">{{ game.name }}</p>
                         <span class="fw-bold">{{ game.price }} €</span>
                     </div>
-                    <a href="{{ path('app_game', {id: game.id}) }}" class="stretched-link"></a>
+                    <a href="{{ path('app_game', {slug: game.slug}) }}" class="stretched-link"></a>
                 </div>
             </div>
         </div>

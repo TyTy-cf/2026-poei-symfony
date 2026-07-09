@@ -3,13 +3,16 @@
 {% block title %}{{ game.name }}{% endblock %}
 
 {% block body %}
+    <div class="ratio jumbotron-custom">
+        <img src="{{ game.thumbnailCover }}" alt="" class="img-fluid object-fit-cover img-jumbotron">
+    </div>
     <div class="container">
         <div class="row mt-5">
             <div class="col-6">
                 <div class="ratio ratio-16x9"><img src="{{ game.thumbnailCover }}" alt="poster of {{ game.name }}"
                                                    class="img-fluid object-fit-cover rounded-3 border"></div>
             </div>
-            <div class="col-6 bg-gradient bg-dark-subtle p-5 d-flex flex-column rounded-3">
+            <div class="col-6 bg-dark bg-blur bg-opacity-50 p-5 d-flex flex-column rounded-3">
                 <h1 class="text-center">{{ game.name }}</h1>
                 <p class="text-center">Date de sortie : {{ game.publishedAt | date("d/m/Y") }}</p>
                 <a href="#" class="btn btn-primary mt-auto">Acheter le jeu</a>
@@ -19,7 +22,7 @@
             <div class="col-6">
                 <h2>A propos</h2>
             </div>
-            <div class="col-4 p-5">
+            <div class="col-4 px-5 pt-5">
                 <ul class="list-unstyled">
                     <li class="d-flex justify-content-between">
                         <p>Compatibilité par pays:</p><a href="#">Voir la liste</a>
