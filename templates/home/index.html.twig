@@ -8,9 +8,9 @@
 
 {% block body %}
 
-    <div class="jumbotron bg-dark-subtle">
+    <div class="jumbotron jumbotron-fluid bg-dark-subtle">
         <div class="container">
-            <div class="row m-5">
+            <div class="row p-5">
                 <h1 class="display-1">STEAMISH</h1>
                 <p class="lead">Le seul endroit où venir acheter vos jeux</p>
             </div>
@@ -81,9 +81,11 @@
                                 </ul>
                                 <p class="card-text">{{ reviewNewest.content | slice(0, 50) }}</p>
                                 <div class="row">
-                                    <div class="col-2"><div class="ratio ratio-1x1"><img class="img-thumbnail rounded-circle"
-                                        src="{{ reviewNewest.user.profileImage | default('https://picsum.photos/200') }}"
-                                        alt=""></div></div>
+                                    <div class="col-2">
+                                        <div class="ratio ratio-1x1"><img class="img-thumbnail rounded-circle"
+                                                                          src="{{ reviewNewest.user.profileImage | default('https://picsum.photos/200') }}"
+                                                                          alt=""></div>
+                                    </div>
                                     <div class="col-10 my-auto"><p>{{ reviewNewest.user.name }}</p></div>
                                 </div>
                             </div>
@@ -126,7 +128,8 @@
                 <div class="col-2">
                     <div class="card">
                         <div class="ratio ratio-1x1">
-                            <img src="{{ category.image | default('https://picsum.photos/200') }}" class="card-img-top object-fit-cover" alt="...">
+                            <img src="{{ category.image | default('https://picsum.photos/200') }}"
+                                 class="card-img-top object-fit-cover" alt="...">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ category.name }}</h5>
