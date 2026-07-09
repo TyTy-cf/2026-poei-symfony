@@ -1,6 +1,19 @@
 {% extends 'front/base.html.twig' %}
 
+{% block title %}
+    Toute l'actu G4ming !
+{% endblock %}
+
+{% block stylesheets %}
+    {# parent() call back the parent code, like in a class #}
+    {{ parent() }}
+    {# import a specific CSS for this page, if necessary ! #}
+{% endblock %}
 
 {% block body %}
+
+    <div class="container">
+        <h1 class="text-center">SteamIsh : l'actu G4ming !</h1>
+    </div>
 
 {% endblock %}
