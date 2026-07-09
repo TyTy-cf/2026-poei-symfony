@@ -17,47 +17,11 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="col-12 my-5">
-            <h2>Tendances</h2>
-        </div>
-        <div class="row row-gap-3">
-            {% for gameNewest in gamesNewest %}
-                {# Cards #}
-                <div class="col-4">
-                    <div class="card">
-                        <div class="ratio ratio-1x1">
-                            <img src="{{ gameNewest.thumbnailCover }}" class="card-img-top object-fit-cover" alt="...">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ gameNewest.name }}</h5>
-                            <p class="card-text">{{ gameNewest.price }} €</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+    <div class="container pb-4">
+        {# Cards #}
+        {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesNewest, 'title': 'Les Tendances'} %}
 
-        <div class="col-12 my-5">
-            <h2>Meilleures Sorties</h2>
-        </div>
-
-        <div class="row row-gap-3">
-            {% for gameOldest in gamesOldest %}
-                {# Cards #}
-                <div class="col-4">
-                    <div class="card">
-                        <div class="ratio ratio-1x1">
-                            <img src="{{ gameOldest.thumbnailCover }}" class="card-img-top object-fit-cover" alt="...">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ gameOldest.name }}</h5>
-                            <p class="card-text">{{ gameOldest.price }} €</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesPriceDesc, 'title': 'Meilleures Sorties'} %}
     </div>
     <div class="jumbotron jumbotron-fluid p-4 bg-dark-subtle">
         <div class="container-fluid">
@@ -67,56 +31,15 @@
             <div class="row d-flex flex-row flex-nowrap overflow-auto pb-4">
                 {% for reviewNewest in reviewsNewest %}
                     {# Cards #}
-                    <div class="col-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <ul class="list-unstyled">
-                                    {% for i in 0..4 %}
-                                        {% if reviewNewest.rating-i >= 1 %}
-                                            <li class="d-inline"><i class="fa-solid fa-star"></i></li>
-                                        {% else %}
-                                            <li class="d-inline"><i class="fa-regular fa-star"></i></li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                                <p class="card-text">{{ reviewNewest.content | slice(0, 50) }}</p>
-                                <div class="row">
-                                    <div class="col-2">
-                                        <div class="ratio ratio-1x1"><img class="img-thumbnail rounded-circle"
-                                                                          src="{{ reviewNewest.user.profileImage | default('https://picsum.photos/200') }}"
-                                                                          alt=""></div>
-                                    </div>
-                                    <div class="col-10 my-auto"><p>{{ reviewNewest.user.name }}</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% include 'front/partials/reviewCard.html.twig' with {'review': reviewNewest} %}
                 {% endfor %}
             </div>
         </div>
     </div>
 
     <div class="container">
-        <div class="col-12 my-5">
-            <h2>Les Tops Jeux</h2>
-        </div>
 
-        <div class="row row-gap-3">
-            {% for gameDesc in gamesDesc %}
-                {# Cards #}
-                <div class="col-4">
-                    <div class="card">
-                        <div class="ratio ratio-1x1">
-                            <img src="{{ gameDesc.thumbnailCover }}" class="card-img-top object-fit-cover" alt="...">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ gameDesc.name }}</h5>
-                            <p class="card-text">{{ gameDesc.price }} €</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesPriceDesc, 'title': 'Les Tops Jeux'} %}
 
         <div class="col-12 my-5">
             <h2>Categories</h2>

@@ -1,0 +1,63 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ game.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="ratio ratio-16x9"><img src="{{ game.thumbnailCover }}" alt="poster of {{ game.name }}"
+                                                   class="img-fluid object-fit-cover rounded-3 border"></div>
+            </div>
+            <div class="col-6 bg-gradient bg-dark-subtle p-5 d-flex flex-column rounded-3">
+                <h1 class="text-center">{{ game.name }}</h1>
+                <p class="text-center">Date de sortie : {{ game.publishedAt | date("d/m/Y") }}</p>
+                <a href="#" class="btn btn-primary mt-auto">Acheter le jeu</a>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <h2>A propos</h2>
+            </div>
+            <div class="col-4 p-5">
+                <ul class="list-unstyled">
+                    <li class="d-flex justify-content-between">
+                        <p>Compatibilité par pays:</p><a href="#">Voir la liste</a>
+                    </li>
+                    {% if game.publisher.name is defined %}
+
+                        <li class="d-flex justify-content-between">
+                            <p>Éditeur:</p><a href="#">{{ game.publisher.name }}</a>
+                        </li>
+                    {% endif %}
+                    <li class="d-flex justify-content-between">
+                        <p>Date de sortie:</p>
+                        <p>{{ game.publishedAt | date("d/m/Y") }}</p>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                        <p>Genre:</p>
+                        <p>
+                            {% for category in game.categories %}
+                                {% if loop.index0 %}, {% endif %}
+                                <a href="#">{{ category.name }}</a>
+                            {% endfor %}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% if game.publisher.name is defined %}
+            <div class="row">
+                {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesPublisher, 'title': 'Jeux du même éditeur :'} %}
+            </div>
+        {% endif %}
+        <div class="row mt-5">
+            <h2>Avis des joueurs :</h2>
+            <div class="row gap-3 mt-4">
+                {% for review in game.reviews %}
+                    {% include 'front/partials/reviewCard.html.twig' with {'review': review, 'cardSize': 12} %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

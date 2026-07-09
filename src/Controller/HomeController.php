@@ -15,7 +15,7 @@ final class HomeController extends AbstractController
     public function index(GameRepository $gameRepository, ReviewRepository $reviewRepository, CategoryRepository $categoryRepository): Response
     {
         $gamesNewest = $gameRepository->findBy([], ['publishedAt' => 'DESC'], 9);
-        $gamesOldest = $gameRepository->findBy([], ['publishedAt' => 'ASC'], 9);
+        $gamesPriceDesc = $gameRepository->findBy([], ['price' => 'DESC'], 9);
         $gamesDesc = $gameRepository->findBy([], ['name' => 'DESC'], 9);
         $reviewsNewest = $reviewRepository->findBy([], ['createdAt' => 'DESC'], 9);
         $categories = $categoryRepository->findBy([], ['name' => 'ASC'], 9);
@@ -23,7 +23,7 @@ final class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'gamesNewest' => $gamesNewest,
-            'gamesOldest' => $gamesOldest,
+            'gamesPriceDesc' => $gamesPriceDesc,
             'gamesDesc' => $gamesDesc,
             'reviewsNewest' => $reviewsNewest,
             'categories' => $categories,

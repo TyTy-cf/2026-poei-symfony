@@ -1,0 +1,24 @@
+{% if title is defined %}
+
+    <div class="col-12 my-5">
+        <h2>{{ title }}</h2>
+    </div>
+{% endif %}
+<div class="row row-gap-3">
+    {% for game in games %}
+        <div class="col-4">
+            <div class="card">
+                <div class="ratio ratio-16x9">
+                    <img src="{{ game.thumbnailCover }}" class="card-img-top object-fit-cover" alt="...">
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between m-0">
+                        <p class="card-text m-0">{{ game.name }}</p>
+                        <span class="fw-bold">{{ game.price }} €</span>
+                    </div>
+                    <a href="{{ path('app_game', {id: game.id}) }}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
