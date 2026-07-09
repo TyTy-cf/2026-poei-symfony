@@ -19,6 +19,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "bootstrap": "^5.3.8"
+        "bootstrap": "^5.3.8",
+        "font-awesome": "^4.7.0"
     }
 }
