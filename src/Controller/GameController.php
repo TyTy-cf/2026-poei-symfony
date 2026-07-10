@@ -9,10 +9,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class GameController extends AbstractController
 {
-    #[Route('/game/{slug}', name: 'app_game')]
-    public function show(?string $slug, GameRepository $gameRepository): Response
+    #[Route('/game/{id}', name: 'app_game')]
+    public function show(?string $id, GameRepository $gameRepository): Response
     {
-        $game = $gameRepository->find($slug);
+        $game = $gameRepository->find($id);
         if($game === null){
             return $this->redirectToRoute("app_home");
         }
