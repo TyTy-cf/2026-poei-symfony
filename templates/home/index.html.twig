@@ -7,7 +7,7 @@
 	<section>
 		<div class="container mb-5 h-50">
 			{%include './component/gameCard.html.twig' with  {
-        "games": latestGames,
+        "games": latestReleasedGames,
         "title": "Les Tendances"} %}
 
 		</div>
@@ -18,7 +18,7 @@
 
 		<div class="container mb-5">
 			{%include './component/gameCard.html.twig' with  {
-        "games": highestPricedGames,
+        "games": bestRatedGames,
         "title": "Les Meilleures Sorties"
         } %}
 		</div>
@@ -43,7 +43,7 @@
 
 
 			{%include './component/gameCard.html.twig' with  {
-        "games": topGames,
+        "games": mostPlayedGames,
         "title": "Les Tops Jeux"
         } %}
 		</div>

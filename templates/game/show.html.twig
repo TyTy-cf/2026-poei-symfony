@@ -1,21 +1,25 @@
-<!DOCTYPE html>
+{% extends './front/base.html.twig' %}
+
 
 {% block body %}
-	<div
-		class="col-4 mb-4 d-flex g-4 justify-content-center align-items-center">
-		{# <a href="{{ path('app_game_show', {'id': game.id}) }}" style="text-decoration: none; color: inherit;"> #}
-		<div class="card" style="width: 100%; height: 100%;">
 
-			<img src="{{game.thumbnailCover}}" class="card-img-top img-fluid h-75" alt="{{game.name}}">
+	<div class="back-img-show" style="--hero-image: url('{{ game.thumbnailCover }}');">
 
-
-			<div class="card-body">
-				<h5 class="card-title">{{game.name}}</h5>
-				<p class="card-text">{{game.price}}
-					€</p>
+		<div class="d-flex justify-content-center align-items-center h-100 w-100">
+			<div class="card w-50 h-75 border-rounded" style="background-color: rgba(0, 0, 0, 0.5);">
+				<div class="card-body d-flex flex-column justify-content-center align-items-center h-100" style="background-image: url('{{ game.thumbnailCover }}'); background-size: cover; background-position: center;"></div>
+			</div>
+			<div class="card w-50 h-75 border-rounded" style="backdrop-filter: blur(20px); background-color: rgba(0, 0, 0, 0.5);">
+				<div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
+					<h1 class="card-title text-white text-center">{{game.name}}</h1>
+					<p class="card-text text-white text-center">{{game.price}}€</p>
+				</div>
 
 			</div>
+
+
 		</div>
 	</div>
+
 
 {% endblock %}

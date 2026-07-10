@@ -16,20 +16,51 @@ class GameRepository extends ServiceEntityRepository
     parent::__construct($registry, Game::class);
   }
 
-  //    /**
-  //     * @return Game[] Returns an array of Game objects
-  //     */
-  //    public function findByExampleField($value): array
-  //    {
-  //        return $this->createQueryBuilder('g')
-  //            ->andWhere('g.exampleField = :val')
-  //            ->setParameter('val', $value)
-  //            ->orderBy('g.id', 'ASC')
-  //            ->setMaxResults(10)
-  //            ->getQuery()
-  //            ->getResult()
-  //        ;
-  //    }
+
+
+  /**
+   * @return Game[] Returns an array of Game objects
+   */
+  public function findByPopularity(int $value): array
+  {
+    return $this->createQueryBuilder('g')
+      ->leftJoin('g.reviews', 'r')
+      ->groupBy('g.id')
+      ->orderBy('AVG(r.rating)', 'DESC')
+      ->setMaxResults($value)
+      ->getQuery()
+      ->getResult()
+
+    ;
+  }
+
+  /**
+   * @return Game[] Returns an array of Game objects
+   */
+  public function findLatestReleases(int $value): array
+  {
+    // select latest published games
+    return $this->createQueryBuilder('g')
+      ->orderBy('g.publishedAt', 'DESC')
+      ->setMaxResults($value)
+      ->getQuery()
+      ->getResult();
+  }
+
+  /**
+   * @return Game[] Returns an array of Game objects
+   */
+  public function mostPlayedGames(int $value): array
+  {
+    return $this->createQueryBuilder('g')
+      ->Join('g.userOwnGames', 'uog')
+      ->groupBy('g.id')
+      ->orderBy('COUNT(uog.id)', 'DESC')
+      ->setMaxResults($value)
+      ->getQuery()
+      ->getResult();
+  }
+
 
   //    public function findOneBySomeField($value): ?Game
   //    {
