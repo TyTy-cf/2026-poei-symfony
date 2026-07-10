@@ -15,7 +15,11 @@
             <div class ="col-5 card-show">
                 <h5>{{ game.name }}</h5>
                 <p>{{ game.publishedAt|date("d-m-Y") }}</p>
+                {% if game.publisher.name is defined  %}
                 <p>{{ game.publisher.name }}</p>
+                    {% else %}
+                    <p>Pas de publisher, pas de chocolat</p>
+                {% endif %}
                 <a href="#" class="btn btn-primary">ACHETER !!!!!!!!!!!!</a>
                 {% include 'front/partials/_user_own.html.twig' %}
 
@@ -37,15 +41,15 @@
 
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
+{#{% block stylesheets %}#}
+{#    {{ parent() }}#}
 
-    <style>
-        .card-show img {
-            height: 22rem;
-            width: 100%;
-            object-fit: cover;
-        }
+{#    <style>#}
+{#        .card-show img {#}
+{#            height: 22rem;#}
+{#            width: 100%;#}
+{#            object-fit: cover;#}
+{#        }#}
 
-    </style>
-{% endblock %}
+{#    </style>#}
+{#{% endblock %}#}
