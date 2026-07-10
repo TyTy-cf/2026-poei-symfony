@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Game;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,4 +41,51 @@ class GameRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+
+    public function getQb(): QueryBuilder
+    {
+        return $this->createQueryBuilder('g');
+    }
+
+    public function findByBests(?int $limit = null): array
+    {
+        $mostPlayed = $this->getQb()
+            ->select('g', 'uog')
+            ->join('g.userOwnGames', 'uog')
+            ->groupBy('g.id')
+            ->orderBy('uog.gameTime', 'DESC')
+            ->setMaxResults($limit);
+
+        return $mostPlayed->getQuery()->getResult();
+
+    }
+
+    public function findTrends(?int $limit = null): array
+    {
+        $trends = $this->getQb()
+            ->select('g')
+            ->orderBy('g.publishedAt', 'DESC')
+            ->setMaxResults($limit);
+
+        if ($limit !== null) {
+            $trends->setMaxResults($limit);
+        }
+
+        return $trends->getQuery()->getResult();
+    }
+
+    public function findByTop(?int $limit = null): array
+    {
+        $mostPlayed = $this->getQb()
+            ->select('g', 'r')
+            ->join('g.reviews', 'r')
+            ->groupBy('g.id')
+            ->orderBy('r.rating', 'DESC')
+            ->setMaxResults($limit);
+
+        return $mostPlayed->getQuery()->getResult();
+
+    }
 }
+

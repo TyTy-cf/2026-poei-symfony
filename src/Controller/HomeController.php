@@ -18,10 +18,10 @@ final class HomeController extends AbstractController
         CategoryRepository $categoryRepository,
     ): Response
     {
-        $trends = $gameRepository->findBy([], ['publishedAt' => 'DESC'], 9);
-        $bests = $gameRepository->findBy([], ['price' => 'DESC'], 9);
+        $trends = $gameRepository->findTrends(9);
+        $bests = $gameRepository->findByBests( 9);
         $reviews = $reviewRepository->findFullByRatingMax(5);
-        $tops = $gameRepository->findBy([], ['name' => 'ASC'], 6);
+        $tops = $gameRepository->findByTop(6);
         $categories = $categoryRepository->findBy([], ['name' => 'ASC'], 9);
 
         return $this->render('front/home/index.html.twig', [
