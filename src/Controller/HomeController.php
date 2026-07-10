@@ -20,7 +20,7 @@ final class HomeController extends AbstractController
     {
         $trends = $gameRepository->findBy([], ['publishedAt' => 'DESC'], 9);
         $bests = $gameRepository->findBy([], ['price' => 'DESC'], 9);
-        $reviews = $reviewRepository->findBy(['rating' => 5], ['createdAt' => 'DESC'], 5);
+        $reviews = $reviewRepository->findFullByRatingMax(5);
         $tops = $gameRepository->findBy([], ['name' => 'ASC'], 6);
         $categories = $categoryRepository->findBy([], ['name' => 'ASC'], 9);
 

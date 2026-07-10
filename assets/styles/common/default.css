@@ -3,3 +3,19 @@ body {
     background-color: var(--default-background-color);
     color: var(--default-color);
 }
+
+.button {
+    color: var(--default-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    box-sizing: border-box;
+    padding: 0 20px;
+    border: 0;
+    cursor: pointer;
+    text-align: center;
+    white-space: initial;
+    -webkit-appearance: none;
+    background: var(--default-fire-gradient);
+}
