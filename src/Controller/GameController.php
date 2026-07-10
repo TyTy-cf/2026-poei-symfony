@@ -20,7 +20,7 @@ final class GameController extends AbstractController
       return $this->redirectToRoute('app_home');
     }
 
-    // dd($game);
+    dump($game);
 
     return $this->render('game/show.html.twig', [
       'controller_name' => 'GameController',

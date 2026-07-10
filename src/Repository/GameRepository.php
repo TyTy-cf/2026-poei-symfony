@@ -69,15 +69,19 @@ class GameRepository extends ServiceEntityRepository
   public function findOneGameAndDetails(array $criteria): ?array
   {
 
-    // select game and all game witg same category
+    // select game and all game witg same category in order to access every game with the same category
     return $this->createQueryBuilder('g')
-      ->select('g', 'c', 'cg')
+      ->select('g', 'c', 'r', 'uog', 'u')
       ->leftJoin('g.categories', 'c')
-      ->leftJoin('c.games', 'cg')
-      ->where('g.slug = :slug')
+      ->leftJoin('g.reviews', 'r')
+      ->leftJoin('g.userOwnGames', 'uog')
+      ->leftJoin('uog.user', 'u')
+      ->groupBy('g.id')
       ->setParameter('slug', $criteria['slug'])
+      ->andWhere('g.slug = :slug')
       ->getQuery()
-      ->getResult();
+      ->getResult()
+    ;
   }
 
 
