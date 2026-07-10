@@ -1,0 +1,18 @@
+
+.card-review {
+    background-color: var(--default-card-background-color);
+    border-radius: 2rem;
+    padding: 1.5rem;
+    height: 12rem;
+    font-size: .8rem;
+    display: flex;
+    flex-direction: column;
+
+    i {
+        color: var(--yellow);
+    }
+
+    .card-review-content {
+        color: var(--default-card-content-color);
+    }
+}
