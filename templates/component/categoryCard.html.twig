@@ -1,12 +1,13 @@
-<div class="col-2 mb-4">
+<div class="col-4 g-5 ">
+	<div class="ratio ratio-16x9 border-dark bg-imgimg rounded d-flex justify-content-center align-items-center flex-wrap" style="background-image: url('{{ categoryUrl|default('./assets/images/default-category.png') }}');">
 
-	<div class="card text-bg-dark">
 
-		<img src="{{ category.image|default('./assets/images/default-category.png') }}" class="card-img" alt="{{ category.name }}">
+		<a href="">
 
-		<div class="card-img-overlay d-block d-md-flex justify-content-center align-items-center">
-			<h5 class="card-title  ">{{category.name}}</h5>
+			<h5 class="name">{{category.name|upper}}</h5>
+			<div style="background-image: url('{{ category.image|default('./assets/images/default-category.png') }}');" class="cover h-100 z-3 object-fit-cover"></div>
 
-		</div>
+		</a>
+
 	</div>
 </div>

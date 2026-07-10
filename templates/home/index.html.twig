@@ -1,45 +1,80 @@
 {% extends './front/base.html.twig' %}
 
-{% block header %}
-	<nav class="navbar bg-body-tertiary mb-4 border-bottom border-2 border-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Steam Ish
-			</a>
-		</div>
-	</nav>
-{% endblock %}
-
 
 {% block body %}
 
+	{% include './component/header.html.twig' %}
 	<section>
 		<div class="container mb-5 h-50">
-			{%include './component/gameCard.html.twig' with  {"games": latestGames} %}
+			{%include './component/gameCard.html.twig' with  {
+        "games": latestGames,
+        "title": "Les Tendances"} %}
+
 		</div>
 	</section>
 
 
-	<section class="bg-dark text-light py-5">
+	<section class="bg-darkdark text-light py-5">
+
 		<div class="container mb-5">
-			{%include './component/gameCard.html.twig' with  {"games": highestPricedGames} %}
+			{%include './component/gameCard.html.twig' with  {
+        "games": highestPricedGames,
+        "title": "Les Meilleures Sorties"
+        } %}
 		</div>
 	</section>
 
 
-	<div class="reviews d-flex justify-content-between align-items-center flex-row flex-wrap">
-		{% 	for latestReview in latestReviews %}
-			{%include './component/commentCard.html.twig' with  {"latestReview": latestReview} %}
-		{% endfor %}
-	</div>
+	<section class="reviews mt-3 d-flex justify-content-between align-items-center flex-column">
+		<h2 class="text-center mb-4">Ils nous font confiance :</h2>
+		<div class="d-flex justify-content-between align-items-center flex-row flex-wrap ">
 
-
-	<div class="container">
-		<div class="row">
-			{%include './component/gameCard.html.twig' with  {"games": topGames} %}
-			{% 	for category in categories %}
-				{%include './component/categoryCard.html.twig' with  {"category": category} %}
+			{% 	for latestReview in latestReviews %}
+				{%include './component/reviewCard.html.twig' with  {
+        "latestReview": latestReview
+        } %}
 			{% endfor %}
 		</div>
-	</div>
 
+	</section>
+
+	<section class="bg-darkdark text-light py-5">
+		<div class="container">
+
+
+			{%include './component/gameCard.html.twig' with  {
+        "games": topGames,
+        "title": "Les Tops Jeux"
+        } %}
+		</div>
+
+	</section>
+	<section>
+		<div class="container">
+			<div class="row g-4">
+
+
+				<h2 class="text-center mb-4">Categories :</h2>
+
+
+				{% 	for category in categories %}
+
+					{% set categoryNumber = category.image|split('category-icon')|last|split('.')|first %}
+
+					{% set categoryUrl = "https://www.instant-gaming.com/themes/igv2/modules/categoryMenu/images/category-background" ~ categoryNumber ~ ".jpg" %}
+
+
+					{%include './component/categoryCard.html.twig' with  {
+            "category": category,
+            "categoryUrl": categoryUrl
+            } %}
+				{% endfor %}
+
+			</div>
+		</div>
+
+	</section>
+
+
+	{% include './component/footer.html.twig' %}
 {% endblock %}

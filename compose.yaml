@@ -11,7 +11,6 @@ services:
     build:
       dockerfile: docker/Dockerfile
       target: caddy
-    restart: unless-stopped
     cap_add:
       - NET_ADMIN
     ports:
@@ -61,4 +60,3 @@ volumes:
   mariadb:
   caddy_data:
   caddy_config:
-

@@ -20,3 +20,58 @@ body {
         transform: scale(1.03);
     }
 }
+
+.review-date {
+    text-align: right;
+    font-size: 0.675rem;
+}
+
+.bg-darkdark {
+    background-color: #161616;
+}
+
+.bg-imgimg {
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    a {
+        text-decoration: none;
+    }
+}
+.bg-imgimg:hover {
+    a {
+        div {
+            transform: scale(1.15);
+        }
+    }
+}
+.cover {
+    aspect-ratio: initial;
+    transition: 0.3s;
+    position: absolute;
+    background-size: contain;
+    background-position: top right;
+    background-repeat: no-repeat;
+    transform: scale(1.1);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform-origin: bottom right;
+    padding: initial;
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(1px) grayscale(40%);
+}
+
+.name {
+    position: relative;
+    font-weight: 400;
+    font-size: 2rem;
+    z-index: 4;
+    left: 20px;
+    top: 75px;
+    margin-bottom: 0;
+    text-shadow: 1px 1px 2px black;
+    text-transform: uppercase;
+    text-align: left;
+    color: white;
+}
