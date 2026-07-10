@@ -51,10 +51,9 @@ class GameRepository extends ServiceEntityRepository
     public function findByBests(?int $limit = null): array
     {
         $mostPlayed = $this->getQb()
-            ->select('g', 'uog')
             ->join('g.userOwnGames', 'uog')
             ->groupBy('g.id')
-            ->orderBy('uog.gameTime', 'DESC')
+            ->orderBy("sum(uog.gameTime)", 'DESC')
             ->setMaxResults($limit);
 
         return $mostPlayed->getQuery()->getResult();
@@ -81,11 +80,22 @@ class GameRepository extends ServiceEntityRepository
             ->select('g', 'r')
             ->join('g.reviews', 'r')
             ->groupBy('g.id')
-            ->orderBy('r.rating', 'DESC')
+            ->orderBy("avg(r.rating)", 'DESC')
             ->setMaxResults($limit);
 
         return $mostPlayed->getQuery()->getResult();
 
     }
-}
 
+    public function findByUser(?string $name): array
+    {
+        $mostPlayed = $this->getQb()
+            ->join('g.userOwnGames', 'uog')
+            ->groupBy('g.id')
+            ->orderBy("sum(uog.gameTime)", 'DESC');
+
+
+        return $mostPlayed->getQuery()->getResult();
+
+    }
+}
