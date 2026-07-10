@@ -4,8 +4,6 @@
 ## Sommaire
 
 
-## Sommaire
-
 - [1. Compréhension globale](#1-compréhension-globale)
     - [1.1. Injection de dépendance](#11-injection-de-dépendance)
     - [1.2. WebPack](#12-webpack)
@@ -52,6 +50,9 @@ public function __construct(private GameRepository $gameRepository) {
     
 }
 ```
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ### 1.2. WebPack
@@ -128,6 +129,9 @@ Une fois les images copiées dans le dossier "build", on peut les réutiliser su
 - La fonction Twig `asset`permet d'accéder au contenu du dossier `build`
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ## 2. Les Repository
 
 
@@ -140,6 +144,9 @@ Une fois les images copiées dans le dossier "build", on peut les réutiliser su
 - `$repository->findAll()` : récupère TOUTES les instances de l'objet géré par le Repository sous forme de tableau
 - `$repository->findBy()` : récupère TOUTES les instances de l'objet géré par le Repository sous forme de tableau, selon les critères demandés
 - `$repository->createQueryBuilder()` : permet de créer nos propres requêtes SQL, une requête qui ne serait pas faisable avec les `find` de base 
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ### 2.2. Critères des Repository
@@ -214,6 +221,9 @@ $items = $repository->findBy([], ['createdAt' => 'DESC'], 10, 10);
 => Affiche seulement 10 `item` à partir du 11ème
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 2.3. QueryBuilder
 
 
@@ -277,6 +287,9 @@ $qb->getQuery() // formatte la requête prorement, prête à être envoyée à l
 ```
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ## 3. Twig
 
 
@@ -305,6 +318,10 @@ Un template enfant peut choisir de redéfinir et conserver le comportement du bl
 {% endblock %}
 ```
 
+
+Retour au [Sommaire](#sommaire)
+
+
 ### 3.2. Inclusion de template
 
 
@@ -324,6 +341,9 @@ Il peut arriver que l'on veuille dynamiser le template inclus, pour cela on peut
 ```
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 3.3. Instruction Twig
 
 
@@ -334,6 +354,9 @@ Il peut arriver que l'on veuille dynamiser le template inclus, pour cela on peut
     <h2>{{ title }}</h2>
 {% endif %}
 ```
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ## 4. Paramètres de route
@@ -358,6 +381,9 @@ public function show(
 Inconvénient : C'est un `find` dont les relations ne sont pas récupérées, en cas de nécessité, cela peut engrendrer des requêtes supplémentaires.
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 4.2. Via binding de paramètres
 
 
@@ -372,6 +398,9 @@ public function show(string $id): Response
 
 
 Inconvénient : Cela implique de traiter l'id dans la fonction, on va probablement avoir besoin du `Repository` en plus
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ### 4.3. Via la Request
@@ -400,6 +429,9 @@ $request->getContent();
 ```
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 4.4. Effectuer une redirection
 
 
@@ -421,3 +453,6 @@ Si on appelle une route avec des paramètres, on le fait comme ceci :
 ```
 
 - Entre les accolades dans la fonction path, on passe un "tableau" associatif où la clé le nom du paramètre définie par la route (ici : `id`), puis sa valeur
+
+
+Retour au [Sommaire](#sommaire)
