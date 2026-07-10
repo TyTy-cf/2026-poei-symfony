@@ -4,20 +4,24 @@
 ## Sommaire
 
 
-- [1. Compréhension globale](#1-comprehension-globale)
-    - [1.1. Injection de dépendance`](#11-injection-de-dependance)
-    - [1.2. WebPack`](#12-webpack)
+## Sommaire
+
+- [1. Compréhension globale](#1-compréhension-globale)
+    - [1.1. Injection de dépendance](#11-injection-de-dépendance)
+    - [1.2. WebPack](#12-webpack)
 - [2. Les Repository](#2-les-repository)
-    - [2.1. Méthodes natives aux `Repository $repository`](#21-méthodes-natives-aux-repository-repository)
-    - [2.2. Critères des `Repository $repository`](#22-critères-des-repository-repository)
+    - [2.1. Méthodes natives aux Repository](#21-méthodes-natives-aux-repository)
+    - [2.2. Critères des Repository](#22-critères-des-repository)
+    - [2.3. QueryBuilder](#23-querybuilder)
 - [3. Twig](#3-twig)
     - [3.1. Extends](#31-extends)
     - [3.2. Inclusion de template](#32-inclusion-de-template)
     - [3.3. Instruction Twig](#33-instruction-twig)
-- [4. Paramètres de route](#4-parametres-de-route)
-    - [4.1. Via binding d'objet](#41-par-binding-d-objet)
-    - [4.2. Via binding de paramètres](#42-via-binding-de-parametres)
-    - [4.3. Via la `Request`](#43-via-la-request)
+- [4. Paramètres de route](#4-paramètres-de-route)
+    - [4.1. Via binding d'objet](#41-via-binding-dobjet)
+    - [4.2. Via binding de paramètres](#42-via-binding-de-paramètres)
+    - [4.3. Via la Request](#43-via-la-request)
+    - [4.4. Effectuer une redirection](#44-effectuer-une-redirection)
 
 
 ## 1. Compréhension globale
@@ -127,7 +131,7 @@ Une fois les images copiées dans le dossier "build", on peut les réutiliser su
 ## 2. Les Repository
 
 
-### 2.1. Méthodes natives aux `Repository $repository` :
+### 2.1. Méthodes natives aux Repository
 
 
 - `$repository->count()` : comptez le nombre de lignes corespondant aux critères (par défaut : `SELECT COUNT(*) FROM _table`)
@@ -138,7 +142,7 @@ Une fois les images copiées dans le dossier "build", on peut les réutiliser su
 - `$repository->createQueryBuilder()` : permet de créer nos propres requêtes SQL, une requête qui ne serait pas faisable avec les `find` de base 
 
 
-### 2.2. Critères des `Repository $repository` :
+### 2.2. Critères des Repository
 
 
 Les fonctions `findOneBy()`, `findBy()` et `count()` peuvent avoir des crtières (le premier paramère de la fonction), il s'agit d'un tableau associatif permettant d'avoir un `WHERE` et des `AND`, si nécessaire, ils servent à affiner la requête.
@@ -370,7 +374,7 @@ public function show(string $id): Response
 Inconvénient : Cela implique de traiter l'id dans la fonction, on va probablement avoir besoin du `Repository` en plus
 
 
-### 4.3. Via la `Request` 
+### 4.3. Via la Request
 
 
 Ici on va injecter l'objet `Request` de Symfony, via celui-ci on peut récupérer l'identifiant passé en paramètre de l'URL :
