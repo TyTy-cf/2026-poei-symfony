@@ -1,0 +1,24 @@
+
+.game-show-container {
+
+    margin-top: 3rem;
+    height: 24rem;
+
+    .col-6 {
+        height: 100%;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 1.5rem;
+    }
+
+    .game-show-infos {
+        padding-inline: 3rem;
+        border-radius: 1rem;
+        background-color: var(--default-card-background-color);
+    }
+
+}

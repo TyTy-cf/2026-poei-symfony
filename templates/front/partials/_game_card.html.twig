@@ -1,10 +1,14 @@
 
-<div class="card-game">
-    <img src="{{ game.thumbnailCover }}"
-         alt="Image de {{ game.name }}"
-    >
-    <div class="d-flex justify-content-between">
-        <p>{{ game.name }}</p>
-        <span>{{ game.price }}€</span>
+<a  class="text-decoration-none"
+    href="{{ path('app_game_show', {'slug': game.slug}) }}"
+>
+    <div class="card-game">
+        <img src="{{ game.thumbnailCover }}"
+             alt="Image de {{ game.name }}"
+        >
+        <div class="d-flex justify-content-between">
+            <p>{{ game.name }}</p>
+            <span>{{ game.price }}€</span>
+        </div>
     </div>
-</div>
+</a>

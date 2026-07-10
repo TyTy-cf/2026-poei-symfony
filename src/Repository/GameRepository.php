@@ -16,28 +16,48 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    //    /**
-    //     * @return Game[] Returns an array of Game objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findByGameTimeSum(?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.userOwnGames', 'uog')
+            ->groupBy('g')
+            ->orderBy('SUM(uog.gameTime)', 'DESC');
 
-    //    public function findOneBySomeField($value): ?Game
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByBestRating(?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.reviews', 'r')
+            ->groupBy('g')
+            ->orderBy('AVG(r.rating)', 'DESC');
+
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findBySimilarCategory(Game|null $game, ?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.categories', 'c')
+            // WHERE c.id IN (1, 5, 6, 8)
+            ->where('c IN (:categs)')
+            ->setParameter('categs', $game->getCategories())
+            ->orderBy('g.price', 'DESC');
+
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

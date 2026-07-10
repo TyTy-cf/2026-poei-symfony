@@ -2,18 +2,25 @@
 
 namespace App\Controller;
 
+use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class GameController extends AbstractController
 {
-    #[Route('/game/{id}', name: 'app_game_show')]
-    public function show(): Response
+    #[Route('/game/{slug}', name: 'app_game_show')]
+    public function show(
+        GameRepository $gameRepository,
+        string         $slug
+    ): Response
     {
+        $game = $gameRepository->findOneBy(['slug' => $slug]);
+        $similarGames = $gameRepository->findBySimilarCategory($game, 3);
+
         return $this->render('front/game/show.html.twig', [
-            'controller_name' => 'GameController',
+            'game' => $game,
+            'similarGames' => $similarGames,
         ]);
     }
 }

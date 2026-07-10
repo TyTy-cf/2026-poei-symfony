@@ -11,6 +11,7 @@
     - [2.1. Méthodes natives aux Repository](#21-méthodes-natives-aux-repository)
     - [2.2. Critères des Repository](#22-critères-des-repository)
     - [2.3. QueryBuilder](#23-querybuilder)
+    - [2.4. QueryBuilder avec paramètres](#24-querybuilder-avec-parametres)
 - [3. Twig](#3-twig)
     - [3.1. Extends](#31-extends)
     - [3.2. Inclusion de template](#32-inclusion-de-template)
@@ -285,6 +286,24 @@ $qb->getQuery() // formatte la requête prorement, prête à être envoyée à l
     ->getResult(); // fetchAll
     ->getOneOrNullResult(); // fetch
 ```
+
+
+Retour au [Sommaire](#sommaire)
+
+
+### 2.4. QueryBuilder avec paramètres
+
+
+Pour ajouter des paramètres dans votre QueryBuilder, il faut passer par des requêtes **préparées** :
+
+```php
+    // WHERE c.id IN (1, 5, 6, 8)
+    ->where('c IN (:categs)')
+    ->setParameter('categs', $game->getCategories())
+```
+
+- On écrit dans le WHERE `:alias` (les 2 points sont importants), ici l'alias est `categories`
+- Pour chaque `:alias` dans votre WHERE, vous devez avoir un `setParameter`, le premier paramètre est le nom de l'alias (SANS LES DEUX POINTS) déclaré dans le WHERE, le deuxième paramètre, la valeur de l'alias
 
 
 Retour au [Sommaire](#sommaire)
