@@ -52,10 +52,12 @@ class GameRepository extends ServiceEntityRepository
    */
   public function mostPlayedGames(int $value): array
   {
+
+    // select ost played games based on the game_time
     return $this->createQueryBuilder('g')
       ->Join('g.userOwnGames', 'uog')
       ->groupBy('g.id')
-      ->orderBy('COUNT(uog.id)', 'DESC')
+      ->orderBy('SUM(uog.gameTime)', 'DESC')
       ->setMaxResults($value)
       ->getQuery()
       ->getResult();

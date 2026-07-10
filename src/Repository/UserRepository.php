@@ -17,7 +17,22 @@ class UserRepository extends ServiceEntityRepository
     parent::__construct($registry, User::class);
   }
 
-
+  public function findUser(array $criteria): ?User
+  {
+    return $this->createQueryBuilder('u')
+      ->select('u', 'uog', 'r', 'g', 'c', 'g1')
+      ->leftJoin('u.userOwnGames', 'uog')
+      ->leftJoin('uog.game', 'g')
+      ->leftJoin('u.reviews', 'r')
+      ->leftJoin('r.game', 'g1')
+      ->join('u.country', 'c')
+      ->groupBy('u.id')
+      ->setParameter('name', $criteria['name'])
+      ->andWhere('u.name = :name')
+      ->getQuery()
+      ->getOneOrNullResult()
+    ;
+  }
 
   //    /**
   //     * @return User[] Returns an array of User objects
