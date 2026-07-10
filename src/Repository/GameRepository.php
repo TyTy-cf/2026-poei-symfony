@@ -63,6 +63,23 @@ class GameRepository extends ServiceEntityRepository
       ->getResult();
   }
 
+  /**
+   * @return Game[] Returns a single Game object or null
+   */
+  public function findOneGameAndDetails(array $criteria): ?array
+  {
+
+    // select game and all game witg same category
+    return $this->createQueryBuilder('g')
+      ->select('g', 'c', 'cg')
+      ->leftJoin('g.categories', 'c')
+      ->leftJoin('c.games', 'cg')
+      ->where('g.slug = :slug')
+      ->setParameter('slug', $criteria['slug'])
+      ->getQuery()
+      ->getResult();
+  }
+
 
   //    public function findOneBySomeField($value): ?Game
   //    {

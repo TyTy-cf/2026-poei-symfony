@@ -109,3 +109,14 @@ body {
     z-index: 1;
     margin: 2rem 0;
 }
+
+.gamecard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20rem;
+}
+
+.mt-6 {
+    margin-top: 200px;
+}
