@@ -6,9 +6,9 @@
     {% endif %}
 
     <div class="row">
-        {% for user in users %}
+        {% for game in games %}
             <div class="col-md-4 col-12">
-
+                {% include 'front/partials/_game_card.html.twig' %}
             </div>
         {% endfor %}
     </div>
