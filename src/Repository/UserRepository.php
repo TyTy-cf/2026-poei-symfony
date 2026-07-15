@@ -42,13 +42,5 @@ class UserRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function totalGameTime(string $user) : array
-    {
-        $gameTime = $this->createQueryBuilder("u")
-            ->select("SUM(u.userOwnGames.gameTime)")
-            ->leftJoin("u.userOwnGames", "uog")
-            ->where("u = :user")
-            ->setParameter("user", $user);
-        return $gameTime->getQuery()->getResult();
-    }
+
 }
