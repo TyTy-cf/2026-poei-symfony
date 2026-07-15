@@ -17,7 +17,7 @@ final class UserController extends AbstractController
         string         $name,
     ): Response
     {
-        $user = $userRepository->findOneBy(['name' => $name]);
+        $user = $userRepository->findFullBy($name);
 
 
         return $this->render('front/user/show.html.twig', [
