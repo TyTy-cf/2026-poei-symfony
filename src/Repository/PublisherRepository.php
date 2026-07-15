@@ -16,6 +16,17 @@ class PublisherRepository extends ServiceEntityRepository
     parent::__construct($registry, Publisher::class);
   }
 
+  public function getPublisherBySlug(string $slug): ?Publisher
+  {
+    return $this->createQueryBuilder('p')
+      ->select('p', 'c')
+      ->join('p.country', 'c')
+      ->andWhere('p.slug = :slug')
+      ->setParameter('slug', $slug)
+      ->getQuery()
+      ->getOneOrNullResult();
+  }
+
   //    /**
   //     * @return Publisher[] Returns an array of Publisher objects
   //     */
