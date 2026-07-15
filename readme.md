@@ -220,6 +220,7 @@ Pour les catégories vous afficherez :
 - Faites en sorte que lorsque l'on clique sur une card d'un jeu depuis la home, on soit redirigé sur ce controller
 - Pareil depuis le nom d'un jeu depuis un commentaire
 
+
 ### 5. Faire la page de détail d'un user
 
 
@@ -227,11 +228,11 @@ Pour les catégories vous afficherez :
 - Créer une fonction `show` dans celui-ci, dont la route sera : `/user/{name}`
 - Optimiser la requête de récupération d'un user...
 - La fonction doit afficher le détail d'un user dont le name est passé en paramètre
-- On affichera :
-    - Le nickname du user
-    - "Inscrit le xx/xx/xx"
-    - La liste de ses jeux possédés
-    - La liste de ses commentaires postés
+- On affichera : 
+  - Le nickname du user
+  - "Inscrit le xx/xx/xx"
+  - La liste de ses jeux possédés
+  - La liste de ses commentaires postés
 
 
 ### 6. Ajouter des liens

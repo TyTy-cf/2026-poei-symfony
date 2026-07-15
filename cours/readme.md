@@ -4,20 +4,23 @@
 ## Sommaire
 
 
-- [1. Compréhension globale](#1-comprehension-globale)
-    - [1.1. Injection de dépendance`](#11-injection-de-dependance)
-    - [1.2. WebPack`](#12-webpack)
+- [1. Compréhension globale](#1-compréhension-globale)
+    - [1.1. Injection de dépendance](#11-injection-de-dépendance)
+    - [1.2. WebPack](#12-webpack)
 - [2. Les Repository](#2-les-repository)
-    - [2.1. Méthodes natives aux `Repository $repository`](#21-méthodes-natives-aux-repository-repository)
-    - [2.2. Critères des `Repository $repository`](#22-critères-des-repository-repository)
+    - [2.1. Méthodes natives aux Repository](#21-méthodes-natives-aux-repository)
+    - [2.2. Critères des Repository](#22-critères-des-repository)
+    - [2.3. QueryBuilder](#23-querybuilder)
+    - [2.4. QueryBuilder avec paramètres](#24-querybuilder-avec-parametres)
 - [3. Twig](#3-twig)
     - [3.1. Extends](#31-extends)
     - [3.2. Inclusion de template](#32-inclusion-de-template)
     - [3.3. Instruction Twig](#33-instruction-twig)
-- [4. Paramètres de route](#4-parametres-de-route)
-    - [4.1. Via binding d'objet](#41-par-binding-d-objet)
-    - [4.2. Via binding de paramètres](#42-via-binding-de-parametres)
-    - [4.3. Via la `Request`](#43-via-la-request)
+- [4. Paramètres de route](#4-paramètres-de-route)
+    - [4.1. Via binding d'objet](#41-via-binding-dobjet)
+    - [4.2. Via binding de paramètres](#42-via-binding-de-paramètres)
+    - [4.3. Via la Request](#43-via-la-request)
+    - [4.4. Effectuer une redirection](#44-effectuer-une-redirection)
 
 
 ## 1. Compréhension globale
@@ -48,6 +51,9 @@ public function __construct(private GameRepository $gameRepository) {
     
 }
 ```
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ### 1.2. WebPack
@@ -124,10 +130,13 @@ Une fois les images copiées dans le dossier "build", on peut les réutiliser su
 - La fonction Twig `asset`permet d'accéder au contenu du dossier `build`
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ## 2. Les Repository
 
 
-### 2.1. Méthodes natives aux `Repository $repository` :
+### 2.1. Méthodes natives aux Repository
 
 
 - `$repository->count()` : comptez le nombre de lignes corespondant aux critères (par défaut : `SELECT COUNT(*) FROM _table`)
@@ -138,7 +147,10 @@ Une fois les images copiées dans le dossier "build", on peut les réutiliser su
 - `$repository->createQueryBuilder()` : permet de créer nos propres requêtes SQL, une requête qui ne serait pas faisable avec les `find` de base 
 
 
-### 2.2. Critères des `Repository $repository` :
+Retour au [Sommaire](#sommaire)
+
+
+### 2.2. Critères des Repository
 
 
 Les fonctions `findOneBy()`, `findBy()` et `count()` peuvent avoir des crtières (le premier paramère de la fonction), il s'agit d'un tableau associatif permettant d'avoir un `WHERE` et des `AND`, si nécessaire, ils servent à affiner la requête.
@@ -210,6 +222,9 @@ $items = $repository->findBy([], ['createdAt' => 'DESC'], 10, 10);
 => Affiche seulement 10 `item` à partir du 11ème
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 2.3. QueryBuilder
 
 
@@ -273,6 +288,27 @@ $qb->getQuery() // formatte la requête prorement, prête à être envoyée à l
 ```
 
 
+Retour au [Sommaire](#sommaire)
+
+
+### 2.4. QueryBuilder avec paramètres
+
+
+Pour ajouter des paramètres dans votre QueryBuilder, il faut passer par des requêtes **préparées** :
+
+```php
+    // WHERE c.id IN (1, 5, 6, 8)
+    ->where('c IN (:categs)')
+    ->setParameter('categs', $game->getCategories())
+```
+
+- On écrit dans le WHERE `:alias` (les 2 points sont importants), ici l'alias est `categories`
+- Pour chaque `:alias` dans votre WHERE, vous devez avoir un `setParameter`, le premier paramètre est le nom de l'alias (SANS LES DEUX POINTS) déclaré dans le WHERE, le deuxième paramètre, la valeur de l'alias
+
+
+Retour au [Sommaire](#sommaire)
+
+
 ## 3. Twig
 
 
@@ -301,6 +337,10 @@ Un template enfant peut choisir de redéfinir et conserver le comportement du bl
 {% endblock %}
 ```
 
+
+Retour au [Sommaire](#sommaire)
+
+
 ### 3.2. Inclusion de template
 
 
@@ -320,6 +360,9 @@ Il peut arriver que l'on veuille dynamiser le template inclus, pour cela on peut
 ```
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 3.3. Instruction Twig
 
 
@@ -330,6 +373,9 @@ Il peut arriver que l'on veuille dynamiser le template inclus, pour cela on peut
     <h2>{{ title }}</h2>
 {% endif %}
 ```
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ## 4. Paramètres de route
@@ -354,6 +400,9 @@ public function show(
 Inconvénient : C'est un `find` dont les relations ne sont pas récupérées, en cas de nécessité, cela peut engrendrer des requêtes supplémentaires.
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 4.2. Via binding de paramètres
 
 
@@ -370,7 +419,10 @@ public function show(string $id): Response
 Inconvénient : Cela implique de traiter l'id dans la fonction, on va probablement avoir besoin du `Repository` en plus
 
 
-### 4.3. Via la `Request` 
+Retour au [Sommaire](#sommaire)
+
+
+### 4.3. Via la Request
 
 
 Ici on va injecter l'objet `Request` de Symfony, via celui-ci on peut récupérer l'identifiant passé en paramètre de l'URL :
@@ -396,6 +448,9 @@ $request->getContent();
 ```
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 4.4. Effectuer une redirection
 
 
@@ -417,3 +472,6 @@ Si on appelle une route avec des paramètres, on le fait comme ceci :
 ```
 
 - Entre les accolades dans la fonction path, on passe un "tableau" associatif où la clé le nom du paramètre définie par la route (ici : `id`), puis sa valeur
+
+
+Retour au [Sommaire](#sommaire)

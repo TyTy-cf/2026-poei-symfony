@@ -1,20 +1,20 @@
 {% extends 'front/base.html.twig' %}
 
 {% block title %}
-    Game page
+    Acheter {{ game.name }} !
 {% endblock %}
 
 {% block body %}
 
-
-    <section class="row">
-        <div>
-            <img src="{{ games.thumbnailCover }}" alt="game image" class="w-25">
+    <div class="container">
+        <div class="row game-show-container">
+            <div class="col-6">
+                <img alt="Jeux {{ game.name }}" src="{{ game.thumbnailCover }}">
+            </div>
+            <div class="col-6 game-show-infos">
+                <h1 class="mt-4">{{ game.name }}</h1>
+            </div>
         </div>
-        <div>
-            <h2>{{ games.name }}</h2>
-            <p>{{ games.description }}</p>
-        </div>
-    </section>
+    </div>
 
 {% endblock %}

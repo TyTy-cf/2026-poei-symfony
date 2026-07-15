@@ -5,7 +5,11 @@
             <i class="fa-solid fa-star"></i>
         {% endfor %}
     </div>
-    <p>{{ review.game.name }}</p>
+    <a  class="text-decoration-none"
+        href="{{ path('app_game_show', {'slug': review.game.slug}) }}"
+    >
+        {{ review.game.name }}
+    </a>
     <p class="card-review-content">
         {% set max = 20 %}
         {% if review.content|length > max %}

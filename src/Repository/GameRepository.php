@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Game;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,85 +16,48 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    //    /**
-    //     * @return Game[] Returns an array of Game objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Game
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
-
-
-    public function getQb(): QueryBuilder
+    public function findByGameTimeSum(?int $limit = null): array
     {
-        return $this->createQueryBuilder('g');
-    }
-
-    public function findByBests(?int $limit = null): array
-    {
-        $mostPlayed = $this->getQb()
+        $qb = $this->createQueryBuilder('g')
             ->join('g.userOwnGames', 'uog')
-            ->groupBy('g.id')
-            ->orderBy("sum(uog.gameTime)", 'DESC')
-            ->setMaxResults($limit);
-
-        return $mostPlayed->getQuery()->getResult();
-
-    }
-
-    public function findTrends(?int $limit = null): array
-    {
-        $trends = $this->getQb()
-            ->select('g')
-            ->orderBy('g.publishedAt', 'DESC')
-            ->setMaxResults($limit);
+            ->groupBy('g')
+            ->orderBy('SUM(uog.gameTime)', 'DESC');
 
         if ($limit !== null) {
-            $trends->setMaxResults($limit);
+            $qb->setMaxResults($limit);
         }
 
-        return $trends->getQuery()->getResult();
+        return $qb->getQuery()->getResult();
     }
 
-    public function findByTop(?int $limit = null): array
+    public function findByBestRating(?int $limit = null): array
     {
-        $mostPlayed = $this->getQb()
-            ->select('g', 'r')
+        $qb = $this->createQueryBuilder('g')
             ->join('g.reviews', 'r')
-            ->groupBy('g.id')
-            ->orderBy("avg(r.rating)", 'DESC')
-            ->setMaxResults($limit);
+            ->groupBy('g')
+            ->orderBy('AVG(r.rating)', 'DESC');
 
-        return $mostPlayed->getQuery()->getResult();
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
 
+        return $qb->getQuery()->getResult();
     }
 
-    public function findByUser(?string $name): array
+    public function findBySimilarCategory(Game|null $game, ?int $limit = null): array
     {
-        $mostPlayed = $this->getQb()
-            ->join('g.userOwnGames', 'uog')
-            ->groupBy('g.id')
-            ->orderBy("sum(uog.gameTime)", 'DESC');
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.categories', 'c')
+            // WHERE c.id IN (1, 5, 6, 8)
+            ->where('c IN (:categs)')
+            ->setParameter('categs', $game->getCategories())
+            ->orderBy('g.price', 'DESC');
 
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
 
-        return $mostPlayed->getQuery()->getResult();
-
+        return $qb->getQuery()->getResult();
     }
+
 }
