@@ -534,3 +534,5 @@ title:
             - fr 
 ```
 => Ici on met le site en priorité en anglais, si l'anglais n'est pas trouvé, on se replie sur le français
+
+- Dans les URL on peut utiliser le paramètre `{_locale}` qui est injecté par Symfony pour ajouter la locale automatiquement, on a pas besoin de le préciser lors des redirections !
