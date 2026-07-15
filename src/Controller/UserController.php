@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class UserController extends AbstractController
 {
-    #[Route('/user/{name}', name: 'app_user_show')]
+    #[Route('/{_locale}/user/{name}', name: 'app_user_show')]
     public function index(
         UserRepository $userRepository,
         string         $name,
