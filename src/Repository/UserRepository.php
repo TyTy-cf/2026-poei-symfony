@@ -26,7 +26,6 @@ class UserRepository extends ServiceEntityRepository
       ->leftJoin('u.reviews', 'r')
       ->leftJoin('r.game', 'g1')
       ->join('u.country', 'c')
-      ->groupBy('u.id')
       ->setParameter('name', $criteria['name'])
       ->andWhere('u.name = :name')
       ->getQuery()

@@ -15,6 +15,10 @@ final class PublisherController extends AbstractController
   public function show(PublisherRepository $publisherRepository, string $slug): Response
   {
 
+    if (!$slug || $slug === 'publisher') {
+      return $this->redirectToRoute('app_home');
+    }
+
     $publisher = $publisherRepository->getPublisherBySlug($slug);
 
     return $this->render('publisher/show.html.twig', [

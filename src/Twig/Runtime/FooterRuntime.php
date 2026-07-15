@@ -6,7 +6,7 @@ use App\Repository\CategoryRepository;
 use App\Service\MostPlayedCategories;
 use Twig\Extension\RuntimeExtensionInterface;
 
-class MostPlayedCategoriesRuntime implements RuntimeExtensionInterface
+class FooterRuntime implements RuntimeExtensionInterface
 {
   public function __construct(
     private CategoryRepository $mostPlayedCategoriesService
