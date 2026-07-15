@@ -1,7 +1,11 @@
 {% extends 'front/base.html.twig' %}
 
 {% block title %}
-    Acheter {{ game.name }} !
+    {% if app.locale == 'ca' %}
+        {{ 'game.show.title_reverse'|trans({'%gameName%': game.name}) }}
+    {% else %}
+        {{ 'game.show.title'|trans({'%gameName%': game.name}) }}
+    {% endif %}
 {% endblock %}
 
 {% block body %}

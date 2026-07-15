@@ -1,0 +1,16 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}
+    Profil de {{ user.name }} !
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+       {% for uog in user.userOwnGames %}
+           <h2>{{ uog.game.name }}</h2>
+           <strong>{{ uog.gameTime|time_conversion }}</strong>
+        {% endfor %}
+    </div>
+
+{% endblock %}
