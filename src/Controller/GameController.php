@@ -26,11 +26,11 @@ final class GameController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        $label = $translator->trans(
-            'game.show.title',
-            ['%gameName%' => $game->getName()],
-        );
-        $this->addFlash('success', $label);
+//        $label = $translator->trans(
+//            'game.show.title',
+//            ['%gameName%' => $game->getName()],
+//        );
+//        $this->addFlash('success', $label);
         $similarGames = $gameRepository->findBySimilarCategory($game, 3);
 
         return $this->render('front/game/show.html.twig', [

@@ -40,4 +40,17 @@ class UserRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+
+    public function findByGameTimeSum(?User $user): int
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('SUM(uog.gameTime)')
+            ->leftJoin('u.userOwnGames', 'uog')
+            ->where('u = :user')
+            ->setParameter('user', $user);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
+

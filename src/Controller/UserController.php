@@ -19,9 +19,11 @@ final class UserController extends AbstractController
     ): Response
     {
         $user = $userRepository->findOneBy(['name' => $name]);
+        $total = $userRepository->findByGameTimeSum($user);
 
         return $this->render('front/user/show.html.twig', [
             'user' => $user,
+            'total' => $total,
         ]);
     }
 }
