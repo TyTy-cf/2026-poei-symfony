@@ -7,9 +7,9 @@
 {% block body %}
 
     <div class="container">
-       {% for uog in user.userOwnGames %}
-           <h2>{{ uog.game.name }}</h2>
-           <strong>{{ uog.gameTime|time_conversion }}</strong>
+        {% for uog in user.userOwnGames %}
+            <h2>{{ uog.game.name }}</h2>
+            <strong>{{ uog.gameTime|time_conversion }}</strong>
         {% endfor %}
     </div>
 

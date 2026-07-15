@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserOwnGameRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,7 @@ final class UserController extends AbstractController
     public function index(
         UserRepository $userRepository,
         string         $name,
+        UserOwnGameRepository $userOwnGameRepository,
     ): Response
     {
         $user = $userRepository->findOneBy(['name' => $name]);
