@@ -5,19 +5,24 @@ namespace App\Controller;
 use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
 use App\Repository\ReviewRepository;
-<<<<<<< HEAD
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-=======
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
->>>>>>> 5ea06dc659115276aa23b6555051038018875fd1
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController
 {
-  #[Route('/', name: 'app_home')]
+  #[Route('/', name: 'app_home_redirect')]
+  public function homeRedirect(Request $request): Response
+  {
+    return $this->redirectToRoute('app_home', [
+      '_locale' => $request->getDefaultLocale(),
+    ]);
+  }
+
+
+  #[Route('/{_locale}/', name: 'app_home')]
   public function index(GameRepository $gameRepository, ReviewRepository $reviewRepository, CategoryRepository $categoryRepository): Response
   {
 
@@ -34,7 +39,9 @@ final class HomeController extends AbstractController
 
     $categories = $categoryRepository->findBy([], ["name" => "ASC"], 9);
 
+    $mostPlayedCategories = $categoryRepository->mostPlayedCategories(5);
 
+    // dd($mostPlayedCategories);
     return $this->render('home/index.html.twig', [
       'controller_name' => 'HomeController',
       'latestReleasedGames' => $latestReleasedGames,
@@ -42,6 +49,7 @@ final class HomeController extends AbstractController
       'bestRatedGames' => $bestRatedGames,
       'categories' => $categories,
       'mostPlayedGames' => $mostPlayedGames,
+      'mostPlayedCategories' => $mostPlayedCategories,
     ]);
   }
 }

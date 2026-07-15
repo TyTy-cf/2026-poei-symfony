@@ -1,14 +1,27 @@
 {% extends './front/base.html.twig' %}
+{% trans_default_domain 'home' %}
 
 
 {% block body %}
+
+	{% if app.flashes %}
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+					<div>{{ message|raw }}</div>
+				</div>
+			{% endfor %}
+		{% endfor %}
+	{% endif %}
 
 
 	<section>
 		<div class="container mb-5 h-50">
 			{%include './component/gameCard.html.twig' with  {
         "games": latestReleasedGames,
-        "title": "Latest Releases"} %}
+        "title": 'title.latest'|trans
+
+        } %}
 
 		</div>
 	</section>
@@ -19,7 +32,7 @@
 		<div class="container mb-5">
 			{%include './component/gameCard.html.twig' with  {
         "games": bestRatedGames,
-        "title": "Best Rated"
+        "title": 'title.bests'|trans
 
         } %}
 		</div>
@@ -45,7 +58,7 @@
 
 			{%include './component/gameCard.html.twig' with  {
         "games": mostPlayedGames,
-        "title": "Most Played"
+        "title": 'title.tops'|trans
         } %}
 		</div>
 

@@ -16,6 +16,41 @@ class CategoryRepository extends ServiceEntityRepository
     parent::__construct($registry, Category::class);
   }
 
+  /**
+   * @return Category[] Returns an array of Category objects
+   */
+  public function mostPlayedCategories(int $value): array
+  {
+
+    // select ost played games based on the game_time
+    return $this->createQueryBuilder('c')
+      ->select('c')
+      ->leftJoin('c.games', 'g')
+      ->leftJoin('g.userOwnGames', 'uog')
+      ->groupBy('c.id')
+      ->orderBy('SUM(uog.gameTime)', 'DESC')
+      ->setMaxResults($value)
+      ->getQuery()
+      ->getResult();
+  }
+
+  /**
+   * @return Category[] Returns a single Category object or null
+   */
+  public function FindAllGamesInCategory(array $criteria): ?array
+  {
+
+    // select category and all games with the same category in order to access every game with the same category
+    return $this->createQueryBuilder('c')
+      ->leftJoin('c.games', 'g')
+      ->addSelect('g')
+      ->where('c.name = :name')
+      ->setParameter('name', $criteria['name'])
+      ->getQuery()
+      ->getResult()
+    ;
+  }
+
   //    /**
   //     * @return Category[] Returns an array of Category objects
   //     */

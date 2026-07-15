@@ -1,23 +1,42 @@
 {% extends './front/base.html.twig' %}
 
+
 {% block body %}
 
-	<div class="container">
+	<div class="primary-banner">
 		<h1>{{ user.name }}</h1>
-		<img src="{{ user.country.urlFlag }}" alt="Avatar" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+		<img src="{{ user.country.urlFlag }}" alt="Avatar" class="img-fluid rounded-circle country-flag">
+
 	</div>
+	<div class="container"></div>
+	<section class="user-games">
+		<h2 class="text-center">Games</h2>
+		{% if user.userOwnGames is empty %}
+			<p>This user has no games yet.</p>
+		{% endif %}
+		{% for game in user.userOwnGames %}
 
-	{% for game in user.userOwnGames %}
+			<h3>{{ game.game.name }}
+				<span class="fw-lighter fs-6">
 
-		<h2>{{ game.game.name }}</h2>
 
-		<p>{{ game.game.description }}</p>
+					(
+					{{ game.gameTime|time_conversion }}
 
-	{% endfor %}
+					)</span>
+			</h3>
+
+
+			<p>{{ game.game.description }}</p>
+
+		{% endfor %}
+	</section>
+	<h2>Reviews</h2>
+
 
 	{% for review in user.reviews %}
 
-		<h2>{{ review.game.name }}</h2>
+		<h3>{{ review.game.name }}</h3>
 		{% include './component/star.html.twig' with  {"rating": review.rating} %}
 
 		<p>{{ review.content }}</p>

@@ -1,0 +1,16 @@
+.primary-banner {
+    height: 200px;
+    background-color: #141414;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    padding-left: 20px;
+    align-items: center;
+}
+
+.country-flag {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+}
+

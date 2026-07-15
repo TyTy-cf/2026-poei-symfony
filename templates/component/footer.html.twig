@@ -1,6 +1,13 @@
 <footer class="mt-auto w-100 bg-dark text-light py-3">
 
+
 	<div class="container text-center">
+		{% for category in mostPlayedCategories(5) %}
+			<a href="{{ path('app_category_show', {'name': category.name}) }}" style="text-decoration: none; color: inherit;">
+
+				<span class="badge bg-secondary">{{ category.name }}</span>
+			</a>
+		{% endfor %}
 		<p class="mb-0">&copy; 2026 Steam Ish. Tous droits réservés.</p>
 	</div>
 </footer>
