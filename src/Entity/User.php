@@ -232,4 +232,15 @@ class User
 
         return $this;
     }
+
+    public function getTotalGameTime(): int
+    {
+        $total = 0;
+
+        foreach ($this->getUserOwnGames() as $userOwnGame) {
+            $total += $userOwnGame->getGameTime();
+        }
+
+        return $total;
+    }
 }

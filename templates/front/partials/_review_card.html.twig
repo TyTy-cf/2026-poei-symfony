@@ -5,13 +5,19 @@
             <i class="fa-solid fa-star"></i>
         {% endfor %}
     </div>
-    <a  class="text-decoration-none"
-        href="{{ path('app_game_show', {'slug': review.game.slug}) }}"
-    >
-        {{ review.game.name }}
-    </a>
+
+    {% if (hasGameLink is true) %}
+        <a  class="text-decoration-none"
+            href="{{ path('app_game_show', {'slug': review.game.slug}) }}"
+        >
+            {{ review.game.name }}
+        </a>
+    {% endif %}
+
     <p class="card-review-content">
-        {% set max = 20 %}
+        {% if (max is not defined) %}
+            {% set max = 30 %}
+        {% endif %}
         {% if review.content|length > max %}
             {{ review.content|slice(0, max) }}...
         {% else %}

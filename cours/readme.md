@@ -553,6 +553,21 @@ On peut aussi utiliser les `Translations` en PHP, en injectant l'objet `Translat
 use Symfony\Contracts\Translation\TranslatorInterface;
 ```
 
+- Exemple d'utilisation sur un fichier de traduction différent :
+
+```php
+$translator->trans('game.not_found', [], 'alert')
+```
+
+- Exemple d'utilisation avec un paramètre :
+s
+```php
+$translator->trans(
+    'game.show.title',
+    ['%gameName%' => $game->getName()],
+);
+```
+
 
 - Dans les URL on peut utiliser le paramètre `{_locale}` qui est injecté par Symfony pour ajouter la locale automatiquement, on a pas besoin de le préciser lors des redirections !
 

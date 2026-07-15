@@ -2,9 +2,9 @@
 
 {% block title %}
     {% if app.locale == 'ca' %}
-        {{ 'game.show.title_reverse'|trans({'%gameName%': game.name}) }}
+        {{ 'game.show.title.reverse'|trans({'%gameName%': game.name}) }}
     {% else %}
-        {{ 'game.show.title'|trans({'%gameName%': game.name}) }}
+        {{ 'game.show.title.main'|trans({'%gameName%': game.name}) }}
     {% endif %}
 {% endblock %}
 
@@ -12,13 +12,50 @@
 
     <div class="container">
         <div class="row game-show-container">
-            <div class="col-6">
-                <img alt="Jeux {{ game.name }}" src="{{ game.thumbnailCover }}">
+            <div class="col-md-6 col-12">
+                <img class="front-image" alt="Jeux {{ game.name }}" src="{{ game.thumbnailCover }}">
             </div>
-            <div class="col-6 game-show-infos">
+            <div class="col-md-6 col-12 game-show-infos mt-md-0 mt-4">
                 <h1 class="mt-4">{{ game.name }}</h1>
+                <p class="mt-4">
+                    Disponible en
+                    {% for country in game.countries %}
+                        <img class="img-fluid" src="{{ country.urlFlag }}" alt="{{ 'game.show.country.alt'|trans({'%name%': country.nationality}) }}">
+                    {% endfor %}
+                </p>
+                <div class="mt-4">
+                    {% for category in game.categories %}
+                        <span class="game-show-category">{{ category.name }}</span>
+                    {% endfor %}
+                </div>
+                <div class="mt-4">
+                    <p>{{ 'game.show.publisher'|trans({'%name%': game.publisher.name}) }}</p>
+                </div>
+                <div class="mt-4">
+                    <p>{{ 'game.show.published_at'|trans({'%date%': game.publishedAt|date('d/m/Y')}) }}</p>
+                </div>
+                <p class="mt-4 game-show-price">{{ game.price }}€</p>
             </div>
         </div>
+
+        <section class="mt-5">
+            <h2>{{ 'game.show.title.description'|trans }}</h2>
+            {{ game.description|raw }}
+        </section>
+
+        <section class="mt-5">
+            <h2>{{ 'game.show.title.reviews'|trans }}</h2>
+            <div class="row">
+                {% for review in game.reviews %}
+                    <div class="col-lg-3 col-md-4 col-12 p-2">
+                        {% include 'front/partials/_review_card.html.twig' with {
+                            'hasGameLink': false,
+                            'max': 120
+                        } %}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
     </div>
 
 {% endblock %}

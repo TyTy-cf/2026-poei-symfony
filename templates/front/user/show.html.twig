@@ -7,7 +7,15 @@
 {% block body %}
 
     <div class="container">
+        <section>
+            <h2>Ses jeux</h2>
+            <p>Temps de jeu total : {{ user.totalGameTime|time_conversion }}</p>
 
+            {% for uog in user.userOwnGames %}
+                <h2>{{ uog.game.name }}</h2>
+                <strong>{{ uog.gameTime|time_conversion }}</strong>
+            {% endfor %}
+        </section>
     </div>
 
 {% endblock %}

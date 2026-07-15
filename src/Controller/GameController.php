@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Review;
 use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ final class GameController extends AbstractController
         string              $slug
     ): Response
     {
-        $game = $gameRepository->findOneBy(['slug' => $slug]);
+        $game = $gameRepository->findOneFullBy($slug);
 
         if ($game === null) {
             // add a flashgBag message to session, for next page :
@@ -26,11 +27,6 @@ final class GameController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        $label = $translator->trans(
-            'game.show.title',
-            ['%gameName%' => $game->getName()],
-        );
-        $this->addFlash('success', $label);
         $similarGames = $gameRepository->findBySimilarCategory($game, 3);
 
         return $this->render('front/game/show.html.twig', [
@@ -38,4 +34,5 @@ final class GameController extends AbstractController
             'similarGames' => $similarGames,
         ]);
     }
+
 }
