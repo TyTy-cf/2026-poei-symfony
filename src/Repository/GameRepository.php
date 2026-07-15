@@ -44,7 +44,7 @@ class GameRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findBySimilarCategory(Game|null $game, ?int $limit = null): array
+    public function findBySimilarCategory(Game $game, ?int $limit = null): array
     {
         $qb = $this->createQueryBuilder('g')
             ->join('g.categories', 'c')

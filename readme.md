@@ -231,8 +231,9 @@ Pour les catégories vous afficherez :
 - On affichera : 
   - Le nickname du user
   - "Inscrit le xx/xx/xx"
-  - La liste de ses jeux possédés
+  - La liste de ses jeux possédés **avec leur temps de jeu** (seulement par jeu ici)
   - La liste de ses commentaires postés
+  - **En réutilisant des traitements déjà réalisés... calculer et afficher le temps de jeu total de l'utilisateur au format "hh:mm"**
 
 
 ### 6. Ajouter des liens
@@ -240,3 +241,48 @@ Pour les catégories vous afficherez :
 
 - Ajouter un lien vers la page d'un jeu depuis la card `review`
 - Ajouter un lien vers la page d'un user depuis la card `review`
+
+
+### 7. Le temps de jeu total
+
+
+- Voir exercice 5, ajouter les comportements en gras
+
+
+### 8. Faire un footer
+
+
+- Je veux que dans mon footer on affiche une liste des 5 catégories de jeu les plus jouées (trié par temps de jeu total)
+- Afficher simplement les noms des 5 jeux les plus commentés (avec un lien vers la page de show de celu-ci)
+- Je pense que vous rencontrerez rapidement un problème... Il y a une solution qui a été évoquée dans le cours de ce matin ?
+- Un minima de CSS ?
+
+
+### 9. Translations
+
+
+Bien sûr on utilisera dorénavant que les chaînes de traductions dans le site
+
+
+### 10. Prévoir un message flash
+
+
+- Sur la page `show` d'un user, ajouter un message `flash` si celui-ci n'existe pas, rediriger l'utilisateur sur la home
+
+
+### 11. Faire la page d'une catégorie
+
+
+- Créer le Controller : `Category`
+- Créer une fonction `show` dans celui-ci, dont la route sera : `/category/{slug}`
+- Optimiser la requête de récupération d'une catégorie, **si nécessaire**
+- La fonction doit afficher les jeux ayant cette catégorie
+
+
+### 12. Faire la page d'un publisher
+
+
+- Créer le Controller : `Publisher`
+- Créer une fonction `show` dans celui-ci, dont la route sera : `/publisher/{slug}`
+- Optimiser la requête de récupération d'un éditeur de jeu, **si nécessaire**
+- La fonction doit afficher les informations de l'éditeur, ainsi que ses jeux créés
