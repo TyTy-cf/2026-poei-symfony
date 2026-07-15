@@ -20,20 +20,20 @@ final class HomeController extends AbstractController
         UserOwnGameRepository $userOwnGameRepository,
     ): Response
     {
-        $trends = $gameRepository->findBy([], ['publishedAt' => 'DESC'], 9);
-        $bests = $gameRepository->findBy([], ['price' => 'DESC'], 9);
-        $reviews = $reviewRepository->findFullBy(['createdAt' => 'DESC'], 5);
-        $tops = $gameRepository->findBy([], ['name' => 'ASC'], 6);
+        $trends = $gameRepository->mostPlayedGames(9);
+        $bests = $gameRepository->bestGames(9);
+        $reviews = $reviewRepository->findBy(['rating' => 5],['createdAt' => 'DESC'], 5);
+        $tops = $gameRepository->topRatingGames(6);
         $categories = $categoryRepository->findBy([], ['name' => 'ASC'], 9);
-        $countUserOwnGame = $userOwnGameRepository->findBy(["isInstalled" => 1]);
+
+
 
         return $this->render('front/home/index.html.twig', [
             'trends' => $trends,
             'bests' => $bests,
             'reviews' => $reviews,
             'tops' => $tops,
-            'categories' => $categories,
-            "countUserOwnGameByGameId" => $countUserOwnGame
+            'categories' => $categories
         ]);
     }
 }

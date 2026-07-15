@@ -168,7 +168,7 @@ Représente un avis/critique laissé par un utilisateur sur un jeu.
 ### 2. Faire la home de SteamIsh
 
 
-**Fichiers impactés : ** `HomeController` & `front/home/index.html.twig` 
+**Fichiers impactés : ** `HomeController` & `front/home/index.html.twig`
 
 
 Vous devez créer les blocs suivants sur la page Twig :
@@ -201,12 +201,42 @@ Pour les catégories vous afficherez :
 - `image`
 
 
-### 3. Faire la page de détail d'un jeu
+### 3. Modifier les requêtes de la home
+
+
+- "trends" (Les tendances) : les 9 jeux les plus joués (Query custom !)
+- "bests" (Les meilleures sorties) : doit être les 9 derniers jeux sortis
+- "tops" (Les tops jeux) : les 6 jeux avec le meilleur rating
+
+
+### 4. Faire la page de détail d'un jeu
 
 
 - Créer le Controller : `Game`
 - Créer une fonction `show` dans celui-ci, dont la route sera : `/game/{slug}`
+- Optimiser la requête de récupération d'un jeu...
 - La fonction doit afficher le détail d'un jeu dont le slug est passé en paramètre
 - Inspirez vous de la page de détail d'Instant-Gaming : https://www.instant-gaming.com/fr/22977-acheter-halo-campaign-evolved-premium-edition-xbox-series-x-s-pc-microsoft-store/
 - Faites en sorte que lorsque l'on clique sur une card d'un jeu depuis la home, on soit redirigé sur ce controller
 - Pareil depuis le nom d'un jeu depuis un commentaire
+
+
+### 5. Faire la page de détail d'un user
+
+
+- Créer le Controller : `User`
+- Créer une fonction `show` dans celui-ci, dont la route sera : `/user/{name}`
+- Optimiser la requête de récupération d'un user...
+- La fonction doit afficher le détail d'un user dont le name est passé en paramètre
+- On affichera :
+    - Le nickname du user
+    - "Inscrit le xx/xx/xx"
+    - La liste de ses jeux possédés
+    - La liste de ses commentaires postés
+
+
+### 6. Ajouter des liens
+
+
+- Ajouter un lien vers la page d'un jeu depuis la card `review`
+- Ajouter un lien vers la page d'un user depuis la card `review`

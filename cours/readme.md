@@ -4,17 +4,30 @@
 ## Sommaire
 
 
-- [1. L'injection de dépendance](#1-linjection-de-dépendance)
+## Sommaire
+
+- [1. Compréhension globale](#1-compréhension-globale)
+    - [1.1. Injection de dépendance](#11-injection-de-dépendance)
+    - [1.2. WebPack](#12-webpack)
 - [2. Les Repository](#2-les-repository)
-    - [2.1. Méthodes natives aux `Repository $repository`](#21-méthodes-natives-aux-repository-repository)
-    - [2.2. Critères des `Repository $repository`](#22-critères-des-repository-repository)
+    - [2.1. Méthodes natives aux Repository](#21-méthodes-natives-aux-repository)
+    - [2.2. Critères des Repository](#22-critères-des-repository)
+    - [2.3. QueryBuilder](#23-querybuilder)
 - [3. Twig](#3-twig)
     - [3.1. Extends](#31-extends)
     - [3.2. Inclusion de template](#32-inclusion-de-template)
     - [3.3. Instruction Twig](#33-instruction-twig)
+- [4. Paramètres de route](#4-paramètres-de-route)
+    - [4.1. Via binding d'objet](#41-via-binding-dobjet)
+    - [4.2. Via binding de paramètres](#42-via-binding-de-paramètres)
+    - [4.3. Via la Request](#43-via-la-request)
+    - [4.4. Effectuer une redirection](#44-effectuer-une-redirection)
 
 
-## 1. L'injection de dépendance
+## 1. Compréhension globale
+
+
+### 1.1. Injection de dépendance
 
 
 Communément appelée ID en français, ou DI en anglais (Dependancy Injection), c'est le fait d'indiquer au Framework qu'il doit gérer le cycle de vie de l'objet.
@@ -23,7 +36,7 @@ C'est donc le Framework qui va instancier l'objet en question pour vous.
 
 On s'en sert souvent dans les routes des contrôleurs ou dans les `__construct()`, exemple :
 
-On ne peut pas passer par injection de dépendance tout et n'importe quoi, on est limité à certains objet, comme les `Repository`, les `Services`, les classes de Symfony et dans certains cas de figure nos entités. 
+On ne peut pas passer par injection de dépendance tout et n'importe quoi, on est limité à certains objet, comme les `Repository`, les `Services`, les classes de Symfony et dans certains cas de figure nos entités.
 
 - Route d'un Contrôleur :
 
@@ -40,10 +53,85 @@ public function __construct(private GameRepository $gameRepository) {
 }
 ```
 
+
+### 1.2. WebPack
+
+
+WebPack permet de gérer tout ce qui est "assets" de l'application Symfony, les assets sont tout ce qui est `CSS` (et autres dérivés `SCSS`, `SASS` ou encore `LESS`), `JS` (ou `Typescript` ou `Vue`) ou les images.
+
+
+Il se base sur le fichier `webpack.config.js` qui est créé à la racine du projet.
+
+
+WebPack va compiler un fichier d'assets en un fichier regroupant tout notre code.
+
+La configuration se fait via le code suivant :
+
+```js
+    .addEntry('scripts', './assets/scripts/app.js')
+    .addEntry('styles', './assets/styles/app.css')
+```
+
+Ici, on créé deux fichiers : "scripts" et "styles". "scripts" se base sur le fichier `app.js` présent dans le dossier `/assets/scripts` et le fichier "styles" sur le fichier `app.css` présent dans le dossier `/assets/styles`
+
+On configure le dossier où doit être placé le fichier en sortie, une fois compilée :
+
+```js
+    .setOutputPath('public/build/')
+    .setPublicPath('/build')
+```
+
+- On indique qu'il sera dans le dossier "public/build"
+
+Ensuite il faut importer les fichiers générés en sortie dans le template Twig :
+
+```html
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('styles') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('scripts') }}
+        {% endblock %}
+```
+
+- `encore_entry_link_tags` : importe un fichier de style (.css), le nom du fichier est passé en paramètre, ici : `styles`
+- `encore_entry_script_tags` : importe un fichier de script (.js), le nom du fichier est passé en paramètre, ici : `scripts`
+
+
+Pour que WebPack compile vos fichiers vous devez lancer la commande suivante : `npm run watch`, elle recompile **en direct** les fichiers d'assets.
+(Il se base sur une modification pour recompiler !)
+
+En environnement de production : `npm run build`
+
+(PS : si notre environnement Node est sous docker... il faut lancer la commande depuis le **container Node**)
+(PS² : pensez à faire du `CTRL + F5` lorsque vous faites des modifications d'assets...)
+
+
+On peut ajouter une configuration pour copier les images avec WebPack :
+
+```js
+.copyFiles({
+    from: './assets/images',
+    to: 'images/[path][name].[ext]'
+})
+```
+
+- Cette configuration copies les images depuis de le dossier "assets/images" dans le le dossier "public/build", qui est créé par WebPack.
+
+Une fois les images copiées dans le dossier "build", on peut les réutiliser sur le site Web avec Twig :
+
+```html
+{{ asset('images/home.png') }}
+```
+
+- La fonction Twig `asset`permet d'accéder au contenu du dossier `build`
+
+
 ## 2. Les Repository
 
 
-### 2.1. Méthodes natives aux `Repository $repository` :
+### 2.1. Méthodes natives aux Repository
 
 
 - `$repository->count()` : comptez le nombre de lignes corespondant aux critères (par défaut : `SELECT COUNT(*) FROM _table`)
@@ -51,10 +139,10 @@ public function __construct(private GameRepository $gameRepository) {
 - `$repository->find()` : récupère UNE instance de l'objet géré par le Repository OU NULL, uniquement par son `id`
 - `$repository->findAll()` : récupère TOUTES les instances de l'objet géré par le Repository sous forme de tableau
 - `$repository->findBy()` : récupère TOUTES les instances de l'objet géré par le Repository sous forme de tableau, selon les critères demandés
-- `$repository->createQueryBuilder()` : permet de créer nos propres requêtes SQL, une requête qui ne serait pas faisable avec les `find` de base 
+- `$repository->createQueryBuilder()` : permet de créer nos propres requêtes SQL, une requête qui ne serait pas faisable avec les `find` de base
 
 
-### 2.2. Critères des `Repository $repository` :
+### 2.2. Critères des Repository
 
 
 Les fonctions `findOneBy()`, `findBy()` et `count()` peuvent avoir des crtières (le premier paramère de la fonction), il s'agit d'un tableau associatif permettant d'avoir un `WHERE` et des `AND`, si nécessaire, ils servent à affiner la requête.
@@ -126,6 +214,69 @@ $items = $repository->findBy([], ['createdAt' => 'DESC'], 10, 10);
 => Affiche seulement 10 `item` à partir du 11ème
 
 
+### 2.3. QueryBuilder
+
+
+Lorsque l'on utilise la méthode de l'AbstractRepositroy `createQueryBuilder('r')` on instancie un objet de type `QueryBuilder` : un constructeur de requêtes SQL.
+
+Le comportement par défaut du `createQueryBuilder('r')` est de faire la requête SQL suivante :
+
+```sql
+SELECT r.*
+FROM _table AS r;
+```
+
+
+Depuis un objet `QueryBuilder` on peut utiliser différentes méthodes :
+- `join` : permet de faire un innerJoin vers une entité en relation
+- `innerJoin` : permet de faire un innerJoin vers une entité en relation
+- `leftJoin` : permet de faire un leftJoin vers une entité en relation
+
+Exemple de `QueryBuilder` :
+
+```php
+$this->createQueryBuilder('r')
+    ->select('r', 'u') // Permet d'indiquer que l'on veut récupérer le contenu de 'r' ET de 'u', par défaut c'est seulement 'r'
+    ->join('r.user', 'u');
+```
+
+En SQL cela donne :
+
+```sql
+SELECT r.*, u.*
+FROM _TABLE AS r
+JOIN user AS u WHERE r.user_id = u.id;
+```
+
+Via le `QueryBuilder` vous pouvez faire TOUTES les actions SQL existantes :
+
+```php
+    ->where('r.rating = 5')
+    ->orderBy('r.createdAt', 'DESC')
+    ->setMaxResults(5); // LIMIT en SQL !
+```
+
+Ici on vient ajouter une condition WHERE et un ORDER BY à notre requête :
+
+```sql
+SELECT r.*, u.*
+FROM _TABLE AS r
+JOIN user AS u WHERE r.user_id = u.id
+WHERE r.rating = 5
+ORDER BY r.created_at DESC
+LIMIT 5;
+```
+
+
+Une fois le `QueryBuilder` terminé, vous devez faire l'équivalent d'un `fetch` ou `fetchAll` :
+
+```php
+$qb->getQuery() // formatte la requête prorement, prête à être envoyée à la BDD ($stmt->execute ?)
+    ->getResult(); // fetchAll
+    ->getOneOrNullResult(); // fetch
+```
+
+
 ## 3. Twig
 
 
@@ -185,6 +336,88 @@ Il peut arriver que l'on veuille dynamiser le template inclus, pour cela on peut
 ```
 
 
+## 4. Paramètres de route
 
 
+### 4.1. Via binding d'objet
 
+
+L'objectif ici est de lier directement l'id passé en paramètre de l'URL à l'objet passé en paramètre de la fonction :
+
+```php
+#[Route('/game/{id}', name: 'app_game_show')]
+public function show(
+    Game $game // ->find($id)
+): Response
+{
+```
+
+- `Game` possède un attribut `id`, alors implicitement Symfony effectue la requête `SELECT * FROM game WHERE id = $id`
+
+
+Inconvénient : C'est un `find` dont les relations ne sont pas récupérées, en cas de nécessité, cela peut engrendrer des requêtes supplémentaires.
+
+
+### 4.2. Via binding de paramètres
+
+
+L'objectif ici est de lier directement l'id passé en paramètre de l'URL au paramètres `$id`de la fonction (il doit être du même nom pour que cela fonctionne !) :
+
+
+```php
+#[Route('/game/{id}', name: 'app_game_show')]
+public function show(string $id): Response
+{
+```
+
+
+Inconvénient : Cela implique de traiter l'id dans la fonction, on va probablement avoir besoin du `Repository` en plus
+
+
+### 4.3. Via la Request
+
+
+Ici on va injecter l'objet `Request` de Symfony, via celui-ci on peut récupérer l'identifiant passé en paramètre de l'URL :
+
+```php
+#[Route('/game/{id}', name: 'app_game_show')]
+public function show(Request $request): Response
+{
+    dd($request->attributes->get('id'));
+```
+
+
+(PS : penser à utiliser le bon `use`: `use Symfony\Component\HttpFoundation\Request;` !!!)
+
+
+Inconvénient : Rajoute du traitement pour rien ?
+
+
+On peut aussi récupérer le `corps` de la requête via l'objet `Request`:
+
+```php
+$request->getContent();
+```
+
+
+### 4.4. Effectuer une redirection
+
+
+Pour effectuer une redirection on utilise la fonction `path` que l'on passe en paramètre au `href` :
+
+```html
+<a href="{{ path('app_home') }}">
+    Home
+</a>
+```
+
+
+Si on appelle une route avec des paramètres, on le fait comme ceci :
+
+```html
+<a href="{{ path('app_game_show', {'id': game.id}) }}">
+
+</a>
+```
+
+- Entre les accolades dans la fonction path, on passe un "tableau" associatif où la clé le nom du paramètre définie par la route (ici : `id`), puis sa valeur

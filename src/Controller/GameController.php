@@ -19,10 +19,10 @@ final class GameController extends AbstractController
 
 
 
-    #[Route('/game/{id}', name: 'app_game_show')]
-    public function show(int $id, GameRepository $gameRepository)
+    #[Route('/game/{slug}', name: 'app_game_show')]
+    public function show(int $slug, GameRepository $gameRepository)
     {
-        $game =$gameRepository->find($id);
+        $game =$gameRepository->find($slug);
 
         if($game === null){
             return $this->redirectToRoute("app_home");

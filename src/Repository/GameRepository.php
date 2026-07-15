@@ -16,6 +16,37 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
+    public function mostPlayedGames(?int $limit){
+        $mostPlayedGames = $this->createQueryBuilder('g')
+            -> groupBy("g.id")
+            -> orderBy("sum(uog.gameTime)", "DESC")
+            -> join("g.userOwnGames", "uog")
+            -> setMaxResults($limit);
+
+        return $mostPlayedGames->getQuery()->getResult();
+
+    }
+
+    public function bestGames(?int $limit){
+        $bestGames = $this->createQueryBuilder("g")
+            ->orderBy("g.publishedAt", "DESC")
+            ->setMaxResults($limit);
+
+        return $bestGames->getQuery()->getResult();
+    }
+
+    public function topRatingGames(?int $limit){
+        $topRatingGames = $this->createQueryBuilder("g")
+            -> join("g.reviews", "r")
+            -> groupBy("g.id")
+            -> orderBy("avg(r.rating)", "DESC")
+            -> setMaxResults($limit);
+
+        return $topRatingGames->getQuery()->getResult();
+
+    }
+
+
     //    /**
     //     * @return Game[] Returns an array of Game objects
     //     */
