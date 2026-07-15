@@ -6,12 +6,22 @@ use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
 use App\Repository\ReviewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
+
+    #[Route('/', name: 'app_home_redirect')]
+    public function homeRedirect(Request $request): Response
+    {
+        return $this->redirectToRoute('app_home', [
+            '_locale' => $request->getDefaultLocale(),
+        ]);
+    }
+
+    #[Route('/{_locale}/', name: 'app_home')]
     public function home(
         GameRepository     $gameRepository,
         ReviewRepository   $reviewRepository,

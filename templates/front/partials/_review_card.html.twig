@@ -20,8 +20,10 @@
     </p>
     <div class="mt-auto">
         <p class="mb-0">Le {{ review.createdAt|date('d/m/Y') }}</p>
-        <a href="{{ path('app_user_show', {'name': review.user.name}) }}">
-            <span>par {{ review.user.nickname }}</span>
+        <a href="{{ path('app_user_show', {'name': review.user.name }) }}"
+           class="text-decoration-none text-light"
+        >
+            par {{ review.user.nickname }}
         </a>
     </div>
 </div>

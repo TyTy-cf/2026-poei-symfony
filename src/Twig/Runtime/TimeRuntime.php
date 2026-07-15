@@ -2,17 +2,20 @@
 
 namespace App\Twig\Runtime;
 
+use App\Service\TimeService;
 use Twig\Extension\RuntimeExtensionInterface;
 
-class TimeRuntime implements RuntimeExtensionInterface
+readonly class TimeRuntime implements RuntimeExtensionInterface
 {
-    public function __construct()
-    {
-        // Inject dependencies if needed
+
+    public function __construct(
+        private TimeService $timeService
+    ) {
     }
 
-    public function doSomething($value)
+    public function timeConversion(int $timeInSec): string
     {
-        // ...
+        return $this->timeService->timeConversion($timeInSec);
     }
+
 }

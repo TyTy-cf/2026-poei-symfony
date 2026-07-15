@@ -21,6 +21,8 @@
     - [4.2. Via binding de paramètres](#42-via-binding-de-paramètres)
     - [4.3. Via la Request](#43-via-la-request)
     - [4.4. Effectuer une redirection](#44-effectuer-une-redirection)
+- [5. Les translations](#5-les-translations)
+    - [5.1. Mise en place](#41-mise-en-place)
 
 
 ## 1. Compréhension globale
@@ -475,3 +477,60 @@ Si on appelle une route avec des paramètres, on le fait comme ceci :
 
 
 Retour au [Sommaire](#sommaire)
+
+
+### 4.5 Paramètre optionnel
+
+
+- On ajoute un `?` après la déclaration de la variable dans l'URL, mais bien à l'intérieur des accolades.
+
+```php
+#[Route('/{_locale?}', name: 'app_home')]
+```
+
+
+## 5. Les translations
+
+
+### 5.1. Mise en place
+
+
+- Créer un fichier `messages.LOCALE.yaml` => `LOCALE` prend le nom des codes de locales ('fr', 'en', 'de', 'es', 'pt', 'it', etc)
+- Le nom du fichier est conventionné Symfony !
+- Modifier dans le fichier `config/packages/translation.yaml` : modifier la ligne `default_locale:` pour ajouter 'fr' en langue par défaut pour le site
+- Pour utiliser les chaînes de traductions dans un tempalte Twig, on utilise le filtre `trans`:
+
+```html
+{{ 'home.title'|trans }}
+```
+
+- 'home.title' est la clé dans le fichier yaml :
+
+```yaml
+title:
+    main: "SteamIsh : l'actu G4ming !"
+```
+
+- On peut aussi définir un fichier nous-même :
+  - Par exemple : `home.fr.yaml`
+  - Dans notre template twig on lui indique où chercher la clé de traduction via l'instruction :
+
+```html
+{% trans_default_domain 'home' %}
+```
+
+- Toujours dans le fichier `config/packages/translation.yaml`, ajouter la ligne suivante, au même niveau que `default_locale`:
+
+```yaml
+    set_locale_from_accept_language: true
+```
+
+- Cela permet de forcer la récupération de la locale du navigateur du user
+
+- On peut ajouter un fallback, si la langue de l'utilisateur n'existe pas, alors on va chercher celle en "fallback", c'est-à-dire une traduction disponible dans l'ordre :
+```yaml
+        fallbacks:
+            - en
+            - fr 
+```
+=> Ici on met le site en priorité en anglais, si l'anglais n'est pas trouvé, on se replie sur le français

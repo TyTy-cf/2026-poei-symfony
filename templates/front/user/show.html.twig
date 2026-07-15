@@ -1,34 +1,16 @@
 {% extends 'front/base.html.twig' %}
 
 {% block title %}
-    {{ users.name }}
+    Profil de {{ user.name }} !
 {% endblock %}
 
 {% block body %}
 
-    <div class="m-4">
-
-        <h1>{{ users.nickname }}</h1>
-        <div>Inscrit en {{ users.createdAt|date("d/m/y") }}</div>
-
-        <div class="row">
-            {% for user in users %}
-                <div class="col-md-4 col-12">
-                    <div class="card-game">
-                        <a href="{{ path('app_game_show', {'slug': game.slug}) }}"><img src="{{ game.thumbnailCover }}"
-                                                                                        alt="Image de {{ game.name }}"
-                            ></a>
-                        <div class="d-flex justify-content-between">
-                            <p>{{ game.name }}</p>
-                            <span>{{ game.price }}€</span>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
+    <div class="container">
+       {% for uog in user.userOwnGames %}
+           <h2>{{ uog.game.name }}</h2>
+           <strong>{{ uog.gameTime|time_conversion }}</strong>
+        {% endfor %}
     </div>
-
-
 
 {% endblock %}
