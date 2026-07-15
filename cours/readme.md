@@ -500,6 +500,26 @@ Retour au [Sommaire](#sommaire)
 - Modifier dans le fichier `config/packages/translation.yaml` : modifier la ligne `default_locale:` pour ajouter 'fr' en langue par défaut pour le site
 - Pour utiliser les chaînes de traductions dans un tempalte Twig, on utilise le filtre `trans`:
 
+- Toujours dans le fichier `config/packages/translation.yaml`, ajouter la ligne suivante, au même niveau que `default_locale`:
+
+```yaml
+    set_locale_from_accept_language: true
+```
+
+- Cela permet de forcer la récupération de la locale du navigateur du user
+
+- On peut ajouter un fallback, si la langue de l'utilisateur n'existe pas, alors on va chercher celle en "fallback", c'est-à-dire une traduction disponible dans l'ordre :
+```yaml
+        fallbacks:
+            - en
+            - fr 
+```
+=> Ici on met le site en priorité en anglais, si l'anglais n'est pas trouvé, on se replie sur le français
+
+
+### 5.2 Utilisation
+
+
 ```html
 {{ 'home.title'|trans }}
 ```
@@ -519,20 +539,11 @@ title:
 {% trans_default_domain 'home' %}
 ```
 
-- Toujours dans le fichier `config/packages/translation.yaml`, ajouter la ligne suivante, au même niveau que `default_locale`:
+On peut aussi utiliser les `Translations` en PHP, en injectant l'objet `TranslatorInterface`:
 
-```yaml
-    set_locale_from_accept_language: true
+```php
+use Symfony\Contracts\Translation\TranslatorInterface;
 ```
 
-- Cela permet de forcer la récupération de la locale du navigateur du user
-
-- On peut ajouter un fallback, si la langue de l'utilisateur n'existe pas, alors on va chercher celle en "fallback", c'est-à-dire une traduction disponible dans l'ordre :
-```yaml
-        fallbacks:
-            - en
-            - fr 
-```
-=> Ici on met le site en priorité en anglais, si l'anglais n'est pas trouvé, on se replie sur le français
 
 - Dans les URL on peut utiliser le paramètre `{_locale}` qui est injecté par Symfony pour ajouter la locale automatiquement, on a pas besoin de le préciser lors des redirections !

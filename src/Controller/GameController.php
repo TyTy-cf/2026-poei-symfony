@@ -22,10 +22,15 @@ final class GameController extends AbstractController
         if ($game === null) {
             // add a flashgBag message to session, for next page :
             // ['danger'] => ['Message 1', 'Message 2']
-            $this->addFlash('danger', 'Game not found');
+            $this->addFlash('danger', $translator->trans('game.not_found', [], 'alert'));
             return $this->redirectToRoute('app_home');
         }
 
+        $label = $translator->trans(
+            'game.show.title',
+            ['%gameName%' => $game->getName()],
+        );
+        $this->addFlash('success', $label);
         $similarGames = $gameRepository->findBySimilarCategory($game, 3);
 
         return $this->render('front/game/show.html.twig', [
