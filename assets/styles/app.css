@@ -7,4 +7,5 @@
 @import "card/_game.css";
 @import "card/_review.css";
 @import "card/_category.css";
-@import "card/_showone.css";
+
+@import "page/game_show.css";

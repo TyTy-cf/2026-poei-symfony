@@ -9,28 +9,18 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class GameController extends AbstractController
 {
-    #[Route('/game', name: 'app_game')]
-    public function index(): Response
-    {
-        return $this->render('front/game_show/index.html.twig', [
-            'controller_name' => 'GameController',
-        ]);
-    }
-
-
-
     #[Route('/game/{slug}', name: 'app_game_show')]
-    public function show(int $slug, GameRepository $gameRepository)
+    public function show(
+        GameRepository $gameRepository,
+        string         $slug
+    ): Response
     {
-        $game =$gameRepository->find($slug);
+        $game = $gameRepository->findOneBy(['slug' => $slug]);
+        $similarGames = $gameRepository->findBySimilarCategory($game, 3);
 
-        if($game === null){
-            return $this->redirectToRoute("app_home");
-        }
-        return $this->render('front/game_show/index.html.twig', [
-            'game' => $game
+        return $this->render('front/game/show.html.twig', [
+            'game' => $game,
+            'similarGames' => $similarGames,
         ]);
     }
-
-
 }

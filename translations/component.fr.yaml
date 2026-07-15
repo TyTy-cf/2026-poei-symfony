@@ -1,0 +1,6 @@
+
+button:
+    confirm: "Confirmer"
+    valid: "Valider"
+    cancel: "Annuler"
+    close: "Fermer"

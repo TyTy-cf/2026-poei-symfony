@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,23 +10,16 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
-    public function index(): Response
+    #[Route('/user/{name}', name: 'app_user_show')]
+    public function index(
+        UserRepository $userRepository,
+        string         $name,
+    ): Response
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+        $user = $userRepository->findOneBy(['name' => $name]);
+
+        return $this->render('front/user/show.html.twig', [
+            'user' => $user,
         ]);
     }
-
-    #[Route("/user/{id}", name : "app_user_show")]
-public function showUser(int $id, UserRepository $userRepository){
-$user = $userRepository->find($id);
-if($user === null){
-    return $this->redirectToRoute("/");
-}
-return $this->render("user/index.html.twig", [
-    "user" => $user
-        ]);
-    }
-
 }

@@ -4,8 +4,6 @@
 ## Sommaire
 
 
-## Sommaire
-
 - [1. Compréhension globale](#1-compréhension-globale)
     - [1.1. Injection de dépendance](#11-injection-de-dépendance)
     - [1.2. WebPack](#12-webpack)
@@ -13,6 +11,7 @@
     - [2.1. Méthodes natives aux Repository](#21-méthodes-natives-aux-repository)
     - [2.2. Critères des Repository](#22-critères-des-repository)
     - [2.3. QueryBuilder](#23-querybuilder)
+    - [2.4. QueryBuilder avec paramètres](#24-querybuilder-avec-parametres)
 - [3. Twig](#3-twig)
     - [3.1. Extends](#31-extends)
     - [3.2. Inclusion de template](#32-inclusion-de-template)
@@ -22,6 +21,8 @@
     - [4.2. Via binding de paramètres](#42-via-binding-de-paramètres)
     - [4.3. Via la Request](#43-via-la-request)
     - [4.4. Effectuer une redirection](#44-effectuer-une-redirection)
+- [5. Les translations](#5-les-translations)
+    - [5.1. Mise en place](#41-mise-en-place)
 
 
 ## 1. Compréhension globale
@@ -36,7 +37,7 @@ C'est donc le Framework qui va instancier l'objet en question pour vous.
 
 On s'en sert souvent dans les routes des contrôleurs ou dans les `__construct()`, exemple :
 
-On ne peut pas passer par injection de dépendance tout et n'importe quoi, on est limité à certains objet, comme les `Repository`, les `Services`, les classes de Symfony et dans certains cas de figure nos entités.
+On ne peut pas passer par injection de dépendance tout et n'importe quoi, on est limité à certains objet, comme les `Repository`, les `Services`, les classes de Symfony et dans certains cas de figure nos entités. 
 
 - Route d'un Contrôleur :
 
@@ -52,6 +53,9 @@ public function __construct(private GameRepository $gameRepository) {
     
 }
 ```
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ### 1.2. WebPack
@@ -72,9 +76,9 @@ La configuration se fait via le code suivant :
     .addEntry('styles', './assets/styles/app.css')
 ```
 
-Ici, on créé deux fichiers : "scripts" et "styles". "scripts" se base sur le fichier `app.js` présent dans le dossier `/assets/scripts` et le fichier "styles" sur le fichier `app.css` présent dans le dossier `/assets/styles`
+Ici, on créé deux fichiers : "scripts" et "styles". "scripts" se base sur le fichier `app.js` présent dans le dossier `/assets/scripts` et le fichier "styles" sur le fichier `app.css` présent dans le dossier `/assets/styles`  
 
-On configure le dossier où doit être placé le fichier en sortie, une fois compilée :
+On configure le dossier où doit être placé le fichier en sortie, une fois compilée :  
 
 ```js
     .setOutputPath('public/build/')
@@ -83,7 +87,7 @@ On configure le dossier où doit être placé le fichier en sortie, une fois com
 
 - On indique qu'il sera dans le dossier "public/build"
 
-Ensuite il faut importer les fichiers générés en sortie dans le template Twig :
+Ensuite il faut importer les fichiers générés en sortie dans le template Twig : 
 
 ```html
         {% block stylesheets %}
@@ -95,8 +99,8 @@ Ensuite il faut importer les fichiers générés en sortie dans le template Twig
         {% endblock %}
 ```
 
-- `encore_entry_link_tags` : importe un fichier de style (.css), le nom du fichier est passé en paramètre, ici : `styles`
-- `encore_entry_script_tags` : importe un fichier de script (.js), le nom du fichier est passé en paramètre, ici : `scripts`
+- `encore_entry_link_tags` : importe un fichier de style (.css), le nom du fichier est passé en paramètre, ici : `styles` 
+- `encore_entry_script_tags` : importe un fichier de script (.js), le nom du fichier est passé en paramètre, ici : `scripts` 
 
 
 Pour que WebPack compile vos fichiers vous devez lancer la commande suivante : `npm run watch`, elle recompile **en direct** les fichiers d'assets.
@@ -108,7 +112,7 @@ En environnement de production : `npm run build`
 (PS² : pensez à faire du `CTRL + F5` lorsque vous faites des modifications d'assets...)
 
 
-On peut ajouter une configuration pour copier les images avec WebPack :
+On peut ajouter une configuration pour copier les images avec WebPack :  
 
 ```js
 .copyFiles({
@@ -119,13 +123,16 @@ On peut ajouter une configuration pour copier les images avec WebPack :
 
 - Cette configuration copies les images depuis de le dossier "assets/images" dans le le dossier "public/build", qui est créé par WebPack.
 
-Une fois les images copiées dans le dossier "build", on peut les réutiliser sur le site Web avec Twig :
+Une fois les images copiées dans le dossier "build", on peut les réutiliser sur le site Web avec Twig : 
 
 ```html
 {{ asset('images/home.png') }}
 ```
 
 - La fonction Twig `asset`permet d'accéder au contenu du dossier `build`
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ## 2. Les Repository
@@ -139,7 +146,10 @@ Une fois les images copiées dans le dossier "build", on peut les réutiliser su
 - `$repository->find()` : récupère UNE instance de l'objet géré par le Repository OU NULL, uniquement par son `id`
 - `$repository->findAll()` : récupère TOUTES les instances de l'objet géré par le Repository sous forme de tableau
 - `$repository->findBy()` : récupère TOUTES les instances de l'objet géré par le Repository sous forme de tableau, selon les critères demandés
-- `$repository->createQueryBuilder()` : permet de créer nos propres requêtes SQL, une requête qui ne serait pas faisable avec les `find` de base
+- `$repository->createQueryBuilder()` : permet de créer nos propres requêtes SQL, une requête qui ne serait pas faisable avec les `find` de base 
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ### 2.2. Critères des Repository
@@ -214,6 +224,9 @@ $items = $repository->findBy([], ['createdAt' => 'DESC'], 10, 10);
 => Affiche seulement 10 `item` à partir du 11ème
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 2.3. QueryBuilder
 
 
@@ -277,6 +290,27 @@ $qb->getQuery() // formatte la requête prorement, prête à être envoyée à l
 ```
 
 
+Retour au [Sommaire](#sommaire)
+
+
+### 2.4. QueryBuilder avec paramètres
+
+
+Pour ajouter des paramètres dans votre QueryBuilder, il faut passer par des requêtes **préparées** :
+
+```php
+    // WHERE c.id IN (1, 5, 6, 8)
+    ->where('c IN (:categs)')
+    ->setParameter('categs', $game->getCategories())
+```
+
+- On écrit dans le WHERE `:alias` (les 2 points sont importants), ici l'alias est `categories`
+- Pour chaque `:alias` dans votre WHERE, vous devez avoir un `setParameter`, le premier paramètre est le nom de l'alias (SANS LES DEUX POINTS) déclaré dans le WHERE, le deuxième paramètre, la valeur de l'alias
+
+
+Retour au [Sommaire](#sommaire)
+
+
 ## 3. Twig
 
 
@@ -305,6 +339,10 @@ Un template enfant peut choisir de redéfinir et conserver le comportement du bl
 {% endblock %}
 ```
 
+
+Retour au [Sommaire](#sommaire)
+
+
 ### 3.2. Inclusion de template
 
 
@@ -324,6 +362,9 @@ Il peut arriver que l'on veuille dynamiser le template inclus, pour cela on peut
 ```
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 3.3. Instruction Twig
 
 
@@ -334,6 +375,9 @@ Il peut arriver que l'on veuille dynamiser le template inclus, pour cela on peut
     <h2>{{ title }}</h2>
 {% endif %}
 ```
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ## 4. Paramètres de route
@@ -358,6 +402,9 @@ public function show(
 Inconvénient : C'est un `find` dont les relations ne sont pas récupérées, en cas de nécessité, cela peut engrendrer des requêtes supplémentaires.
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ### 4.2. Via binding de paramètres
 
 
@@ -372,6 +419,9 @@ public function show(string $id): Response
 
 
 Inconvénient : Cela implique de traiter l'id dans la fonction, on va probablement avoir besoin du `Repository` en plus
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ### 4.3. Via la Request
@@ -393,11 +443,14 @@ public function show(Request $request): Response
 Inconvénient : Rajoute du traitement pour rien ?
 
 
-On peut aussi récupérer le `corps` de la requête via l'objet `Request`:
+On peut aussi récupérer le `corps` de la requête via l'objet `Request`: 
 
 ```php
 $request->getContent();
 ```
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ### 4.4. Effectuer une redirection
@@ -412,7 +465,7 @@ Pour effectuer une redirection on utilise la fonction `path` que l'on passe en p
 ```
 
 
-Si on appelle une route avec des paramètres, on le fait comme ceci :
+Si on appelle une route avec des paramètres, on le fait comme ceci : 
 
 ```html
 <a href="{{ path('app_game_show', {'id': game.id}) }}">
@@ -421,3 +474,63 @@ Si on appelle une route avec des paramètres, on le fait comme ceci :
 ```
 
 - Entre les accolades dans la fonction path, on passe un "tableau" associatif où la clé le nom du paramètre définie par la route (ici : `id`), puis sa valeur
+
+
+Retour au [Sommaire](#sommaire)
+
+
+### 4.5 Paramètre optionnel
+
+
+- On ajoute un `?` après la déclaration de la variable dans l'URL, mais bien à l'intérieur des accolades.
+
+```php
+#[Route('/{_locale?}', name: 'app_home')]
+```
+
+
+## 5. Les translations
+
+
+### 5.1. Mise en place
+
+
+- Créer un fichier `messages.LOCALE.yaml` => `LOCALE` prend le nom des codes de locales ('fr', 'en', 'de', 'es', 'pt', 'it', etc)
+- Le nom du fichier est conventionné Symfony !
+- Modifier dans le fichier `config/packages/translation.yaml` : modifier la ligne `default_locale:` pour ajouter 'fr' en langue par défaut pour le site
+- Pour utiliser les chaînes de traductions dans un tempalte Twig, on utilise le filtre `trans`:
+
+```html
+{{ 'home.title'|trans }}
+```
+
+- 'home.title' est la clé dans le fichier yaml :
+
+```yaml
+title:
+    main: "SteamIsh : l'actu G4ming !"
+```
+
+- On peut aussi définir un fichier nous-même :
+  - Par exemple : `home.fr.yaml`
+  - Dans notre template twig on lui indique où chercher la clé de traduction via l'instruction :
+
+```html
+{% trans_default_domain 'home' %}
+```
+
+- Toujours dans le fichier `config/packages/translation.yaml`, ajouter la ligne suivante, au même niveau que `default_locale`:
+
+```yaml
+    set_locale_from_accept_language: true
+```
+
+- Cela permet de forcer la récupération de la locale du navigateur du user
+
+- On peut ajouter un fallback, si la langue de l'utilisateur n'existe pas, alors on va chercher celle en "fallback", c'est-à-dire une traduction disponible dans l'ordre :
+```yaml
+        fallbacks:
+            - en
+            - fr 
+```
+=> Ici on met le site en priorité en anglais, si l'anglais n'est pas trouvé, on se replie sur le français

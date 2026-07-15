@@ -6,9 +6,14 @@
         object-fit: cover;
     }
 
+    p {
+        color: var(--default-color);
+    }
+
     span {
         font-size: 1.1rem;
         font-weight: 700;
+        color: var(--default-color);
     }
 
 }

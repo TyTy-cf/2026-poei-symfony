@@ -5,8 +5,10 @@
             <i class="fa-solid fa-star"></i>
         {% endfor %}
     </div>
-    <a href="{{ path("app_game_show", {"slug" : review.game.id}) }}">
-        <p>{{ review.game.name }}</p>
+    <a  class="text-decoration-none"
+        href="{{ path('app_game_show', {'slug': review.game.slug}) }}"
+    >
+        {{ review.game.name }}
     </a>
     <p class="card-review-content">
         {% set max = 20 %}
@@ -18,6 +20,10 @@
     </p>
     <div class="mt-auto">
         <p class="mb-0">Le {{ review.createdAt|date('d/m/Y') }}</p>
-        <span>par <a href="{{ path("app_user_show", {"id" : review.user.id}) }}">{{ review.user.nickname }} </a></span>
+        <a href="{{ path('app_user_show', {'name': review.user.name }) }}"
+           class="text-decoration-none text-light"
+        >
+            par {{ review.user.nickname }}
+        </a>
     </div>
 </div>

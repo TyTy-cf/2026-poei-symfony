@@ -16,59 +16,48 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    public function mostPlayedGames(?int $limit){
-        $mostPlayedGames = $this->createQueryBuilder('g')
-            -> groupBy("g.id")
-            -> orderBy("sum(uog.gameTime)", "DESC")
-            -> join("g.userOwnGames", "uog")
-            -> setMaxResults($limit);
+    public function findByGameTimeSum(?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.userOwnGames', 'uog')
+            ->groupBy('g')
+            ->orderBy('SUM(uog.gameTime)', 'DESC');
 
-        return $mostPlayedGames->getQuery()->getResult();
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
 
+        return $qb->getQuery()->getResult();
     }
 
-    public function bestGames(?int $limit){
-        $bestGames = $this->createQueryBuilder("g")
-            ->orderBy("g.publishedAt", "DESC")
-            ->setMaxResults($limit);
+    public function findByBestRating(?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.reviews', 'r')
+            ->groupBy('g')
+            ->orderBy('AVG(r.rating)', 'DESC');
 
-        return $bestGames->getQuery()->getResult();
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
-    public function topRatingGames(?int $limit){
-        $topRatingGames = $this->createQueryBuilder("g")
-            -> join("g.reviews", "r")
-            -> groupBy("g.id")
-            -> orderBy("avg(r.rating)", "DESC")
-            -> setMaxResults($limit);
+    public function findBySimilarCategory(Game|null $game, ?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.categories', 'c')
+            // WHERE c.id IN (1, 5, 6, 8)
+            ->where('c IN (:categs)')
+            ->setParameter('categs', $game->getCategories())
+            ->orderBy('g.price', 'DESC');
 
-        return $topRatingGames->getQuery()->getResult();
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
 
+        return $qb->getQuery()->getResult();
     }
 
-
-    //    /**
-    //     * @return Game[] Returns an array of Game objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Game
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

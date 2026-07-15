@@ -1,0 +1,7 @@
+home:
+    title: "Steam Ish - V4 : le meilleur du G4ming !"
+
+game:
+    show:
+        title: "Acheter %gameName% !"
+        title_reverse: "%gameName% acheter !"

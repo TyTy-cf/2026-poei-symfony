@@ -1,22 +1,20 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}
-    Toute l'actu G4ming !
-{% endblock %}
+{% trans_default_domain 'home' %}
 
 {% block body %}
 
     <div class="container">
-        <h1 class="text-center">SteamIsh : l'actu G4ming !</h1>
+        <h1 class="text-center">{{ 'title.main'|trans }}</h1>
 
         {% include 'front/partials/_game_loop.html.twig' with {
             'games': trends,
-            'title': "Les tendances"
+            'title': 'title.trends'|trans
         } %}
 
         {% include 'front/partials/_game_loop.html.twig' with {
             'games': bests,
-            'title': "Les meilleures sorties"
+            'title': 'title.bests'|trans
         } %}
     </div>
 
@@ -33,7 +31,7 @@
     <div class="container">
         {% include 'front/partials/_game_loop.html.twig' with {
             'games': tops,
-            'title': "Les tops jeux"
+            'title': 'title.tops'|trans
         } %}
 
         <section>

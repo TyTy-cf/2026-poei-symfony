@@ -168,7 +168,7 @@ Représente un avis/critique laissé par un utilisateur sur un jeu.
 ### 2. Faire la home de SteamIsh
 
 
-**Fichiers impactés : ** `HomeController` & `front/home/index.html.twig`
+**Fichiers impactés : ** `HomeController` & `front/home/index.html.twig` 
 
 
 Vous devez créer les blocs suivants sur la page Twig :
@@ -206,7 +206,7 @@ Pour les catégories vous afficherez :
 
 - "trends" (Les tendances) : les 9 jeux les plus joués (Query custom !)
 - "bests" (Les meilleures sorties) : doit être les 9 derniers jeux sortis
-- "tops" (Les tops jeux) : les 6 jeux avec le meilleur rating
+- "tops" (Les tops jeux) : les 6 jeux avec le meilleur rating 
 
 
 ### 4. Faire la page de détail d'un jeu
@@ -228,11 +228,11 @@ Pour les catégories vous afficherez :
 - Créer une fonction `show` dans celui-ci, dont la route sera : `/user/{name}`
 - Optimiser la requête de récupération d'un user...
 - La fonction doit afficher le détail d'un user dont le name est passé en paramètre
-- On affichera :
-    - Le nickname du user
-    - "Inscrit le xx/xx/xx"
-    - La liste de ses jeux possédés
-    - La liste de ses commentaires postés
+- On affichera : 
+  - Le nickname du user
+  - "Inscrit le xx/xx/xx"
+  - La liste de ses jeux possédés
+  - La liste de ses commentaires postés
 
 
 ### 6. Ajouter des liens
