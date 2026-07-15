@@ -1,4 +1,3 @@
-
 # 2026 POEI Symfony
 
 ## Installation
@@ -14,7 +13,6 @@ ARG GROUP_ID=1001
 
 Par votre id (1000)
 
-
 Lancer la commande `make init`
 
 ## Helper
@@ -22,24 +20,22 @@ Lancer la commande `make init`
 - URL Site : https://localhost:8443/
 - PhpMyAdmin : http://localhost:8080/
 
-
 ## Exo
-
 
 ### 1. Création d'entités
 
 #### Vue d'ensemble des tables
 
-| Table | Rôle |
-|---|---|
-| `category` | Catégorie de jeu (genre) |
-| `country` | Pays (nationalité, drapeau) |
-| `publisher` | Éditeur de jeu |
-| `game` | Jeu vidéo |
+| Table           | Rôle                                                     |
+| --------------- | -------------------------------------------------------- |
+| `category`      | Catégorie de jeu (genre)                                 |
+| `country`       | Pays (nationalité, drapeau)                              |
+| `publisher`     | Éditeur de jeu                                           |
+| `game`          | Jeu vidéo                                                |
 | `game_category` | Table de liaison Many-to-Many entre `game` et `category` |
-| `game_country` | Table de liaison Many-to-Many entre `game` et `country` |
-| `user` | Utilisateur de la plateforme |
-| `review` | Avis/critique laissé par un utilisateur sur un jeu |
+| `game_country`  | Table de liaison Many-to-Many entre `game` et `country`  |
+| `user`          | Utilisateur de la plateforme                             |
+| `review`        | Avis/critique laissé par un utilisateur sur un jeu       |
 
 ---
 
@@ -47,14 +43,15 @@ Lancer la commande `make init`
 
 Représente un genre de jeu (Stratégie, FPS, RPG, etc.).
 
-| Champ | Type Doctrine | Contrainte |
-|---|---|---|
-| id | integer | PK, auto-increment |
-| name | string(255) | not null |
-| image | string(255) | nullable |
-| slug | string(255) | unique, not null |
+| Champ | Type Doctrine | Contrainte         |
+| ----- | ------------- | ------------------ |
+| id    | integer       | PK, auto-increment |
+| name  | string(255)   | not null           |
+| image | string(255)   | nullable           |
+| slug  | string(255)   | unique, not null   |
 
 **Relations**
+
 - `ManyToMany` vers `Game`
 
 ---
@@ -63,16 +60,17 @@ Représente un genre de jeu (Stratégie, FPS, RPG, etc.).
 
 Représente un pays, utilisé pour la nationalité des éditeurs, la disponibilité des jeux, et le pays des utilisateurs.
 
-| Champ | Type Doctrine | Contrainte |
-|---|---|---|
-| id | integer | PK, auto-increment |
-| code | string(5) | not null (code ISO ex: fr, us) |
-| name | string(255) | not null |
-| nationality | string(255) | not null |
-| slug | string(255) | unique, not null |
-| urlFlag | string(255) | nullable |
+| Champ       | Type Doctrine | Contrainte                     |
+| ----------- | ------------- | ------------------------------ |
+| id          | integer       | PK, auto-increment             |
+| code        | string(5)     | not null (code ISO ex: fr, us) |
+| name        | string(255)   | not null                       |
+| nationality | string(255)   | not null                       |
+| slug        | string(255)   | unique, not null               |
+| urlFlag     | string(255)   | nullable                       |
 
 **Relations**
+
 - `OneToMany` vers `Publisher` (un pays peut avoir plusieurs éditeurs).
 - `OneToMany` vers `User` (un pays peut avoir plusieurs utilisateurs).
 - `ManyToMany` vers `Game.
@@ -83,16 +81,17 @@ Représente un pays, utilisé pour la nationalité des éditeurs, la disponibili
 
 Représente un éditeur/studio de jeu.
 
-| Champ | Type Doctrine | Contrainte |
-|---|---|---|
-| id | integer | PK, auto-increment |
-| country | ManyToOne(Country) | nullable |
-| createdAt | datetime | not null |
-| name | string(255) | not null |
-| slug | string(255) | unique, not null |
-| website | string(255) | nullable |
+| Champ     | Type Doctrine      | Contrainte         |
+| --------- | ------------------ | ------------------ |
+| id        | integer            | PK, auto-increment |
+| country   | ManyToOne(Country) | nullable           |
+| createdAt | datetime           | not null           |
+| name      | string(255)        | not null           |
+| slug      | string(255)        | unique, not null   |
+| website   | string(255)        | nullable           |
 
 **Relations**
+
 - `ManyToOne` vers `Country`.
 - `OneToMany` vers `Game` (un éditeur publie plusieurs jeux).
 
@@ -102,19 +101,20 @@ Représente un éditeur/studio de jeu.
 
 Représente un jeu vidéo.
 
-| Champ | Type Doctrine | Contrainte |
-|---|---|---|
-| id | integer | PK, auto-increment |
-| publisher | ManyToOne(Publisher) | nullable |
-| name | string(255) | not null |
-| price | integer ou decimal | not null |
-| description | text | nullable |
-| publishedAt | datetime | not null |
-| thumbnailCover | string(255) | nullable (chemin image ou base64) |
-| slug | string(255) | unique, not null |
-| thumbnailCoverLink | string(255) | nullable |
+| Champ              | Type Doctrine        | Contrainte                        |
+| ------------------ | -------------------- | --------------------------------- |
+| id                 | integer              | PK, auto-increment                |
+| publisher          | ManyToOne(Publisher) | nullable                          |
+| name               | string(255)          | not null                          |
+| price              | integer ou decimal   | not null                          |
+| description        | text                 | nullable                          |
+| publishedAt        | datetime             | not null                          |
+| thumbnailCover     | string(255)          | nullable (chemin image ou base64) |
+| slug               | string(255)          | unique, not null                  |
+| thumbnailCoverLink | string(255)          | nullable                          |
 
 **Relations**
+
 - `ManyToOne` vers `Publisher`.
 - `ManyToMany` vers `Category`.
 - `ManyToMany` vers `Country`.
@@ -126,20 +126,21 @@ Représente un jeu vidéo.
 
 Représente un utilisateur de la plateforme.
 
-| Champ | Type Doctrine | Contrainte |
-|---|---|---|
-| id | integer | PK, auto-increment |
-| country | ManyToOne(Country) | nullable |
-| email | string(255) | unique, not null |
-| roles | json ou array | not null |
-| password | string(255) | not null |
-| createdAt | datetime | not null |
-| name | string(255) | not null |
-| nickname | string(255) | not null |
-| profileImage | string(255) | nullable |
-| wallet | integer | not null, default 0 |
+| Champ        | Type Doctrine      | Contrainte          |
+| ------------ | ------------------ | ------------------- |
+| id           | integer            | PK, auto-increment  |
+| country      | ManyToOne(Country) | nullable            |
+| email        | string(255)        | unique, not null    |
+| roles        | json ou array      | not null            |
+| password     | string(255)        | not null            |
+| createdAt    | datetime           | not null            |
+| name         | string(255)        | not null            |
+| nickname     | string(255)        | not null            |
+| profileImage | string(255)        | nullable            |
+| wallet       | integer            | not null, default 0 |
 
 **Relations**
+
 - `ManyToOne` vers `Country`.
 - `OneToMany` vers `Review` (un utilisateur poste plusieurs avis).
 
@@ -149,140 +150,18 @@ Représente un utilisateur de la plateforme.
 
 Représente un avis/critique laissé par un utilisateur sur un jeu.
 
-| Champ | Type Doctrine | Contrainte |
-|---|---|---|
-| id | integer | PK, auto-increment |
-| user | ManyToOne(User) | not null |
-| game | ManyToOne(Game) | not null |
-| content | text | not null |
-| createdAt | datetime | not null |
-| downvote | integer | not null, default 0 |
-| upvote | integer | not null, default 0 |
-| rating | integer/smallint | not null (échelle observée 0 à 5 ) |
+| Champ     | Type Doctrine    | Contrainte                         |
+| --------- | ---------------- | ---------------------------------- |
+| id        | integer          | PK, auto-increment                 |
+| user      | ManyToOne(User)  | not null                           |
+| game      | ManyToOne(Game)  | not null                           |
+| content   | text             | not null                           |
+| createdAt | datetime         | not null                           |
+| downvote  | integer          | not null, default 0                |
+| upvote    | integer          | not null, default 0                |
+| rating    | integer/smallint | not null (échelle observée 0 à 5 ) |
 
 **Relations**
+
 - `ManyToOne` vers `User`.
 - `ManyToOne` vers `Game`.
-
-
-### 2. Faire la home de SteamIsh
-
-
-**Fichiers impactés : ** `HomeController` & `front/home/index.html.twig` 
-
-
-Vous devez créer les blocs suivants sur la page Twig :
-- H2 : "Les tendances" ; on affichera ici les 9 derniers jeux sortis
-- H2 : "Les meilleurs sorties" ; on affichera ici les 9 derniers par prix décroissants
-- H2 : "Ils nous font confiance" ; on affichera les 5 derniers commentaires dont le `rating` est 5 (Cette partie n'est pas dans une div ayant la classe container)
-- H2 : "Les tops jeux" ; on affichera 6 jeux triés par nom décroisants
-- H2 : "Catégories" ; on affichera 9 catégories triés par ordre alphabétique
-
-
-Vous essairai de faire un CSS convenable... inspirez vous d'Instant-Gaming : https://www.instant-gaming.com/fr
-
-
-Pour les jeux vous afficherez :
-- `name`
-- `price`
-- `thumbnailCover`
-
-
-Pour les commentaires vous afficherez :
-- `rating`
-- `content` (si vous vous en sentez => tronquer à 50 caractères, utiliser `|slice`)
-- `user.profileImage`
-- `game.name`
-- `createdAt` ("Le xx/xx/xx")
-
-
-Pour les catégories vous afficherez :
-- `name`
-- `image`
-
-
-### 3. Modifier les requêtes de la home
-
-
-- "trends" (Les tendances) : les 9 jeux les plus joués (Query custom !)
-- "bests" (Les meilleures sorties) : doit être les 9 derniers jeux sortis
-- "tops" (Les tops jeux) : les 6 jeux avec le meilleur rating 
-
-
-### 4. Faire la page de détail d'un jeu
-
-
-- Créer le Controller : `Game`
-- Créer une fonction `show` dans celui-ci, dont la route sera : `/game/{slug}`
-- Optimiser la requête de récupération d'un jeu...
-- La fonction doit afficher le détail d'un jeu dont le slug est passé en paramètre
-- Inspirez vous de la page de détail d'Instant-Gaming : https://www.instant-gaming.com/fr/22977-acheter-halo-campaign-evolved-premium-edition-xbox-series-x-s-pc-microsoft-store/
-- Faites en sorte que lorsque l'on clique sur une card d'un jeu depuis la home, on soit redirigé sur ce controller
-- Pareil depuis le nom d'un jeu depuis un commentaire
-
-
-### 5. Faire la page de détail d'un user
-
-
-- Créer le Controller : `User`
-- Créer une fonction `show` dans celui-ci, dont la route sera : `/user/{name}`
-- Optimiser la requête de récupération d'un user...
-- La fonction doit afficher le détail d'un user dont le name est passé en paramètre
-- On affichera : 
-  - Le nickname du user
-  - "Inscrit le xx/xx/xx"
-  - La liste de ses jeux possédés **avec leur temps de jeu** (seulement par jeu ici)
-  - La liste de ses commentaires postés
-  - **En réutilisant des traitements déjà réalisés... calculer et afficher le temps de jeu total de l'utilisateur au format "hh:mm"**
-
-
-### 6. Ajouter des liens
-
-
-- Ajouter un lien vers la page d'un jeu depuis la card `review`
-- Ajouter un lien vers la page d'un user depuis la card `review`
-
-
-### 7. Le temps de jeu total
-
-
-- Voir exercice 5, ajouter les comportements en gras
-
-
-### 8. Faire un footer
-
-
-- Je veux que dans mon footer on affiche une liste des 5 catégories de jeu les plus jouées (trié par temps de jeu total)
-- Afficher simplement les noms des 5 jeux les plus commentés (avec un lien vers la page de show de celu-ci)
-- Je pense que vous rencontrerez rapidement un problème... Il y a une solution qui a été évoquée dans le cours de ce matin ?
-- Un minima de CSS ?
-
-
-### 9. Translations
-
-
-Bien sûr on utilisera dorénavant que les chaînes de traductions dans le site
-
-
-### 10. Prévoir un message flash
-
-
-- Sur la page `show` d'un user, ajouter un message `flash` si celui-ci n'existe pas, rediriger l'utilisateur sur la home
-
-
-### 11. Faire la page d'une catégorie
-
-
-- Créer le Controller : `Category`
-- Créer une fonction `show` dans celui-ci, dont la route sera : `/category/{slug}`
-- Optimiser la requête de récupération d'une catégorie, **si nécessaire**
-- La fonction doit afficher les jeux ayant cette catégorie
-
-
-### 12. Faire la page d'un publisher
-
-
-- Créer le Controller : `Publisher`
-- Créer une fonction `show` dans celui-ci, dont la route sera : `/publisher/{slug}`
-- Optimiser la requête de récupération d'un éditeur de jeu, **si nécessaire**
-- La fonction doit afficher les informations de l'éditeur, ainsi que ses jeux créés

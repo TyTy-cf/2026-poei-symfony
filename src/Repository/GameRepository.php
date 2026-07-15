@@ -11,53 +11,87 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class GameRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Game::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Game::class);
+  }
 
-    public function findByGameTimeSum(?int $limit = null): array
-    {
-        $qb = $this->createQueryBuilder('g')
-            ->join('g.userOwnGames', 'uog')
-            ->groupBy('g')
-            ->orderBy('SUM(uog.gameTime)', 'DESC');
 
-        if ($limit !== null) {
-            $qb->setMaxResults($limit);
-        }
 
-        return $qb->getQuery()->getResult();
-    }
+  /**
+   * @return Game[] Returns an array of Game objects
+   */
+  public function findByPopularity(int $value): array
+  {
+    return $this->createQueryBuilder('g')
+      ->leftJoin('g.reviews', 'r')
+      ->groupBy('g.id')
+      ->orderBy('AVG(r.rating)', 'DESC')
+      ->setMaxResults($value)
+      ->getQuery()
+      ->getResult()
 
-    public function findByBestRating(?int $limit = null): array
-    {
-        $qb = $this->createQueryBuilder('g')
-            ->join('g.reviews', 'r')
-            ->groupBy('g')
-            ->orderBy('AVG(r.rating)', 'DESC');
+    ;
+  }
 
-        if ($limit !== null) {
-            $qb->setMaxResults($limit);
-        }
+  /**
+   * @return Game[] Returns an array of Game objects
+   */
+  public function findLatestReleases(int $value): array
+  {
+    // select latest published games
+    return $this->createQueryBuilder('g')
+      ->orderBy('g.publishedAt', 'DESC')
+      ->setMaxResults($value)
+      ->getQuery()
+      ->getResult();
+  }
 
-        return $qb->getQuery()->getResult();
-    }
+  /**
+   * @return Game[] Returns an array of Game objects
+   */
+  public function mostPlayedGames(int $value): array
+  {
 
-    public function findBySimilarCategory(Game $game, ?int $limit = null): array
-    {
-        $qb = $this->createQueryBuilder('g')
-            ->join('g.categories', 'c')
-            // WHERE c.id IN (1, 5, 6, 8)
-            ->where('c IN (:categs)')
-            ->setParameter('categs', $game->getCategories())
-            ->orderBy('g.price', 'DESC');
+    // select ost played games based on the game_time
+    return $this->createQueryBuilder('g')
+      ->Join('g.userOwnGames', 'uog')
+      ->groupBy('g.id')
+      ->orderBy('SUM(uog.gameTime)', 'DESC')
+      ->setMaxResults($value)
+      ->getQuery()
+      ->getResult();
+  }
 
-        if ($limit !== null) {
-            $qb->setMaxResults($limit);
-        }
+  /**
+   * @return Game[] Returns a single Game object or null
+   */
+  public function findOneGameAndDetails(array $criteria): ?array
+  {
 
-        return $qb->getQuery()->getResult();
-    }
+    // select game and all game witg same category in order to access every game with the same category
+    return $this->createQueryBuilder('g')
+      ->select('g', 'c', 'r', 'uog', 'u')
+      ->leftJoin('g.categories', 'c')
+      ->leftJoin('g.reviews', 'r')
+      ->leftJoin('g.userOwnGames', 'uog')
+      ->leftJoin('uog.user', 'u')
+      ->groupBy('g.id')
+      ->setParameter('slug', $criteria['slug'])
+      ->andWhere('g.slug = :slug')
+      ->getQuery()
+      ->getResult()
+    ;
+  }
 
+
+  //    public function findOneBySomeField($value): ?Game
+  //    {
+  //        return $this->createQueryBuilder('g')
+  //            ->andWhere('g.exampleField = :val')
+  //            ->setParameter('val', $value)
+  //            ->getQuery()
+  //            ->getOneOrNullResult()
+  //        ;
+  //    }
 }

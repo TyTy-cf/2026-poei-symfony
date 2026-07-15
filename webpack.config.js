@@ -1,16 +1,16 @@
-const Encore = require('@symfony/webpack-encore');
+const Encore = require("@symfony/webpack-encore");
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
-    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
+    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || "dev");
 }
 
 Encore
     // directory where compiled assets will be stored
-    .setOutputPath('public/build/')
+    .setOutputPath("public/build/")
     // public path used by the web server to access the output path
-    .setPublicPath('/build')
+    .setPublicPath("/build")
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
 
@@ -57,10 +57,11 @@ Encore
 
     // enables and configure @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
-        config.useBuiltIns = 'usage';
-        config.corejs = '3.38';
-    })
+        config.useBuiltIns = "usage";
+        config.corejs = "3.38";
+    });
 
+<<<<<<< HEAD
     .copyFiles({
         from: './assets/images',
         to: 'images/[path][name].[ext]'
@@ -68,16 +69,19 @@ Encore
 
     // enables Sass/SCSS support
     //.enableSassLoader()
+=======
+// enables Sass/SCSS support
+//.enableSassLoader()
+>>>>>>> 5ea06dc659115276aa23b6555051038018875fd1
 
-    // uncomment if you use React
-    //.enableReactPreset()
+// uncomment if you use React
+//.enableReactPreset()
 
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
+// uncomment to get integrity="..." attributes on your script & link tags
+// requires WebpackEncoreBundle 1.4 or higher
+//.enableIntegrityHashes(Encore.isProduction())
 
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
-;
+// uncomment if you're having problems with a jQuery plugin
+//.autoProvidejQuery()
 
 module.exports = Encore.getWebpackConfig();

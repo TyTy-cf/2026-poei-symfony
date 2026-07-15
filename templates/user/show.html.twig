@@ -1,0 +1,27 @@
+{% extends './front/base.html.twig' %}
+
+{% block body %}
+
+	<div class="container">
+		<h1>{{ user.name }}</h1>
+		<img src="{{ user.country.urlFlag }}" alt="Avatar" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+	</div>
+
+	{% for game in user.userOwnGames %}
+
+		<h2>{{ game.game.name }}</h2>
+
+		<p>{{ game.game.description }}</p>
+
+	{% endfor %}
+
+	{% for review in user.reviews %}
+
+		<h2>{{ review.game.name }}</h2>
+		{% include './component/star.html.twig' with  {"rating": review.rating} %}
+
+		<p>{{ review.content }}</p>
+	{% endfor %}
+
+
+{% endblock %}

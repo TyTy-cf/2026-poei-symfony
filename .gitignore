@@ -20,6 +20,8 @@
 ###< symfony/asset-mapper ###
 
 /.idea
+/.vscode
+
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
