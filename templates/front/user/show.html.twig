@@ -7,7 +7,18 @@
 {% block body %}
 
     <div class="container">
+        <div class="row">
+        {% for uog in user.userOwnGames %}
+            <div class="col-6">
+            <img src="{{ uog.game.thumbnailCover }}" class="">
+            <h2>{{ uog.game.name }}</h2>
+            <strong>{{ uog.gameTime|time_conversion }}</strong>
+                <strong>{{ gameTime }}</strong>
 
+            </div>
+        {% endfor %}
+
+        </div>
     </div>
 
 {% endblock %}
