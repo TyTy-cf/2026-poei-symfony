@@ -1,0 +1,9 @@
+user:
+    property:
+        name: "Имя"
+        nickname: "Псевдо"
+        email: "Электронная почта"
+        country: "Страна"
+        select_country: "-- Выберите страну --"
+        password: "Пароль"
+        profileImage: "Фотография профиля"

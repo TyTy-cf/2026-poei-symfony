@@ -7,6 +7,7 @@ use Twig\Extension\RuntimeExtensionInterface;
 
 readonly class FooterRuntime implements RuntimeExtensionInterface
 {
+
     public function __construct(private CategoryRepository $categoryRepository)
     {
     }
@@ -15,4 +16,5 @@ readonly class FooterRuntime implements RuntimeExtensionInterface
     {
         return $this->categoryRepository->findBestCategories(5);
     }
+
 }

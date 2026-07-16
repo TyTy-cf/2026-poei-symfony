@@ -4,3 +4,4 @@ button:
     valid: "Valider"
     cancel: "Annuler"
     close: "Fermer"
+    reset: "Réinitialiser"

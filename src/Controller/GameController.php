@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Review;
 use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,8 +20,6 @@ final class GameController extends AbstractController
         $game = $gameRepository->findOneFullBy($slug);
 
         if ($game === null) {
-            // add a flashgBag message to session, for next page :
-            // ['danger'] => ['Message 1', 'Message 2']
             $this->addFlash('danger', $translator->trans('game.not_found', [], 'alert'));
             return $this->redirectToRoute('app_home');
         }

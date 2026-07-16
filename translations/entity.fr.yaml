@@ -1,0 +1,9 @@
+user:
+    property:
+        name: "Nom"
+        nickname: "Pseudo"
+        email: "Email"
+        country: "Pays"
+        select_country: "-- Sélectionner votre pays --"
+        password: "Mot de passe"
+        profileImage: "Image de profil"
