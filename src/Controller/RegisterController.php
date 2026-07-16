@@ -19,19 +19,26 @@ final class RegisterController extends AbstractController
 
     $user = new User();
     $form = $this->createForm(RegisterType::class, $user);
+    $form->handleRequest($request);
 
 
+    if ($form->isSubmitted() && $form->isValid()) {
+      try {
+        $user->setCreatedAt(new \DateTimeImmutable());
+        $em->persist($user);
+        $em->flush();
+        $this->addFlash(
+          'success',
+          'User created successfully.'
+        );
 
-    if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-      $user->setCreatedAt(new \DateTimeImmutable());
-      $em->persist($user);
-      $em->flush();
-      $this->addFlash(
-        'success',
-        'User created successfully.'
-      );
-
-      return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_home');
+      } catch (\Exception $e) {
+        $this->addFlash(
+          'danger',
+          'An error occurred while creating the user.'
+        );
+      }
     }
 
 
