@@ -10,6 +10,7 @@ user:
     properties:
         name: "Nom d'utilisateur"
         nickname: "Pseudo"
+        country: "Pays"
         email: "Email"
         password: "Password"
         profileImage: "Image de profil"

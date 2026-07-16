@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Country;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,16 +24,16 @@ class RegisterType extends AbstractType
       ->add('nickname', null, [
         'label' => 'user.properties.nickname',
       ])
-      ->add('password', null, [
+      ->add('password', PasswordType::class, [
         'label' => 'user.properties.password',
       ])
       ->add('profileImage', null, [
         'label' => 'user.properties.profileImage',
       ])
-      // ->add('country', EntityType::class, [
-      //     'class' => Country::class,
-      //     'choice_label' => 'id',
-      // ])
+      ->add('country', EntityType::class, [
+        'class' => Country::class,
+        'choice_label' => 'name',
+      ])
     ;
   }
 
