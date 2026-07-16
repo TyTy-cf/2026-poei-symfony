@@ -76,4 +76,19 @@ class GameRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findMostCommentedGame(?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.reviews', 'r')
+            ->orderBy('SUM(r.content)', 'DESC')
+            ->groupBy('g');
+
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+
 }

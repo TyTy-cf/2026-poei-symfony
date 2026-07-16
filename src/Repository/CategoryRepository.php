@@ -18,7 +18,17 @@ class CategoryRepository extends ServiceEntityRepository
 
     public function findBestCategories(int $limit = null): array
     {
-        return $this->findBy([], ['name' => 'ASC'], $limit);
+        $qb = $this->createQueryBuilder('c')
+            ->join('c.games', 'g')
+            ->join("g.userOwnGames", 'uog')
+            ->orderBy('SUM(uog.gameTime)', 'DESC')
+            ->groupBy('c');
+
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
 }
