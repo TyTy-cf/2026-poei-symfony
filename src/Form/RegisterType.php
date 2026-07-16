@@ -17,18 +17,33 @@ class RegisterType extends AbstractType
     $builder
       ->add('email', null, [
         'label' => 'user.properties.email',
+        'attr' => [
+          'placeholder' => 'user.properties.email',
+        ],
       ])
       ->add('name', null, [
         'label' => 'user.properties.name',
+        'attr' => [
+          'placeholder' => 'user.properties.name',
+        ],
       ])
       ->add('nickname', null, [
         'label' => 'user.properties.nickname',
+        'attr' => [
+          'placeholder' => 'user.properties.nickname',
+        ],
       ])
       ->add('password', PasswordType::class, [
         'label' => 'user.properties.password',
+        'attr' => [
+          'placeholder' => 'user.properties.password',
+        ],
       ])
       ->add('profileImage', null, [
         'label' => 'user.properties.profileImage',
+        'attr' => [
+          'placeholder' => 'user.properties.profileImage',
+        ],
       ])
       ->add('country', EntityType::class, [
         'class' => Country::class,
