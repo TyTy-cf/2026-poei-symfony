@@ -1,0 +1,24 @@
+user:
+    password:
+        regex: "Le mot de passe doit contenir au moins 9 caractères, une majuscule, un caractère spécial et un chiffre"
+        min: "Le mot de passe doit faire minimum {{ limit }} caractères"
+        not_blank: "Le mot de passe doit être renseigné"
+    name:
+        min: "Le nom doit faire minimum {{ limit }} caractères"
+        not_blank: "Le nom doit être renseigné"
+    nickname:
+        min: "Le pseudo doit faire minimum {{ limit }} caractères"
+        not_blank: "Le pseudo doit être renseigné"
+    email:
+        not_blank: "L'email doit être renseigné"
+category:
+    name:
+        min: "Le nom de la catégorie doit faire minimum {{ limit }} caractères"
+        max: "Le nom de la catégorie doit faire maximum {{ limit }} caractères"
+        not_blank: "Le nom de la catégorie doit être renseigné"
+    image:
+        max: "L'image de la catégorie doit faire maximum {{ limit }} caractères"
+    slug:
+        min: "Le slug de la catégorie doit faire minimum {{ limit }} caractères"
+        max: "Le slug de la catégorie doit faire maximum {{ limit }} caractères"
+        not_blank: "Le slug de la catégorie doit être renseigné"

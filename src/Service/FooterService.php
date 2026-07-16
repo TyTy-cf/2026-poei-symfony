@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Repository\CategoryRepository;
 
-class MostPlayedCategories
+class FooterService
 {
   public function __construct(
     private CategoryRepository $categoryRepository

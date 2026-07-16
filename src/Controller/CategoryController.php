@@ -2,12 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 
 use App\Repository\CategoryRepository;
+use App\Form\CategoryType;
+use App\Service\SlugifyService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Component\Routing\Attribute\Route;
 
 final class CategoryController extends AbstractController
@@ -33,6 +38,45 @@ final class CategoryController extends AbstractController
     return $this->render('category/show.html.twig', [
       'controller_name' => 'categoryController',
       'category' => $category,
+    ]);
+  }
+
+  #[Route('{_locale}/category/add', name: 'app_category_add')]
+  public function add(Request $request, EntityManagerInterface $em, SlugifyService $slugifyService): Response
+  {
+
+
+    $category = new Category();
+    $form = $this->createForm(CategoryType::class, $category);
+    $form->handleRequest($request);
+
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      try {
+        $category->setSlug(
+          $slugifyService->slugify($category->getName())
+        );
+
+        $em->persist($category);
+        $em->flush();
+        $this->addFlash(
+          'success',
+          'category created successfully.'
+        );
+
+        return $this->redirectToRoute('app_home');
+      } catch (\Exception $e) {
+        $this->addFlash(
+          'danger',
+          'An error occurred while creating the category.'
+        );
+      }
+    }
+
+
+    return $this->render('category/register.html.twig', [
+      'controller_name' => 'RegisterController',
+      'form' => $form,
     ]);
   }
 }

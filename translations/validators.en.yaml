@@ -1,0 +1,24 @@
+user:
+    password:
+        regex: "the password must contain at least 9 characters, an uppercase letter, a special character and a digit"
+        min: "the password must be at least {{ limit }} characters long"
+        not_blank: "the password must be provided"
+    name:
+        min: "the name must be at least {{ limit }} characters long"
+        not_blank: "the name must be provided"
+    nickname:
+        min: "the nickname must be at least {{ limit }} characters long"
+        not_blank: "the nickname must be provided"
+    email:
+        not_blank: "the email must be provided"
+category:
+    name:
+        min: "the name must be at least {{ limit }} characters long"
+        max: "the name must be at most {{ limit }} characters long"
+        not_blank: "the name must be provided"
+    image:
+        max: "the image must be at most {{ limit }} characters long"
+    slug:
+        min: "the slug must be at least {{ limit }} characters long"
+        max: "the slug must be at most {{ limit }} characters long"
+        not_blank: "the slug must be provided"

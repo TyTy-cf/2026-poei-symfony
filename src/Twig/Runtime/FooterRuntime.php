@@ -3,7 +3,6 @@
 namespace App\Twig\Runtime;
 
 use App\Repository\CategoryRepository;
-use App\Service\MostPlayedCategories;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class FooterRuntime implements RuntimeExtensionInterface
