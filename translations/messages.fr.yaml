@@ -12,3 +12,6 @@ game:
             alt: "Drapeau %name%"
         publisher: "Editeur : %name%"
         published_at: "Sortie le : %date%"
+
+register:
+    title: "Inscription"

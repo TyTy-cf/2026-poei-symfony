@@ -28,9 +28,11 @@
                         <span class="game-show-category">{{ category.name }}</span>
                     {% endfor %}
                 </div>
-                <div class="mt-4">
-                    <p>{{ 'game.show.publisher'|trans({'%name%': game.publisher.name}) }}</p>
-                </div>
+                {% if game.publisher is not null %}
+                    <div class="mt-4">
+                        <p>{{ 'game.show.publisher'|trans({'%name%': game.publisher.name}) }}</p>
+                    </div>
+                {% endif %}
                 <div class="mt-4">
                     <p>{{ 'game.show.published_at'|trans({'%date%': game.publishedAt|date('d/m/Y')}) }}</p>
                 </div>

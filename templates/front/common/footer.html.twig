@@ -7,12 +7,5 @@
             <li>{{ categ.name }}</li>
         {% endfor %}
     </ul>
-    <p>Nos jeux les plus commentés</p>
-    <ul class="list-unstyled">
-        {% set footerGames = most_commented_game() %}
-        {% for game in footerGames %}
-            <li>{{ game.name }}</li>
-        {% endfor %}
-    </ul>
 
 </footer>
