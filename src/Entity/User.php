@@ -6,6 +6,9 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
@@ -19,21 +22,32 @@ class User
     private ?Country $country = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[NotBlank(message: 'user.email.not_blank')]
     private ?string $email = null;
 
     #[ORM\Column]
     private array $roles = [];
 
     #[ORM\Column(length: 255)]
+    #[Regex(
+        pattern: '/^(?=.*[0-9])(?=.*[A-Z])(?=.*[@!]).{9,}$/',
+        message: 'user.password.regex'
+    )]
+    #[Length(min: 9, minMessage: 'user.password.min')]
+    #[NotBlank(message: 'user.password.not_blank')]
     private ?string $password = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Length(min: 4, minMessage: 'user.name.min')]
+    #[NotBlank(message: 'user.name.not_blank')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Length(min: 1, minMessage: 'user.nickname.min')]
+    #[NotBlank(message: 'user.nickname.not_blank')]
     private ?string $nickname = null;
 
     #[ORM\Column(length: 255, nullable: true)]

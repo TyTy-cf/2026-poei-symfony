@@ -31,10 +31,10 @@ final class RegisterController extends AbstractController
             try {
                 $em->persist($user);
                 $em->flush();
-                $this->addFlash("success", $translator->trans('register.success', [], 'alert'));
+                $this->addFlash('success', $translator->trans('register.success', [], 'alert'));
                 return $this->redirectToRoute('app_home');
             } catch (\Exception $e) {
-                $this->addFlash("danger", $translator->trans('register.danger', [], 'alert'));
+                $this->addFlash('danger', $translator->trans('register.danger', [], 'alert'));
                 dump($e->getMessage());
             }
         }

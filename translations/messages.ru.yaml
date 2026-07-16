@@ -1,7 +1,23 @@
 home:
-    title: "Steam Ish - V4 : лучшее из G4ming !"
+    title: "Steam Ish - V4 : лучшее из G4ming!"
 
 game:
     show:
-        title: "купить %gameName% !"
-        title_reverse: "%gameName% купить !"
+        title:
+            main: "Купить %gameName%!"
+            reverse: "%gameName% купить!"
+            reviews: "Отзывы"
+            description: "Описание"
+        country:
+            alt: "Флаг %name%"
+        publisher: "Издатель : %name%"
+        published_at: "Дата выхода : %date%"
+        available: "Доступно на "
+        thumbnail_cover_alt: "Игра %gameName%"
+
+register:
+    title: "Регистрация"
+
+review:
+    card:
+        nickname: "от %nickname%"

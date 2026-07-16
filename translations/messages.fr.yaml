@@ -12,6 +12,12 @@ game:
             alt: "Drapeau %name%"
         publisher: "Editeur : %name%"
         published_at: "Sortie le : %date%"
+        available: "Disponible en "
+        thumbnail_cover_alt: "Jeux %gameName%"
 
 register:
     title: "Inscription"
+
+review:
+    card:
+        nickname: "par %nickname%"
