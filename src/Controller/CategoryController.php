@@ -6,6 +6,7 @@ use App\Entity\Category;
 
 use App\Repository\CategoryRepository;
 use App\Form\CategoryType;
+use App\Service\CategoryFormService;
 use App\Service\SlugifyService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +43,7 @@ final class CategoryController extends AbstractController
   }
 
   #[Route('{_locale}/category/add', name: 'app_category_add')]
-  public function add(Request $request, EntityManagerInterface $em, SlugifyService $slugifyService): Response
+  public function add(Request $request, EntityManagerInterface $em, SlugifyService $slugifyService, CategoryFormService $categoryFormService): Response
   {
 
 
@@ -53,12 +54,7 @@ final class CategoryController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
       try {
-        $category->setSlug(
-          $slugifyService->slugify($category->getName())
-        );
-
-        $em->persist($category);
-        $em->flush();
+        $categoryFormService->save($category, $em, $slugifyService);
         $this->addFlash(
           'success',
           'category created successfully.'
@@ -69,6 +65,37 @@ final class CategoryController extends AbstractController
         $this->addFlash(
           'danger',
           'An error occurred while creating the category.'
+        );
+      }
+    }
+
+
+    return $this->render('category/register.html.twig', [
+      'controller_name' => 'RegisterController',
+      'form' => $form,
+    ]);
+  }
+
+  #[Route('{_locale}/category/edit/{id}', name: 'app_category_edit')]
+  public function edit(Request $request, EntityManagerInterface $em, SlugifyService $slugifyService, CategoryFormService $categoryFormService, Category $category): Response
+  {
+    $form = $this->createForm(CategoryType::class, $category);
+    $form->handleRequest($request);
+
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      try {
+        $categoryFormService->save($category, $em, $slugifyService);
+        $this->addFlash(
+          'success',
+          'category updated successfully.'
+        );
+
+        return $this->redirectToRoute('app_home');
+      } catch (\Exception $e) {
+        $this->addFlash(
+          'danger',
+          'An error occurred while updating the category.'
         );
       }
     }
