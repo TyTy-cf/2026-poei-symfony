@@ -7,3 +7,8 @@ user:
         select_country: "-- Sélectionner votre pays --"
         password: "Mot de passe"
         profileImage: "Image de profil"
+
+category :
+    property :
+        name : "Nom de la catégorie"
+        image : "image de profil"

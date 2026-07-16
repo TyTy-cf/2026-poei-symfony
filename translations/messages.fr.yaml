@@ -17,7 +17,23 @@ game:
 
 register:
     title: "Inscription"
+    cate : "Ajouter une catégorie"
 
 review:
     card:
         nickname: "par %nickname%"
+
+
+category:
+    show:
+        title:
+            main: "Voir %categoryName% !"
+            reverse: "%categoryName% voir !"
+            reviews: "Les avis"
+            description: "Description"
+        country:
+            alt: "Drapeau %name%"
+        publisher: "Editeur : %name%"
+        published_at: "Sortie le : %date%"
+        available: "Disponible en "
+        image_alt : "Catégorie %categoryName%"
