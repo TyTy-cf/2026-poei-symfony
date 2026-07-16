@@ -1,11 +1,14 @@
 <footer>
 
-    <p>Nos meilleures catégoies</p>
-    <ul class="list-unstyled">
-        {% set footerCategories = best_categories() %}
-        {% for categ in footerCategories %}
-            <li>{{ categ.name }}</li>
-        {% endfor %}
-    </ul>
+    <div class="d-flex justify-content-around">
+        <div>
+            <p>Nos meilleures catégoies</p>
+            <ul class="list-unstyled">
+                {% for categ in best_categories() %}
+                    <li>{{ categ.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
 </footer>

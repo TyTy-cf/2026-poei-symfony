@@ -1,6 +1,34 @@
 
 # 2026 POEI Symfony
 
+
+## Sommaire
+
+- [Installation](#installation)
+- [Helper](#helper)
+- [Exo](#exo)
+    - [1. Création d'entités](#1-création-dentités)
+        - [Vue d'ensemble des tables](#vue-densemble-des-tables)
+        - [Entité `Category`](#entité-category)
+        - [Entité `Country`](#entité-country)
+        - [Entité `Publisher`](#entité-publisher)
+        - [Entité `Game`](#entité-game)
+        - [Entité `User`](#entité-user)
+        - [Entité `Review`](#entité-review)
+    - [2. Faire la home de SteamIsh](#2-faire-la-home-de-steamish)
+    - [3. Modifier les requêtes de la home](#3-modifier-les-requêtes-de-la-home)
+    - [4. Faire la page de détail d'un jeu](#4-faire-la-page-de-détail-dun-jeu)
+    - [5. Faire la page de détail d'un user](#5-faire-la-page-de-détail-dun-user)
+    - [6. Ajouter des liens](#6-ajouter-des-liens)
+    - [7. Le temps de jeu total](#7-le-temps-de-jeu-total)
+    - [8. Faire un footer](#8-faire-un-footer)
+    - [9. Translations](#9-translations)
+    - [10. Prévoir un message flash](#10-prévoir-un-message-flash)
+    - [11. Faire la page d'une catégorie](#11-faire-la-page-dune-catégorie)
+    - [12. Faire la page d'un publisher](#12-faire-la-page-dun-publisher)
+    - [13. Faire un formulaire pour les `Category`](#13-faire-un-formulaire-pour-les-category)
+
+
 ## Installation
 
 Commencez par vous créer une branche, puis :
@@ -286,3 +314,98 @@ Bien sûr on utilisera dorénavant que les chaînes de traductions dans le site
 - Créer une fonction `show` dans celui-ci, dont la route sera : `/publisher/{slug}`
 - Optimiser la requête de récupération d'un éditeur de jeu, **si nécessaire**
 - La fonction doit afficher les informations de l'éditeur, ainsi que ses jeux créés
+
+
+### 13. Faire un formulaire pour les `Category`
+
+
+- Faire un formulaire qui gère l'ajout d'une Category (ne faites pas de lien dans le header pour le moment, on y accède par l'URL)
+- Faire un formulaire qui gère la modification d'une Category (ne faites pas de lien dans le header pour le moment, on y accède par l'URL)
+- Ajouter les règles de validations dans l'entité
+- Le slug ne doit pas apparaître dans le formulaire !
+
+Utilisez cette fonction (dans un service !) pour générer le slug de la catégorie à partir de son nom : 
+
+```php
+
+    public function slugify(string $text): string
+    {
+        $replace = [
+            '&lt;' => '', '&gt;' => '', '&#039;' => '', '&amp;' => '',
+            '&quot;' => '', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä'=> 'Ae',
+            '&Auml;' => 'A', 'Å' => 'A', 'Ā' => 'A', 'Ą' => 'A', 'Ă' => 'A', 'Æ' => 'Ae',
+            'Ç' => 'C', 'Ć' => 'C', 'Č' => 'C', 'Ĉ' => 'C', 'Ċ' => 'C', 'Ď' => 'D', 'Đ' => 'D',
+            'Ð' => 'D', 'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Ē' => 'E',
+            'Ę' => 'E', 'Ě' => 'E', 'Ĕ' => 'E', 'Ė' => 'E', 'Ĝ' => 'G', 'Ğ' => 'G',
+            'Ġ' => 'G', 'Ģ' => 'G', 'Ĥ' => 'H', 'Ħ' => 'H', 'Ì' => 'I', 'Í' => 'I',
+            'Î' => 'I', 'Ï' => 'I', 'Ī' => 'I', 'Ĩ' => 'I', 'Ĭ' => 'I', 'Į' => 'I',
+            'İ' => 'I', 'Ĳ' => 'IJ', 'Ĵ' => 'J', 'Ķ' => 'K', 'Ł' => 'K', 'Ľ' => 'K',
+            'Ĺ' => 'K', 'Ļ' => 'K', 'Ŀ' => 'K', 'Ñ' => 'N', 'Ń' => 'N', 'Ň' => 'N',
+            'Ņ' => 'N', 'Ŋ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O',
+            'Ö' => 'Oe', '&Ouml;' => 'Oe', 'Ø' => 'O', 'Ō' => 'O', 'Ő' => 'O', 'Ŏ' => 'O',
+            'Œ' => 'OE', 'Ŕ' => 'R', 'Ř' => 'R', 'Ŗ' => 'R', 'Ś' => 'S', 'Š' => 'S',
+            'Ş' => 'S', 'Ŝ' => 'S', 'Ș' => 'S', 'Ť' => 'T', 'Ţ' => 'T', 'Ŧ' => 'T',
+            'Ț' => 'T', 'Ù' => 'U', 'Ú' => 'U', 'Û' => 'U', 'Ü' => 'Ue', 'Ū' => 'U',
+            '&Uuml;' => 'Ue', 'Ů' => 'U', 'Ű' => 'U', 'Ŭ' => 'U', 'Ũ' => 'U', 'Ų' => 'U',
+            'Ŵ' => 'W', 'Ý' => 'Y', 'Ŷ' => 'Y', 'Ÿ' => 'Y', 'Ź' => 'Z', 'Ž' => 'Z',
+            'Ż' => 'Z', 'Þ' => 'T', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a',
+            'ä' => 'ae', '&auml;' => 'ae', 'å' => 'a', 'ā' => 'a', 'ą' => 'a', 'ă' => 'a',
+            'æ' => 'ae', 'ç' => 'c', 'ć' => 'c', 'č' => 'c', 'ĉ' => 'c', 'ċ' => 'c',
+            'ď' => 'd', 'đ' => 'd', 'ð' => 'd', 'è' => 'e', 'é' => 'e', 'ê' => 'e',
+            'ë' => 'e', 'ē' => 'e', 'ę' => 'e', 'ě' => 'e', 'ĕ' => 'e', 'ė' => 'e',
+            'ƒ' => 'f', 'ĝ' => 'g', 'ğ' => 'g', 'ġ' => 'g', 'ģ' => 'g', 'ĥ' => 'h',
+            'ħ' => 'h', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ī' => 'i',
+            'ĩ' => 'i', 'ĭ' => 'i', 'į' => 'i', 'ı' => 'i', 'ĳ' => 'ij', 'ĵ' => 'j',
+            'ķ' => 'k', 'ĸ' => 'k', 'ł' => 'l', 'ľ' => 'l', 'ĺ' => 'l', 'ļ' => 'l',
+            'ŀ' => 'l', 'ñ' => 'n', 'ń' => 'n', 'ň' => 'n', 'ņ' => 'n', 'ŉ' => 'n',
+            'ŋ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', 'ö' => 'oe',
+            '&ouml;' => 'oe', 'ø' => 'o', 'ō' => 'o', 'ő' => 'o', 'ŏ' => 'o', 'œ' => 'oe',
+            'ŕ' => 'r', 'ř' => 'r', 'ŗ' => 'r', 'š' => 's', 'ù' => 'u', 'ú' => 'u',
+            'û' => 'u', 'ü' => 'ue', 'ū' => 'u', '&uuml;' => 'ue', 'ů' => 'u', 'ű' => 'u',
+            'ŭ' => 'u', 'ũ' => 'u', 'ų' => 'u', 'ŵ' => 'w', 'ý' => 'y', 'ÿ' => 'y',
+            'ŷ' => 'y', 'ž' => 'z', 'ż' => 'z', 'ź' => 'z', 'þ' => 't', 'ß' => 'ss',
+            'ſ' => 'ss', 'ый' => 'iy', 'А' => 'A', 'Б' => 'B', 'В' => 'V', 'Г' => 'G',
+            'Д' => 'D', 'Е' => 'E', 'Ё' => 'YO', 'Ж' => 'ZH', 'З' => 'Z', 'И' => 'I',
+            'Й' => 'Y', 'К' => 'K', 'Л' => 'L', 'М' => 'M', 'Н' => 'N', 'О' => 'O',
+            'П' => 'P', 'Р' => 'R', 'С' => 'S', 'Т' => 'T', 'У' => 'U', 'Ф' => 'F',
+            'Х' => 'H', 'Ц' => 'C', 'Ч' => 'CH', 'Ш' => 'SH', 'Щ' => 'SCH', 'Ъ' => '',
+            'Ы' => 'Y', 'Ь' => '', 'Э' => 'E', 'Ю' => 'YU', 'Я' => 'YA', 'а' => 'a',
+            'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd', 'е' => 'e', 'ё' => 'yo',
+            'ж' => 'zh', 'з' => 'z', 'и' => 'i', 'й' => 'y', 'к' => 'k', 'л' => 'l',
+            'м' => 'm', 'н' => 'n', 'о' => 'o', 'п' => 'p', 'р' => 'r', 'с' => 's',
+            'т' => 't', 'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c', 'ч' => 'ch',
+            'ш' => 'sh', 'щ' => 'sch', 'ъ' => '', 'ы' => 'y', 'ь' => '', 'э' => 'e',
+            'ю' => 'yu', 'я' => 'ya'
+        ];
+
+        // make a human readable string
+        $text = strtr($text, $replace);
+
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\\pL\d.]+~u', '-', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w.]+~', '', $text);
+
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+
+        // add a - before an uppercase letter
+        $text = preg_replace('/(?<!\ )[A-Z]/', '$0', $text);
+
+        // check if the 1st letter become a - and remove it
+        if (substr($text, 0, 1) === '-')
+        {
+            $text = substr($text, 1);
+        }
+
+        return strtolower($text);
+    }
+```
+
+
+
+
