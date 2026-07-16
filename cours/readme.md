@@ -22,7 +22,9 @@
     - [4.3. Via la Request](#43-via-la-request)
     - [4.4. Effectuer une redirection](#44-effectuer-une-redirection)
 - [5. Les translations](#5-les-translations)
-    - [5.1. Mise en place](#41-mise-en-place)
+    - [5.1. Mise en place](#51-mise-en-place)
+    - [5.2 Utilisation](#52-utilisation)
+- [6. Les messages "flash"](#6-les-messages-flash)
 
 
 ## 1. Compréhension globale
@@ -489,6 +491,9 @@ Retour au [Sommaire](#sommaire)
 ```
 
 
+Retour au [Sommaire](#sommaire)
+
+
 ## 5. Les translations
 
 
@@ -515,6 +520,9 @@ Retour au [Sommaire](#sommaire)
             - fr 
 ```
 => Ici on met le site en priorité en anglais, si l'anglais n'est pas trouvé, on se replie sur le français
+
+
+Retour au [Sommaire](#sommaire)
 
 
 ### 5.2 Utilisation
@@ -545,5 +553,78 @@ On peut aussi utiliser les `Translations` en PHP, en injectant l'objet `Translat
 use Symfony\Contracts\Translation\TranslatorInterface;
 ```
 
+- Exemple d'utilisation sur un fichier de traduction différent :
+
+```php
+$translator->trans('game.not_found', [], 'alert')
+```
+
+- Exemple d'utilisation avec un paramètre :
+s
+```php
+$translator->trans(
+    'game.show.title',
+    ['%gameName%' => $game->getName()],
+);
+```
+
 
 - Dans les URL on peut utiliser le paramètre `{_locale}` qui est injecté par Symfony pour ajouter la locale automatiquement, on a pas besoin de le préciser lors des redirections !
+
+
+Retour au [Sommaire](#sommaire)
+
+
+## 6. Les messages "flash"
+
+
+- Les messages flashs sont des messages d'informations à l'utilisateur que l'on peut passer d'une page à l'autre.
+- Pour cela on utilise la fonction `addFlash` depuis un `AbstractController`: 
+
+```php
+$this->addFlash('danger', 'Jeu inexistant');
+```
+
+- Le premier paramètre est la clé, c'est-à-dire à quoi coresponds le message
+- Le deuxième paramètre est le message en lui-même
+- La clé est importante car Symfony ajoute le message flash en session, via le `addFlash`, il s'agit d'un tableau associatif de cette forme :
+
+```php
+['danger'] => [
+    'Message 1',
+    'Message 2'
+],
+['success'] => [
+    'Message 1'
+];
+```
+
+Une fois ajouté nos messages flashs, ne sont pas affichés sur la page, il faut les afficher explicitement : 
+
+
+```html
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} d-flex align-items-center" role="alert">
+            <div class="ms-2">{{ message|raw }}</div>
+            <button type="button" class="btn-close ms-auto" aria-label="Close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+{% endfor %}
+```
+
+- Symfony propose via la variable globale `app` l'attribut `flashes`, qui contient les messages flashs stockés en session.
+- La boucle `{% for label, messages in app.flashes %}` permet d'itérer que les messages stockés, `label`est la clé du tableau (danger, success, etc) et messages le tableau des messages corespondant à la clé
+- Il faut donc boucler ensuite sur `messages` pour tous les afficher
+- Les messages flashs de Symfony fonctionnent plutôt bien avec le composant Alerte de Bootstrap, ce dernier a des classes `alert-danger`, `alert-success`, etc. Ainsi en passant les bonnes clés à la fonction `addFlah` dans un contrôleur, on récupère cette information dans le Twig après pour avoir des alertes représentative de ce qu'elles sont réellement
+- Le code HTML de Boostrap :
+
+```html
+<button type="button" class="btn-close ms-auto" aria-label="Close" data-bs-dismiss="alert"></button>
+```
+
+- Permet d'ajouter une croix pour pouvoir fermer le message flash, sinon il s'afficherai indéfinimment
+- La classe `btn-close` et `aria-label="Close"`ajoute la croix, et `data-bs-dismiss="alert"`permet au JS de Bootstrap de fonctionner
+
+ 
+Retour au [Sommaire](#sommaire)

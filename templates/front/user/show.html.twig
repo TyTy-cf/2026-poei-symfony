@@ -6,28 +6,16 @@
 
 {% block body %}
 
-  <div class="m-2">
-      <h1>{{ user.nickname }}</h1>
-      <div>Inscrit en {{ user.createdAt|date("d/m/y") }}</div>
-  </div>
-
     <div class="container">
-       <div class="row">
-           {% for uog in user.userOwnGames %}
-               <div class="col-4 card-game ">
-                   <img src="{{ uog.game.thumbnailCover }}" >
-                   <h2>{{ uog.game.name }}</h2>
-                   <strong>{{ uog.gameTime|time_conversion }}</strong>
-               </div>
-           {% endfor %}
+        <section>
+            <h2>Ses jeux</h2>
+            <p>Temps de jeu total : {{ user.totalGameTime|time_conversion }}</p>
 
-       </div>
+            {% for uog in user.userOwnGames %}
+                <h2>{{ uog.game.name }}</h2>
+                <strong>{{ uog.gameTime|time_conversion }}</strong>
+            {% endfor %}
+        </section>
     </div>
-
-    <div>
-        <h3>Temps de jeu total : {{ total|time_conversion }} </h3>
-    </div>
-
-
 
 {% endblock %}

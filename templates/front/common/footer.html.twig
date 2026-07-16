@@ -1,0 +1,11 @@
+<footer>
+
+    <p>Nos meilleures catégoies</p>
+    <ul class="list-unstyled">
+        {% set footerCategories = best_categories() %}
+        {% for categ in footerCategories %}
+            <li>{{ categ.name }}</li>
+        {% endfor %}
+    </ul>
+
+</footer>

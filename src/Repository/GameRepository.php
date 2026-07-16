@@ -44,6 +44,22 @@ class GameRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findOneFullBy(string $slug): ?Game
+    {
+        return $this->createQueryBuilder('g')
+            ->select('g', 'ca', 'r', 'p', 'co', 'u')
+            ->join('g.categories', 'ca')
+            ->join('g.publisher', 'p')
+            ->join('g.countries', 'co')
+            ->join('g.reviews', 'r')
+            ->join('r.user', 'u')
+            ->where('g.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->orderBy('r.rating', 'DESC')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function findBySimilarCategory(Game $game, ?int $limit = null): array
     {
         $qb = $this->createQueryBuilder('g')
