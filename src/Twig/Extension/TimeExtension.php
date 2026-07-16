@@ -7,7 +7,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
-class TimeExtension extends AbstractExtension
+class   TimeExtension extends AbstractExtension
 {
     public function getFilters(): array
     {
