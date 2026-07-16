@@ -8,4 +8,12 @@
         {% endfor %}
     </ul>
 
+    <p>Nos jeux les plsu commentés</p>
+    <ul class="list-unstyled">
+        {% set footerGamesCommented = most_commented_game() %}
+        {% for gamesCommented in footerGamesCommented %}
+            <li>{{ gamesCommented.name }}</li>
+        {% endfor %}
+    </ul>
+
 </footer>
