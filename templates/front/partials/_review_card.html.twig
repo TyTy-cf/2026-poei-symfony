@@ -29,7 +29,7 @@
         <a href="{{ path('app_user_show', {'name': review.user.name }) }}"
            class="text-decoration-none text-light"
         >
-            par {{ review.user.nickname }}
+            {{ 'review.card.nickname'|trans({'%nickname%': review.user.nickname})  }}
         </a>
     </div>
 </div>
