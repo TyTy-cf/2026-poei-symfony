@@ -5,3 +5,11 @@ game:
     show:
         title: "Acheter %gameName% !"
         title_reverse: "%gameName% acheter !"
+
+user:
+    properties:
+        name: "Nom d'utilisateur"
+        nickname: "Pseudo"
+        email: "Email"
+        password: "Password"
+        profileImage: "Image de profil"

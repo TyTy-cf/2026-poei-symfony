@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Repository\categoryRepository;
+use App\Repository\CategoryRepository;
 
 class MostPlayedCategories
 {

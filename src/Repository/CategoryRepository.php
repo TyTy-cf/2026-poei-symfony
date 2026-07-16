@@ -22,7 +22,7 @@ class CategoryRepository extends ServiceEntityRepository
   public function mostPlayedCategories(int $value): array
   {
 
-    // select ost played games based on the game_time
+    // select ost played categories based on the sum of gameTime of all userOwnGames in each category
     return $this->createQueryBuilder('c')
       ->select('c')
       ->leftJoin('c.games', 'g')
@@ -40,7 +40,7 @@ class CategoryRepository extends ServiceEntityRepository
   public function FindAllGamesInCategory(array $criteria): ?array
   {
 
-    // select category and all games with the same category in order to access every game with the same category
+    // select category and all games within the same category in order to access every game with the same category
     return $this->createQueryBuilder('c')
       ->leftJoin('c.games', 'g')
       ->addSelect('g')
