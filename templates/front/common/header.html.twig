@@ -11,6 +11,7 @@
                 <a class="navbar-brand steamish-link" href="{{ path("app_user_show", {'name': app.user.name}) }}">Mon profil</a>
                 {% if is_granted("ROLE_ADMIN") %}
                     <a class="navbar-brand steamish-link" href="{{ path("admin_category_new") }}">Créer une catégorie</a>
+                    <a class="navbar-brand steamish-link" href="{{ path("app_admin") }}">Dashboard Admin</a>
                 {% endif %}
                 <a class="navbar-brand steamish-link" href="{{ path("app_logout") }}">Se déconnecter</a>
             {% endif %}

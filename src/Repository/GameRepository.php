@@ -77,4 +77,17 @@ class GameRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function latestGames(?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.userOwnGames', 'uog')
+            ->orderBy('uog.createdAt', 'DESC');
+
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

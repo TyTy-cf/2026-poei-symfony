@@ -1,0 +1,51 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Welcome Admin{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3">
+                <ul class="mt-2">
+                    <li><a class="text-decoration-none" href="{{ path('admin_category_new') }}">{{ 'menu.admin.new_category'|trans([], 'component') }}</a>
+                    </li>
+                    <li>Derniers jeux achetés</li>
+                    <li>Derniers commentaires</li>
+                    <li>Derniers jeux sortis</li>
+                    <li>Derniers utilisateurs inscrits</li>
+                </ul>
+
+            </div>
+            <div class="col-9">
+
+                <div class="col-6">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col">Nom du jeu</th>
+                            <th scope="col">Date d'achat</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for game in last_game %}
+
+                                <tr>
+                                    {{ game.name }}
+                                </tr>
+                                <tr>
+
+                                </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

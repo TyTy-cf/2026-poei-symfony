@@ -5,3 +5,7 @@ button:
     cancel: "Annuler"
     close: "Fermer"
     reset: "Réinitialiser"
+
+menu :
+    admin :
+        new_category : 'Créer une nouvelle catégorie'
