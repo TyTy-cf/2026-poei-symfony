@@ -1,8 +1,19 @@
-<nav class="navbar z-3 bg-body-tertiary pb-4 border-bottom border-2 border-dark position-relative top" style="background-color: #1b1b1b !important;">
+<nav class="navbar steamish-navbar navbar-dark z-3 border-bottom border-2 border-dark position-relative top">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="{{ path("app_home") }}">Steam Ish</a>
-		<a class="navbar-brand" href="{{ path("admin_category_add") }}">add a category</a>
-
-
+		<a class="navbar-brand" href="{{ path("app_home") }}">
+			cacahoetehome
+		</a>
+		<div class="ms-auto">
+			{% if app.user is null %}
+				<a class="navbar-brand steamish-link" href="{{ path("app_login") }}">Login</a>
+				<a class="navbar-brand steamish-link" href="{{ path("app_register") }}">Inscription</a>
+			{% else %}
+				<a class="navbar-brand steamish-link" href="{{ path("app_user_show", {'name': app.user.name}) }}">Mon profil</a>
+				{% if is_granted("ROLE_ADMIN") %}
+					<a class="navbar-brand steamish-link" href="{{ path("admin_category_new") }}">Créer une catégorie</a>
+				{% endif %}
+				<a class="navbar-brand steamish-link" href="{{ path("app_logout") }}">Se déconnecter</a>
+			{% endif %}
+		</div>
 	</div>
 </nav>

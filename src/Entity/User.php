@@ -5,11 +5,12 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -23,7 +24,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   #[ORM\ManyToOne]
   private ?Country $country = null;
 
-  #[ORM\Column(length: 180)]
+  #[ORM\Column(length: 255)]
+  #[NotBlank(message: 'user.email.not_blank')]
   private ?string $email = null;
 
   /**
@@ -35,13 +37,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   /**
    * @var string The hashed password
    */
-  #[ORM\Column(length: 255)]
+  #[ORM\Column]
+  #[Regex(
+    pattern: '/^(?=.*[0-9])(?=.*[A-Z])(?=.*[@!]).{9,}$/',
+    message: 'user.password.regex'
+  )]
+  #[Length(min: 9, minMessage: 'user.password.min')]
+  #[NotBlank(message: 'user.password.not_blank')]
   private ?string $password = null;
 
+  #[ORM\Column]
+  private ?\DateTimeImmutable $createdAt = null;
+
   #[ORM\Column(length: 255, unique: true)]
+  #[Length(min: 4, minMessage: 'user.name.min')]
+  #[NotBlank(message: 'user.name.not_blank')]
   private ?string $name = null;
 
   #[ORM\Column(length: 255)]
+  #[Length(min: 1, minMessage: 'user.nickname.min')]
+  #[NotBlank(message: 'user.nickname.not_blank')]
   private ?string $nickname = null;
 
   #[ORM\Column(length: 255, nullable: true)]
@@ -81,18 +96,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   public function setEmail(string $email): static
   {
     $this->email = $email;
-
-    return $this;
-  }
-
-  public function getCountry(): ?Country
-  {
-    return $this->country;
-  }
-
-  public function setCountry(?Country $country): static
-  {
-    $this->country = $country;
 
     return $this;
   }
@@ -143,16 +146,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     return $this;
   }
+
+  /**
+   * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.
+   */
+  public function __serialize(): array
+  {
+    $data = (array) $this;
+    $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
+
+    return $data;
+  }
+
+  #[\Deprecated]
+  public function eraseCredentials(): void
+  {
+    // @deprecated, to be removed when upgrading to Symfony 8
+  }
+
+  public function getCountry(): ?Country
+  {
+    return $this->country;
+  }
+
+  public function setCountry(?Country $country): void
+  {
+    $this->country = $country;
+  }
+
   public function getCreatedAt(): ?\DateTimeImmutable
   {
     return $this->createdAt;
   }
 
-  public function setCreatedAt(\DateTimeImmutable $createdAt): static
+  public function setCreatedAt(?\DateTimeImmutable $createdAt): void
   {
     $this->createdAt = $createdAt;
-
-    return $this;
   }
 
   public function getName(): ?string
@@ -160,11 +189,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this->name;
   }
 
-  public function setName(string $name): static
+  public function setName(?string $name): void
   {
     $this->name = $name;
-
-    return $this;
   }
 
   public function getNickname(): ?string
@@ -172,11 +199,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this->nickname;
   }
 
-  public function setNickname(string $nickname): static
+  public function setNickname(?string $nickname): void
   {
     $this->nickname = $nickname;
-
-    return $this;
   }
 
   public function getProfileImage(): ?string
@@ -184,11 +209,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this->profileImage;
   }
 
-  public function setProfileImage(?string $profileImage): static
+  public function setProfileImage(?string $profileImage): void
   {
     $this->profileImage = $profileImage;
-
-    return $this;
   }
 
   public function getWallet(): int
@@ -196,11 +219,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this->wallet;
   }
 
-  public function setWallet(int $wallet): static
+  public function setWallet(int $wallet): void
   {
     $this->wallet = $wallet;
-
-    return $this;
   }
 
   /**
@@ -219,6 +240,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     return $this;
+  }
+
+  public function setReviews(Collection $reviews): void
+  {
+    $this->reviews = $reviews;
   }
 
   public function removeReview(Review $review): static
@@ -241,16 +267,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this->userOwnGames;
   }
 
-  public function addUserOwnGame(UserOwnGame $userOwnGame): static
-  {
-    if (!$this->userOwnGames->contains($userOwnGame)) {
-      $this->userOwnGames->add($userOwnGame);
-      $userOwnGame->setUser($this);
-    }
-
-    return $this;
-  }
-
   public function removeUserOwnGame(UserOwnGame $userOwnGame): static
   {
     if ($this->userOwnGames->removeElement($userOwnGame)) {
@@ -263,20 +279,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this;
   }
 
-  /**
-   * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.
-   */
-  public function __serialize(): array
+  public function addUserOwnGame(UserOwnGame $userOwnGame): static
   {
-    $data = (array) $this;
-    $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
+    if (!$this->userOwnGames->contains($userOwnGame)) {
+      $this->userOwnGames->add($userOwnGame);
+      $userOwnGame->setUser($this);
+    }
 
-    return $data;
+    return $this;
   }
 
-  #[\Deprecated]
-  public function eraseCredentials(): void
+  public function setUserOwnGames(Collection $userOwnGames): void
   {
-    // @deprecated, to be removed when upgrading to Symfony 8
+    $this->userOwnGames = $userOwnGames;
+  }
+
+  public function getTotalGameTime(): int
+  {
+    $total = 0;
+
+    foreach ($this->getUserOwnGames() as $userOwnGame) {
+      $total += $userOwnGame->getGameTime();
+    }
+
+    return $total;
   }
 }
