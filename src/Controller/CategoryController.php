@@ -16,9 +16,10 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('{_locale}/category/', name: 'app_category_')]
 final class CategoryController extends AbstractController
 {
-  #[Route('/category/{name}', name: 'app_category_show')]
+  #[Route('{name}', name: 'show')]
   public function index(Request $request, CategoryRepository $categoryRepository, string $name): Response
   {
     $category = $categoryRepository->FindAllGamesInCategory(['name' => $name]);
@@ -42,7 +43,7 @@ final class CategoryController extends AbstractController
     ]);
   }
 
-  #[Route('{_locale}/category/add', name: 'app_category_add')]
+  #[Route('add', name: 'add')]
   public function add(Request $request, EntityManagerInterface $em, SlugifyService $slugifyService, CategoryFormService $categoryFormService): Response
   {
 
@@ -76,7 +77,7 @@ final class CategoryController extends AbstractController
     ]);
   }
 
-  #[Route('{_locale}/category/edit/{id}', name: 'app_category_edit')]
+  #[Route('edit/{id}', name: 'edit')]
   public function edit(Request $request, EntityManagerInterface $em, SlugifyService $slugifyService, CategoryFormService $categoryFormService, Category $category): Response
   {
     $form = $this->createForm(CategoryType::class, $category);

@@ -1,32 +1,32 @@
 {% extends './front/base.html.twig' %}
 
 {% block title %}
-	{{ game[0].name }}
+	{{ game.name }}
 	- Steam Ish
 {% endblock %}
 
 {% block body %}
 	{# Hero Background #}
-	<div class="position-absolute z-0 top-20 start-0 back-img-show" style="--hero-image: url('{{ game[0].thumbnailCover }}');"></div>
+	<div class="position-absolute z-0 top-20 start-0 back-img-show" style="--hero-image: url('{{ game.thumbnailCover }}');"></div>
 
 	<div
-		class="container d-flex flex-column gap-5 justify-content-center align-items-center h-100 w-100 mt-6">
+		class="container d-flex flex-column gap-5 justify-content-center align-items-center h-100 w-100">
 		{# Hero Section: Image + Game Info #}
-		<div class="container">
+		<div class="container py-5"> ">
 			<div
 				class="row g-4 align-items-center min-vh-75 py-5">
 				{# Image Column #}
 				<div class="col-12 col-lg-7">
 					<div class="card border-0 shadow-lg overflow-hidden">
 						<div class="ratio ratio-16x9">
-							<img src="{{ game[0].thumbnailCover }}" class="w-100 h-100 object-fit-cover" alt="{{ game[0].name }}">
+							<img src="{{ game.thumbnailCover }}" class="w-100 h-100 object-fit-cover" alt="{{ game.name }}">
 						</div>
 					</div>
 				</div>
 
 				{# Game Info Column #}
 				<div class="col-12 col-lg-5">
-					{% include './game/components/game-info.html.twig' with { game: game[0] } %}
+					{% include './game/components/game-info.html.twig' with { game: game } %}
 				</div>
 			</div>
 		</div>
@@ -38,8 +38,8 @@
 					<div class="card border-0 shadow-sm">
 						<div class="card-body p-4 p-lg-5">
 							<h2 class="h3 mb-3">Description</h2>
-							{% if game[0].description %}
-								<p class="lead text-body-secondary mb-0">{{ game[0].description }}</p>
+							{% if game.description %}
+								<p class="lead text-body-secondary mb-0">{{ game.description }}</p>
 							{% else %}
 								<p class="text-body-secondary mb-0">Aucune description disponible pour ce jeu.</p>
 							{% endif %}
@@ -55,17 +55,17 @@
 				<div class="col-12">
 					<div class="d-flex align-items-center justify-content-between gap-3 mb-3">
 						<h2 class="h3 mb-0">Avis</h2>
-						<span class="text-body-secondary">{{ game[0].reviews|length }}
+						<span class="text-body-secondary">{{ game.reviews|length }}
 							review(s)</span>
 					</div>
 
-					{% if game[0].reviews is empty %}
+					{% if game.reviews is empty %}
 						<div class="alert alert-light border mb-0" role="alert">
 							no reviews yet for this game
 						</div>
 					{% else %}
 						<div class="row row-cols-1 row-cols-lg-2 g-4">
-							{% for review in game[0].reviews %}
+							{% for review in game.reviews %}
 								{% include './game/components/review-card.html.twig' %}
 							{% endfor %}
 						</div>

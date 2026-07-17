@@ -1,24 +1,27 @@
+.back-img-show {
+    min-height: clamp(24rem, 54vw, 42rem);
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-image: var(--hero-image);
+    background-size: cover;
+    background-position: center;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 4vw));
+    isolation: isolate;
+}
 
-.game-show-container {
-
-    margin-top: 3rem;
-    height: 24rem;
-
-    .col-6 {
-        height: 100%;
-    }
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 1.5rem;
-    }
-
-    .game-show-infos {
-        padding-inline: 3rem;
-        border-radius: 1rem;
-        background-color: var(--default-card-background-color);
-    }
-
+.back-img-show::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.6) 45%,
+        rgba(0, 0, 0, 0.1) 100%
+    );
+    z-index: 0;
 }

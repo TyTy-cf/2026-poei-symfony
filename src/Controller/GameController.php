@@ -15,7 +15,8 @@ final class GameController extends AbstractController
   #[Route('/game/{slug}', name: 'app_game_show')]
   public function index(Request $request, GameRepository $gameRepository, string $slug): Response
   {
-    $game = $gameRepository->findOneGameAndDetails(['slug' => $slug]);
+    $game = $gameRepository->findOneFullBy($slug);
+
 
 
     if (!$game) {

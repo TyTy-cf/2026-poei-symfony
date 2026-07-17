@@ -64,24 +64,22 @@ class GameRepository extends ServiceEntityRepository
   }
 
   /**
-   * @return Game[] Returns a single Game object or null
+   * @return Game Returns a single Game object or null
    */
-  public function findOneGameAndDetails(array $criteria): ?array
+  public function findOneFullBy(string $slug): ?Game
   {
-
-    // select game and all game witg same category in order to access every game with the same category
     return $this->createQueryBuilder('g')
-      ->select('g', 'c', 'r', 'uog', 'u')
-      ->leftJoin('g.categories', 'c')
+      ->select('g', 'ca', 'r', 'p', 'co', 'u')
+      ->leftJoin('g.categories', 'ca')
+      ->leftJoin('g.publisher', 'p')
+      ->leftJoin('g.countries', 'co')
       ->leftJoin('g.reviews', 'r')
-      ->leftJoin('g.userOwnGames', 'uog')
-      ->leftJoin('uog.user', 'u')
-      ->groupBy('g.id')
-      ->setParameter('slug', $criteria['slug'])
-      ->andWhere('g.slug = :slug')
+      ->leftJoin('r.user', 'u')
+      ->where('g.slug = :slug')
+      ->setParameter('slug', $slug)
+      ->orderBy('r.createdAt', 'ASC')
       ->getQuery()
-      ->getResult()
-    ;
+      ->getOneOrNullResult();
   }
 
 
