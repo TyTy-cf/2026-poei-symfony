@@ -47,6 +47,15 @@
             </div>
         </section>
 
+        {% if similarGames|length > 0 %}
+            <section class="mt-5">
+                {% include 'front/partials/_game_loop.html.twig' with {
+                    'games': similarGames,
+                    'title': 'game.show.title.similar_games'|trans
+                } %}
+            </section>
+        {% endif %}
+
         {% if game.reviews|length > 0 %}
             <section class="mt-5">
                 <h2>{{ 'game.show.title.reviews'|trans }}</h2>

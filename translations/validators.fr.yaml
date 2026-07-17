@@ -11,3 +11,4 @@ user:
         not_blank: "Le pseudo doit être renseigné"
     email:
         not_blank: "L'email doit être renseigné"
+    repeat_password: "Les mots de passe ne corespondent pas"

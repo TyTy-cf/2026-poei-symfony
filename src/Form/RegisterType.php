@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -52,10 +53,22 @@ class RegisterType extends AbstractType
                     'placeholder' => 'user.property.profileImage',
                 ],
             ])
-            ->add('password', PasswordType::class, [
+            ->add('password', RepeatedType::class, [
                 'label' => false,
-                'attr' => [
-                    'placeholder' => 'user.property.password',
+                'type' => PasswordType::class,
+                'invalid_message' => 'user.repeat_password',
+                'required' => true,
+                'first_options'  => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'user.property.password',
+                    ]
+                ],
+                'second_options' => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'user.property.repeatPassword',
+                    ]
                 ],
             ])
         ;

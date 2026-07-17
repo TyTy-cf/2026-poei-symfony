@@ -7,6 +7,33 @@
 {% block body %}
 
     <div class="container">
+        <div class="d-flex justify-content-around">
+            <h1>{{ user.name }}</h1>
+            {% if isMe %}
+                <button class="btn btn-warning">
+                    <i class="fa-solid fa-pen-alt"></i>
+                </button>
+            {% endif %}
+        </div>
+
+        <section data-profile-form>
+            {% if form is not null %}
+                {% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+                {{ form_start(form) }} {# <form> #}
+                    {% for child in form %}
+                        {{ form_row(child) }}
+                    {% endfor %}
+
+                    {% include 'front/common/_buttons_form.html.twig' %}
+                {{ form_end(form) }} {# </form> #}
+            {% endif %}
+        </section>
+
+        <section>
+
+        </section>
+
         <section>
             <h2>Ses jeux</h2>
             <p>Temps de jeu total : {{ user.totalGameTime|time_conversion }}</p>

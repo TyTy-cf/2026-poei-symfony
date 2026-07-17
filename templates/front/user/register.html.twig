@@ -14,14 +14,7 @@
                 {% for child in form %}
                     {{ form_row(child) }}
                 {% endfor %}
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-primary mt-2 me-4" type="submit">
-                        {{ 'button.valid'|trans({}, 'component') }}
-                    </button>
-                    <button class="btn btn-warning mt-2" type="reset">
-                        {{ 'button.reset'|trans({}, 'component') }}
-                    </button>
-                </div>
+                {% include 'front/common/_buttons_form.html.twig' %}
             {{ form_end(form) }} {# </form> #}
         </section>
     </div>

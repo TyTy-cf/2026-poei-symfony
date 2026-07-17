@@ -6,12 +6,15 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,14 +24,20 @@ class User
     #[ORM\ManyToOne]
     private ?Country $country = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255)]
     #[NotBlank(message: 'user.email.not_blank')]
     private ?string $email = null;
 
+    /**
+     * @var list<string> The user roles
+     */
     #[ORM\Column]
     private array $roles = [];
 
-    #[ORM\Column(length: 255)]
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
     #[Regex(
         pattern: '/^(?=.*[0-9])(?=.*[A-Z])(?=.*[@!]).{9,}$/',
         message: 'user.password.regex'
@@ -79,18 +88,6 @@ class User
         return $this->id;
     }
 
-    public function getCountry(): ?Country
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?Country $country): static
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -103,11 +100,31 @@ class User
         return $this;
     }
 
-    public function getRoles(): array
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->roles;
+        return (string) $this->email;
     }
 
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param list<string> $roles
+     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -115,6 +132,9 @@ class User
         return $this;
     }
 
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -127,16 +147,41 @@ class User
         return $this;
     }
 
+    /**
+     * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.
+     */
+    public function __serialize(): array
+    {
+        $data = (array) $this;
+        $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
+
+        return $data;
+    }
+
+    #[\Deprecated]
+    public function eraseCredentials(): void
+    {
+        // @deprecated, to be removed when upgrading to Symfony 8
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): void
+    {
+        $this->country = $country;
+    }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -144,11 +189,9 @@ class User
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
     public function getNickname(): ?string
@@ -156,11 +199,9 @@ class User
         return $this->nickname;
     }
 
-    public function setNickname(string $nickname): static
+    public function setNickname(?string $nickname): void
     {
         $this->nickname = $nickname;
-
-        return $this;
     }
 
     public function getProfileImage(): ?string
@@ -168,11 +209,9 @@ class User
         return $this->profileImage;
     }
 
-    public function setProfileImage(?string $profileImage): static
+    public function setProfileImage(?string $profileImage): void
     {
         $this->profileImage = $profileImage;
-
-        return $this;
     }
 
     public function getWallet(): int
@@ -180,11 +219,9 @@ class User
         return $this->wallet;
     }
 
-    public function setWallet(int $wallet): static
+    public function setWallet(int $wallet): void
     {
         $this->wallet = $wallet;
-
-        return $this;
     }
 
     /**
@@ -203,6 +240,11 @@ class User
         }
 
         return $this;
+    }
+
+    public function setReviews(Collection $reviews): void
+    {
+        $this->reviews = $reviews;
     }
 
     public function removeReview(Review $review): static
@@ -225,16 +267,6 @@ class User
         return $this->userOwnGames;
     }
 
-    public function addUserOwnGame(UserOwnGame $userOwnGame): static
-    {
-        if (!$this->userOwnGames->contains($userOwnGame)) {
-            $this->userOwnGames->add($userOwnGame);
-            $userOwnGame->setUser($this);
-        }
-
-        return $this;
-    }
-
     public function removeUserOwnGame(UserOwnGame $userOwnGame): static
     {
         if ($this->userOwnGames->removeElement($userOwnGame)) {
@@ -247,6 +279,21 @@ class User
         return $this;
     }
 
+    public function addUserOwnGame(UserOwnGame $userOwnGame): static
+    {
+        if (!$this->userOwnGames->contains($userOwnGame)) {
+            $this->userOwnGames->add($userOwnGame);
+            $userOwnGame->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function setUserOwnGames(Collection $userOwnGames): void
+    {
+        $this->userOwnGames = $userOwnGames;
+    }
+
     public function getTotalGameTime(): int
     {
         $total = 0;
@@ -257,4 +304,5 @@ class User
 
         return $total;
     }
+
 }

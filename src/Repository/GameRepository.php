@@ -56,6 +56,7 @@ class GameRepository extends ServiceEntityRepository
             ->where('g.slug = :slug')
             ->setParameter('slug', $slug)
             ->orderBy('r.rating', 'DESC')
+            ->addOrderBy('r.createdAt', 'DESC')
             ->getQuery()
             ->getOneOrNullResult();
     }
