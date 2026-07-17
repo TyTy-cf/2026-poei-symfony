@@ -27,7 +27,7 @@ final class CategoryController extends AbstractController
     public function new(
         Request                $request,
         EntityManagerInterface $em,
-//        SlugifyService         $slugifyService,
+        SlugifyService         $slugifyService,
     ): Response
     {
         $category = new Category();
