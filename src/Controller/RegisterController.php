@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\User;
+use App\Form\CategoryType;
 use App\Form\RegisterType;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
