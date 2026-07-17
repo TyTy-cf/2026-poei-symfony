@@ -68,6 +68,9 @@ class GameRepository extends ServiceEntityRepository
             // WHERE c.id IN (1, 5, 6, 8)
             ->where('c IN (:categs)')
             ->setParameter('categs', $game->getCategories())
+            ->andWhere('g != :game')
+            ->setParameter('game', $game)
+            ->groupBy('g')
             ->orderBy('g.price', 'DESC');
 
         if ($limit !== null) {
