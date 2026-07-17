@@ -17,6 +17,7 @@ final class GameController extends AbstractController
   {
     $game = $gameRepository->findOneGameAndDetails(['slug' => $slug]);
 
+
     if (!$game) {
       $this->addFlash(
         'danger',
