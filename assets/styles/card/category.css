@@ -2,9 +2,6 @@
     background-size: cover;
     background-position: center;
     width: 100%;
-    a {
-        text-decoration: none;
-    }
 }
 .bg-imgimg:hover {
     a {

@@ -12,7 +12,8 @@
 	<div
 		class="container d-flex flex-column gap-5 justify-content-center align-items-center h-100 w-100">
 		{# Hero Section: Image + Game Info #}
-		<div class="container py-5"> ">
+		<div class="container py-5">
+			">
 			<div
 				class="row g-4 align-items-center min-vh-75 py-5">
 				{# Image Column #}
@@ -51,6 +52,7 @@
 
 		{# Reviews Section #}
 		<div class="container py-5">
+
 			<div class="row g-4">
 				<div class="col-12">
 					<div class="d-flex align-items-center justify-content-between gap-3 mb-3">
@@ -65,12 +67,17 @@
 						</div>
 					{% else %}
 						<div class="row row-cols-1 row-cols-lg-2 g-4">
-							{% for review in game.reviews %}
+							{% for review in paginatedReviews %}
 								{% include './game/components/review-card.html.twig' %}
 							{% endfor %}
 						</div>
 					{% endif %}
 				</div>
+			</div>
+			{# Pagination navigation #}
+			<div class="navigation mt-4 d-flex justify-content-end">
+				{{ knp_pagination_render(paginatedReviews) }}
+
 			</div>
 		</div>
 	</div>

@@ -69,15 +69,12 @@ class GameRepository extends ServiceEntityRepository
   public function findOneFullBy(string $slug): ?Game
   {
     return $this->createQueryBuilder('g')
-      ->select('g', 'ca', 'r', 'p', 'co', 'u')
+      ->select('g', 'ca', 'p', 'co')
       ->leftJoin('g.categories', 'ca')
       ->leftJoin('g.publisher', 'p')
       ->leftJoin('g.countries', 'co')
-      ->leftJoin('g.reviews', 'r')
-      ->leftJoin('r.user', 'u')
       ->where('g.slug = :slug')
       ->setParameter('slug', $slug)
-      ->orderBy('r.createdAt', 'ASC')
       ->getQuery()
       ->getOneOrNullResult();
   }

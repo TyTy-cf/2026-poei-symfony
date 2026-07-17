@@ -2,7 +2,7 @@
 	<div class="ratio ratio-16x9 border-dark bg-imgimg rounded d-flex justify-content-center align-items-center flex-wrap" style="background-image: url('{{ categoryUrl|default('./assets/images/default-category.png') }}');">
 
 
-		<a href="{{ path('app_category_show', {'name': category.name}) }}" style="text-decoration: none; color: inherit;">
+		<a href="{{ path('app_category_show', {'name': category.name}) }}" >
 
 
 			<h5 class="name">{{category.name|upper}}</h5>
