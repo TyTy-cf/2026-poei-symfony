@@ -42,7 +42,7 @@ final class HomeController extends AbstractController
     $mostPlayedCategories = $categoryRepository->mostPlayedCategories(5);
 
     // dd($mostPlayedCategories);
-    return $this->render('home/index.html.twig', [
+    return $this->render('front/home/index.html.twig', [
       'controller_name' => 'HomeController',
       'latestReleasedGames' => $latestReleasedGames,
       'latestReviews' => $latestReviews,

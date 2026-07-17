@@ -21,7 +21,7 @@ final class PublisherController extends AbstractController
 
     $publisher = $publisherRepository->getPublisherBySlug($slug);
 
-    return $this->render('publisher/show.html.twig', [
+    return $this->render('front/publisher/show.html.twig', [
       'controller_name' => 'PublisherController',
       'publisher' => $publisher,
     ]);

@@ -22,10 +22,11 @@
 
 	</head>
 	<body class="d-flex flex-column min-vh-100">
-		{% include './component/header.html.twig' %}
+		{% include './front/component/header.html.twig' %}
+
 		<main class="flex-grow-1"> {% block body %}{% endblock %}
 			</main>
-			{% include './component/footer.html.twig' %}
+			{% include './front/component/footer.html.twig' %}
 
 		</body>
 	</html>

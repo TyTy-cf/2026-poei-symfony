@@ -3,13 +3,14 @@
 		<div class="card-body p-4 d-flex flex-column gap-3">
 			<div class="d-flex justify-content-between align-items-start gap-3">
 				<div>
-					<a href="{{ path('app_user_show', { name: review.user.name }) }}" >
+					<a href="{{ path('app_user_show', { name: review.user.name }) }}">
 						<h3 class="h5 mb-1">{{ review.user.nickname|default(review.user.name) }}</h3>
 					</a>
 					<p class="text-body-secondary small mb-0">{{ review.createdAt|date('d/m/Y') }}</p>
 				</div>
 				<div class="flex-shrink-0">
-					{% include './component/star.html.twig' with { rating: review.rating } %}
+					{% include './front/component/star.html.twig' with { rating: review.rating } %}
+
 				</div>
 			</div>
 			<p class="mb-0 text-body-secondary">{{ review.content }}</p>

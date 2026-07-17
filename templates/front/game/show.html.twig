@@ -27,7 +27,8 @@
 
 				{# Game Info Column #}
 				<div class="col-12 col-lg-5">
-					{% include './game/components/game-info.html.twig' with { game: game } %}
+					{% include './front/game/components/game-info.html.twig' with { game: game } %}
+
 				</div>
 			</div>
 		</div>
@@ -68,7 +69,7 @@
 					{% else %}
 						<div class="row row-cols-1 row-cols-lg-2 g-4">
 							{% for review in paginatedReviews %}
-								{% include './game/components/review-card.html.twig' %}
+								{% include './front/game/components/review-card.html.twig' %}
 							{% endfor %}
 						</div>
 					{% endif %}

@@ -6,7 +6,8 @@
 		</a>
 
 		<h3 class="card-text">
-			{% include './component/star.html.twig' with  {"rating": latestReview.rating} %}
+			{% include './front/component/star.html.twig' with  {"rating": latestReview.rating} %}
+
 		</h3>
 		<a href="{{ path('app_game_show', {'slug': latestReview.game.slug}) }}">
 			<span>{{latestReview.game.name}}</span>

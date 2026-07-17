@@ -16,10 +16,10 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('{_locale}/category/', name: 'app_category_')]
+
 final class CategoryController extends AbstractController
 {
-  #[Route('{name}', name: 'show')]
+  #[Route('{_locale}/category/{name}', name: 'app_category_show')]
   public function index(Request $request, CategoryRepository $categoryRepository, string $name): Response
   {
     $category = $categoryRepository->FindAllGamesInCategory(['name' => $name]);
@@ -37,16 +37,15 @@ final class CategoryController extends AbstractController
     }
 
 
-    return $this->render('category/show.html.twig', [
+    return $this->render('front/category/show.html.twig', [
       'controller_name' => 'categoryController',
       'category' => $category,
     ]);
   }
 
-  #[Route('add', name: 'add')]
+  #[Route('{_locale}/category/add', name: 'app_category_add')]
   public function add(Request $request, EntityManagerInterface $em, SlugifyService $slugifyService, CategoryFormService $categoryFormService): Response
   {
-
 
     $category = new Category();
     $form = $this->createForm(CategoryType::class, $category);
@@ -71,13 +70,13 @@ final class CategoryController extends AbstractController
     }
 
 
-    return $this->render('category/register.html.twig', [
+    return $this->render('front/category/register.html.twig', [
       'controller_name' => 'RegisterController',
       'form' => $form,
     ]);
   }
 
-  #[Route('edit/{id}', name: 'edit')]
+  #[Route('{_locale}/category/edit/{id}', name: 'app_category_edit')]
   public function edit(Request $request, EntityManagerInterface $em, SlugifyService $slugifyService, CategoryFormService $categoryFormService, Category $category): Response
   {
     $form = $this->createForm(CategoryType::class, $category);
@@ -102,7 +101,7 @@ final class CategoryController extends AbstractController
     }
 
 
-    return $this->render('category/register.html.twig', [
+    return $this->render('front/category/register.html.twig', [
       'controller_name' => 'RegisterController',
       'form' => $form,
     ]);

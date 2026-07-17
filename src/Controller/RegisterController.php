@@ -42,7 +42,7 @@ final class RegisterController extends AbstractController
     }
 
 
-    return $this->render('user/register.html.twig', [
+    return $this->render('front/user/register.html.twig', [
       'controller_name' => 'RegisterController',
       'form' => $form,
     ]);

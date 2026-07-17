@@ -8,7 +8,7 @@
 {% block body %}
 	<div class="container">
 		<h1 class="text-center my-5">{{ category[0].name }}</h1>
-		{%include './component/gameCard.html.twig' with  {
+		{%include './front/component/gameCard.html.twig' with  {
         "games": category[0].games
         } %}
 

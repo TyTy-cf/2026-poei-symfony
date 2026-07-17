@@ -21,7 +21,7 @@ final class UserController extends AbstractController
 
     // dd($user);
 
-    return $this->render('user/show.html.twig', [
+    return $this->render('front/user/show.html.twig', [
       'controller_name' => 'UserController',
       'user' => $user,
     ]);

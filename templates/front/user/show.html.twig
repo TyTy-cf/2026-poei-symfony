@@ -20,7 +20,7 @@
 		{% else %}
 			<div class="container py-3">
 
-				{% include './component/gameCard.html.twig' with {
+				{% include './front/component/gameCard.html.twig' with {
 					games: user.userOwnGames|map(userOwnGame => userOwnGame.game)
 				} only %}
 
@@ -44,7 +44,7 @@
 										<h3 class="h5 mb-0">{{ review.game.name }}</h3>
 									</a>
 									<div class="flex-shrink-0">
-										{% include './component/star.html.twig' with {"rating": review.rating} %}
+										{% include './front/component/star.html.twig' with {"rating": review.rating} %}
 									</div>
 								</div>
 								<p class="card-text text-body-secondary mb-0">{{ review.content }}</p>
