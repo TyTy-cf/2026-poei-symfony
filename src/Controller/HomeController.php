@@ -22,7 +22,7 @@ final class HomeController extends AbstractController
   }
 
 
-  #[Route('/{_locale}/', name: 'app_home')]
+  #[Route('/{_locale}', name: 'app_home')]
   public function index(GameRepository $gameRepository, ReviewRepository $reviewRepository, CategoryRepository $categoryRepository): Response
   {
 

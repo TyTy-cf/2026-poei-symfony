@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class RegisterController extends AbstractController
 {
-  #[Route('{_locale}/register', name: 'app_register')]
+  #[Route('/{_locale}/register', name: 'app_register')]
   public function register(Request $request, EntityManagerInterface $em): Response
   {
 

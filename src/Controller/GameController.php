@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class GameController extends AbstractController
 {
-  #[Route('{_locale}/game/{slug}', name: 'app_game_show')]
+  #[Route('/{_locale}/game/{slug}', name: 'app_game_show')]
   public function index(
     Request $request,
     GameRepository $gameRepository,
