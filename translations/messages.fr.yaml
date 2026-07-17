@@ -22,6 +22,54 @@ register:
 review:
     card:
         nickname: "par %nickname%"
+
 security:
     login:
         title: "Se connecter"
+
+footer:
+    title: "Nos meilleures catégories"
+
+user:
+    show:
+        title: "Profil de %userName% !"
+        inscription: "Inscrit le: %userCreatedAt%"
+        game_time: "%gameName%, temps de jeu : %gameTime%"
+        vote: "votes positifs: %upvote%, vote négatifs: %downvote%"
+
+    register:
+        title: "Formulaire d'inscription"
+
+    property:
+        email: "Email"
+        name: "Nom de compte"
+        nickname: "Pseudo"
+        password: "Mot de passe"
+        country: "--Sélectionner votre pays--"
+
+category:
+    form:
+        title: "Ajouter une catégorie"
+
+    property:
+        name: "Nom de la catégorie"
+        image: "Lien de l'image de la catégorie"
+        games: "Jeux associés"
+
+button:
+    confirm: "Confirmer"
+    valid: "Valider"
+    cancel: "Annuler"
+    close: "Fermer"
+
+test:
+    success: "C'est ajouté en base."
+    error: "ça n'a pas fonctionné"
+
+login:
+    title: "Connexion"
+    log_as: "Vous êtes connectés en tant que "
+    logout: "Déconnexion"
+    log_please: "Veuillez vous connecter"
+    login: "Se connecter"
+

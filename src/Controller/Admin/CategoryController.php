@@ -22,7 +22,7 @@ final class CategoryController extends AbstractController
     public function new(): Response
     {
         return $this->render('admin/category/edit.html.twig', [
-            'controller_name' => 'CategoryController',
+            'form' => $form,
         ]);
     }
 
