@@ -5,5 +5,7 @@
     --default-card-background-color: #323232;
     --default-card-content-color: #a8a8a8;
     --default-fire-gradient: linear-gradient(10deg, #ff8a15, #ff3131);
+    --default-orange: #ff8a15;
+    --default-orange-darker: #ff3131;
     --yellow: #FFFF00;
 }

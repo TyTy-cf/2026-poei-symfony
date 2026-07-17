@@ -407,5 +407,17 @@ Utilisez cette fonction (dans un service !) pour générer le slug de la catégo
 ```
 
 
+### 14. Faire un `AdminController`
 
 
+- Il aura une route de chemin : `/{_locale}/admin` (adapter le nom de la route pour qu'elle soit sécurisée...)
+- Il s'agit du dashboard Admin
+- La vue doit `extends` un `base.html.twig` spécifique à l'admin
+- Cette vue doit avoir un menu sur la gauche, avec les liens des différents menus admins et le contenu affiché sur la partie de droite (Environ 20% pour le menu et 80% pour le contenu)
+- Ajouter dans le menu de gauche un lien vers la nouvelle catégorie
+- Modifier le `header.html.twig` pour qu'il aille vers le `AdminController`
+- La page par défaut de l'`AdminController`, afficher les informations suivantes sous forme de table HTML :
+  - Les 8 dernières ventes de jeu (`userOwnGames.createdAt`), afficher : "nom du jeu", "date d'achat"
+  - Les 8 derniers commentaires postés, afficher : "nom du jeu", "par qui", "date de création"
+  - Les 8 derniers jeux sortis, afficher : "nom du jeu", "date de sortie"
+  - Les 8 derniers utilisateurs inscrits (avec lien vers la page de leur profil), afficher : "nom du user", "date d'inscription", "nb jeux achetés"
