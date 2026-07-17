@@ -26,7 +26,8 @@
     - [10. Prévoir un message flash](#10-prévoir-un-message-flash)
     - [11. Faire la page d'une catégorie](#11-faire-la-page-dune-catégorie)
     - [12. Faire la page d'un publisher](#12-faire-la-page-dun-publisher)
-    - [13. Faire un formulaire pour les `Category`](#13-faire-un-formulaire-pour-les-category)
+    - [13. Faire un formulaire pour les Category](#13-faire-un-formulaire-pour-les-category)
+    - [14. Faire un AdminController`](#14-faire-un-admin-controller)
 
 
 ## Installation
@@ -316,7 +317,7 @@ Bien sûr on utilisera dorénavant que les chaînes de traductions dans le site
 - La fonction doit afficher les informations de l'éditeur, ainsi que ses jeux créés
 
 
-### 13. Faire un formulaire pour les `Category`
+### 13. Faire un formulaire pour les Category
 
 
 - Faire un formulaire qui gère l'ajout d'une Category (ne faites pas de lien dans le header pour le moment, on y accède par l'URL)
@@ -407,7 +408,7 @@ Utilisez cette fonction (dans un service !) pour générer le slug de la catégo
 ```
 
 
-### 14. Faire un `AdminController`
+### 14. Faire un AdminController
 
 
 - Il aura une route de chemin : `/{_locale}/admin` (adapter le nom de la route pour qu'elle soit sécurisée...)
