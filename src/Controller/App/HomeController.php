@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\App;
 
 use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
@@ -16,13 +16,14 @@ final class HomeController extends AbstractController
   #[Route('/', name: 'app_home_redirect')]
   public function homeRedirect(Request $request): Response
   {
+    $locales = $request->getLocale();
     return $this->redirectToRoute('app_home', [
-      '_locale' => $request->getDefaultLocale(),
+      '_locale' => explode('_', $locales)[0],
     ]);
   }
 
 
-  #[Route('/{_locale}', name: 'app_home')]
+  #[Route('/{_locale}/', name: 'app_home')]
   public function index(GameRepository $gameRepository, ReviewRepository $reviewRepository, CategoryRepository $categoryRepository): Response
   {
 
