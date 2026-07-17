@@ -1,0 +1,23 @@
+
+{% trans_default_domain 'admin' %}
+
+<section class="d-flex flex-column mx-auto">
+    <a class="navbar-brand" href="{{ path("app_home") }}">
+        <i class="fa-brands fa-steam fa-3x steamish-link"></i>
+    </a>
+    <ul class="list-unstyled ps-2">
+        <p>Catégories</p>
+        <div class="ps-2">
+            <li>
+                <a class="text-decoration-none steamish-link" href="{{ path('admin_category_new') }}">
+                    {{ 'category.index'|trans }}
+                </a>
+            </li>
+            <li>
+                <a class="text-decoration-none steamish-link" href="{{ path('admin_category_new') }}">
+                    {{ 'category.new'|trans }}
+                </a>
+            </li>
+        </div>
+    </ul>
+</section>

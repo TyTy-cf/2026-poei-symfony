@@ -4,3 +4,7 @@ game:
 register:
     success: "Votre compte a bien été créé, vous pouvez vous connecter"
     danger: "Une erreur est survenue lors de la création de votre compte"
+user:
+  edit:
+      success: "Modifications effectuées !"
+      danger: "Une erreur est survenue lors de la modification du profil"

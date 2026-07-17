@@ -19,7 +19,7 @@ class GameRepository extends ServiceEntityRepository
     public function findByGameTimeSum(?int $limit = null): array
     {
         $qb = $this->createQueryBuilder('g')
-            ->join('g.userOwnGames', 'uog')
+            ->leftJoin('g.userOwnGames', 'uog')
             ->groupBy('g')
             ->orderBy('SUM(uog.gameTime)', 'DESC');
 
@@ -33,7 +33,7 @@ class GameRepository extends ServiceEntityRepository
     public function findByBestRating(?int $limit = null): array
     {
         $qb = $this->createQueryBuilder('g')
-            ->join('g.reviews', 'r')
+            ->leftJoin('g.reviews', 'r')
             ->groupBy('g')
             ->orderBy('AVG(r.rating)', 'DESC');
 
@@ -65,9 +65,11 @@ class GameRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('g')
             ->join('g.categories', 'c')
-            // WHERE c.id IN (1, 5, 6, 8)
             ->where('c IN (:categs)')
             ->setParameter('categs', $game->getCategories())
+            ->andWhere('g != :game')
+            ->setParameter('game', $game)
+            ->groupBy('g')
             ->orderBy('g.price', 'DESC');
 
         if ($limit !== null) {

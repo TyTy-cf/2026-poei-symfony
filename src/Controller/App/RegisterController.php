@@ -3,7 +3,7 @@
 namespace App\Controller\App;
 
 use App\Entity\User;
-use App\Form\RegisterType;
+use App\Form\UserType;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +24,7 @@ final class RegisterController extends AbstractController
     ): Response
     {
         $user = new User();
-        $form = $this->createForm(RegisterType::class, $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

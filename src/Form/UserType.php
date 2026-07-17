@@ -13,23 +13,29 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegisterType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $isEdit = $options['is_edit'];
+
+        if (!$isEdit) {
+            $builder
+                ->add('email', EmailType::class, [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'user.property.email',
+                    ]
+                ])
+                ->add('name', null, [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'user.property.name',
+                    ]
+                ]);
+        }
+
         $builder
-            ->add('email', EmailType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'user.property.email',
-                ]
-            ])
-            ->add('name', null, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'user.property.name',
-                ]
-            ])
             ->add('nickname', null, [
                 'label' => false,
                 'attr' => [
@@ -52,26 +58,30 @@ class RegisterType extends AbstractType
                 'attr' => [
                     'placeholder' => 'user.property.profileImage',
                 ],
-            ])
-            ->add('password', RepeatedType::class, [
-                'label' => false,
-                'type' => PasswordType::class,
-                'invalid_message' => 'user.repeat_password',
-                'required' => true,
-                'first_options'  => [
+            ]);
+
+        if (!$isEdit) {
+            $builder
+                ->add('password', RepeatedType::class, [
                     'label' => false,
-                    'attr' => [
-                        'placeholder' => 'user.property.password',
-                    ]
-                ],
-                'second_options' => [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'user.property.repeatPassword',
-                    ]
-                ],
-            ])
-        ;
+                    'type' => PasswordType::class,
+                    'invalid_message' => 'user.repeat_password',
+                    'required' => true,
+                    'first_options'  => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'user.property.password',
+                        ]
+                    ],
+                    'second_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'user.property.repeatPassword',
+                        ]
+                    ],
+                ]
+            );
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -80,6 +90,7 @@ class RegisterType extends AbstractType
             'data_class' => User::class,
             'translation_domain' => 'entity',
             'label' => false,
+            'is_edit' => false,
         ]);
     }
 }
