@@ -25,7 +25,7 @@ class CategoryRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder("c")
             ->leftJoin("c.games","g")
-            ->select("c", "SUM(g)")
+            ->select("c", "COUNT(g)")
             ->groupBy("c")
             ->orderBy("c.name");
         return $qb->getQuery()->getResult();
