@@ -26,11 +26,11 @@
                 </td>
                 <td>{{ game.slug }}</td>
                 <td><div class="d-flex align-items-stretch justify-content-evenly">
-                        <a href="{{ path('admin_show_category', {slug: game.slug}) }}">
+                        <a href="{{ path('app_game', {slug: game.slug}) }}">
                             <i class="fa-solid fa-eye"></i></a>
-                        <a href="{{ path('admin_edit_category', {slug: game.slug}) }}">
-                            <i class="fa-solid fa-pen"></i></a>
-                        <a href="{{ path('admin_delete_category', {slug: game.slug}) }}">
+{#                        <a href="{{ path('admin_edit_category', {slug: game.slug}) }}">#}
+{#                            <i class="fa-solid fa-pen"></i></a>#}
+                        <a href="{{ path('admin_remove_game_category', {slugGame: game.slug, slugCategory: category.slug}) }}">
                             <i class="fa-solid fa-remove link-danger"></i></a>
                     </div></td>
             </tr>

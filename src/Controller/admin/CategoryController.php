@@ -3,6 +3,7 @@
 namespace App\Controller\admin;
 
 use App\Entity\Category;
+use App\Entity\Game;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
@@ -35,7 +36,7 @@ final class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{slug}', name: 'admin_show_category')]
+    #[Route('/show/{slug}', name: 'admin_category')]
     public function show(#[MapEntity(mapping: ['slug' => 'slug'])] Category $category): Response
     {
 
@@ -66,6 +67,15 @@ final class CategoryController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('admin_categories');
+    }
+
+    #[Route('/remove/{slugCategory}/{slugGame}', name: 'admin_remove_game_category')]
+    public function removeGame(#[MapEntity(mapping: ['slugCategory' => 'slug'])] Category $category, #[MapEntity(mapping: ['slugGame' => 'slug'])] Game $game, EntityManagerInterface $entityManager): Response
+    {
+        $category->removeGame($game);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_category', ['slug' => $category->getSlug()]);
     }
 
     private function handleForm(
