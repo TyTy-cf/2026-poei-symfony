@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Repository\CategoryRepository;
 use App\Service\CategoryService;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +21,31 @@ final class CategoryController extends AbstractController
         private readonly TranslatorInterface $translator,
     )
     {
+    }
+
+    #[Route('', name: 'index_category')]
+    public function categories(
+        CategoryRepository $categoryRepository
+    ): Response
+    {
+        $categories = $categoryRepository->findBy([], ['name' => 'ASC']);
+
+        return $this->render('admin/category/index.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
+    #[Route('/{slug}', name: '_show')]
+    public function show(
+        CategoryRepository $categoryRepository,
+        ?string $slug
+    ): Response
+    {
+        $category = $categoryRepository->findAllWithGamesOrdered($slug);
+
+        return $this->render('admin/category/show.html.twig', [
+            'category' => $category,
+        ]);
     }
 
     #[Route('new', name: 'new')]

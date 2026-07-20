@@ -1,0 +1,27 @@
+{% extends 'admin/base.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+
+{% block mainTitle %}
+    {{ 'category.show.title'|trans({'%categ%': category.name}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row game-show-container">
+        <div class="col-md-6 col-12">
+            <img class="front-image" src="{{ category.image }}">
+        </div>
+        <div class="col-md-6 col-12 game-show-infos mt-md-0 mt-4">
+            <h1 class="mt-4">{{ category.name }}</h1>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}

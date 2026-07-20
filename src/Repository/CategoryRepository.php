@@ -21,4 +21,19 @@ class CategoryRepository extends ServiceEntityRepository
         return $this->findBy([], ['name' => 'ASC'], $limit);
     }
 
+    /**
+     * @return Category|null
+     */
+
+    public function findAllWithGamesOrdered(string $slug): array
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.games', 'g')
+            ->where('c.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->orderBy('g.name', 'ASC')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

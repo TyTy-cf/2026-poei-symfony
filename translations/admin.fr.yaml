@@ -12,7 +12,19 @@ menu:
 category:
     index:
         title: "Les catégories"
+        nom : 'Nom'
+        image : 'Image ?'
+        slug : 'Slug'
+        jeux : "Jeux "
+        actions : 'Actions'
+        have_image : 'Oui'
+        no_image : 'Non'
+
     new:
         title: "Nouvelle catégorie"
     edit:
         title: 'Modifier la catégorie "%categ%"'
+    show :
+        title: 'Catégorie "%categ%"'
+
+

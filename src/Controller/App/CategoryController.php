@@ -20,10 +20,16 @@ final class CategoryController extends AbstractController
     }
 
     #[Route('{slug}', name: 'show')]
-    public function new(): Response
+    public function show(CategoryRepository $categoryRepository, string $slug): Response
     {
+        $category = $categoryRepository->findOneWithGamesOrderedBySlug($slug);
+
+        if ($category === null) {
+            throw $this->createNotFoundException('Category not found');
+        }
+
         return $this->render('front/category/show.html.twig', [
-            'controller_name' => 'CategoryController',
+            'category' => $category,
         ]);
     }
 
