@@ -1,11 +1,9 @@
 {% extends './admin/base.html.twig' %}
 
-<title>New Game</title>
-
 {% block body %}
-    <h1>Create new Game</h1>
+	<h1>Create new Game</h1>
 
-    {{ include('game/_form.html.twig') }}
+	{{ include('admin/game/_form.html.twig') }}
 
-    <a href="{{ path('admin_game_index') }}">back to list</a>
+	<a href="{{ path('admin_game_index') }}" class='btn btn-secondary'>back to list</a>
 {% endblock %}

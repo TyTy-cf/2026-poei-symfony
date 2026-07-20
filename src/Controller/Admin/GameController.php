@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Game;
 use App\Form\GameType;
 use App\Repository\GameRepository;
+use App\Service\SlugifyService;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,17 +25,18 @@ final class GameController extends AbstractController
   }
 
   #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-  public function new(Request $request, EntityManagerInterface $entityManager): Response
+  public function new(Request $request, EntityManagerInterface $entityManager, SlugifyService $slugifyService): Response
   {
     $game = new Game();
     $form = $this->createForm(GameType::class, $game);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      $game->setSlug($slugifyService->slugify($game->getName()));
       $entityManager->persist($game);
       $entityManager->flush();
 
-      return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('admin_game_index', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('admin/game/new.html.twig', [
@@ -51,15 +54,16 @@ final class GameController extends AbstractController
   }
 
   #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-  public function edit(Request $request, Game $game, EntityManagerInterface $entityManager): Response
+  public function edit(Request $request, Game $game, EntityManagerInterface $entityManager, SlugifyService $slugifyService): Response
   {
     $form = $this->createForm(GameType::class, $game);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+      $game->setSlug($slugifyService->slugify($game->getName()));
       $entityManager->flush();
 
-      return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('admin_game_index', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('admin/game/edit.html.twig', [
@@ -76,6 +80,6 @@ final class GameController extends AbstractController
       $entityManager->flush();
     }
 
-    return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('admin_game_index', [], Response::HTTP_SEE_OTHER);
   }
 }

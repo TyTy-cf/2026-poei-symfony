@@ -13,36 +13,35 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GameType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('name')
-            ->add('price')
-            ->add('description')
-            ->add('publishedAt')
-            ->add('thumbnailCover')
-            ->add('slug')
-            ->add('publisher', EntityType::class, [
-                'class' => Publisher::class,
-                'choice_label' => 'id',
-            ])
-            ->add('countries', EntityType::class, [
-                'class' => Country::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
-            ->add('categories', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
-        ;
-    }
+  public function buildForm(FormBuilderInterface $builder, array $options): void
+  {
+    $builder
+      ->add('name')
+      ->add('price')
+      ->add('description')
+      ->add('publishedAt')
+      ->add('thumbnailCover')
+      ->add('publisher', EntityType::class, [
+        'class' => Publisher::class,
+        'choice_label' => 'id',
+      ])
+      ->add('countries', EntityType::class, [
+        'class' => Country::class,
+        'choice_label' => 'id',
+        'multiple' => true,
+      ])
+      ->add('categories', EntityType::class, [
+        'class' => Category::class,
+        'choice_label' => 'id',
+        'multiple' => true,
+      ])
+    ;
+  }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Game::class,
-        ]);
-    }
+  public function configureOptions(OptionsResolver $resolver): void
+  {
+    $resolver->setDefaults([
+      'data_class' => Game::class,
+    ]);
+  }
 }

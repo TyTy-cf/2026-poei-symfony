@@ -1,62 +1,61 @@
 {% extends './admin/base.html.twig' %}
 
 {% block body %}
-	<div class="container mt-5">
-		<div class="d-flex justify-content-between align-items-center">
-			<h1>Categories</h1>
-			{% include './admin/component/actionButton.html.twig' with {
+	<div class="d-flex justify-content-between align-items-center m-2">
+
+		<h1>Categories</h1>
+		{% include './admin/component/actionButton.html.twig' with {
                     'pathAction': path('admin_category_add'),
                     'action': 'add',
                     'class': 'btn btn-success mb-3',
                     } %}
 
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-12">
-				<table class="table table-hover table-striped table-dark">
-					<thead>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-12">
+			<table class="table table-hover table-striped table-dark">
+				<thead>
+					<tr>
+						<th scope="col">Category Name</th>
+						<th scope="col">Slug</th>
+						<th scope="col">Number of Games</th>
+						<th scope="col">Image</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for category in categories %}
 						<tr>
-							<th scope="col">Category Name</th>
-							<th scope="col">Slug</th>
-							<th scope="col">Number of Games</th>
-							<th scope="col">Image</th>
-							<th scope="col">Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for category in categories %}
-							<tr>
-								<td>{{ category.name }}</td>
-								<td>{{ category.slug }}</td>
-								<td>{{ category.games|length }}</td>
-								<td>
-									{% if category.image %}
-										yes
-									{% else %}
-										no
-									{% endif %}
-								</td>
-								<td>
-									{% include './admin/component/actionButton.html.twig' with {
+							<td>{{ category.name }}</td>
+							<td>{{ category.slug }}</td>
+							<td>{{ category.games|length }}</td>
+							<td>
+								{% if category.image %}
+									yes
+								{% else %}
+									no
+								{% endif %}
+							</td>
+							<td>
+								{% include './admin/component/actionButton.html.twig' with {
                     'pathAction': path('admin_category_edit', { id: category.id }),
                     'action': 'edit',
                     } %}
-									{% include './admin/component/actionButton.html.twig' with {
+								{% include './admin/component/actionButton.html.twig' with {
                     'pathAction': path('admin_category_show', { id: category.id }),
                     'action': 'show',
                     } %}
-									{% include './admin/component/actionButton.html.twig' with {
+								{% include './admin/component/actionButton.html.twig' with {
                     'pathAction': path('admin_category_delete', { id: category.id }),
                     'action': 'delete',
                     } %}
 
-								</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 		</div>
 	</div>
 {% endblock %}
