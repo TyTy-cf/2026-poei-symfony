@@ -1,0 +1,11 @@
+{# //I want to use the $name variable #}
+
+<a href="{{ path('admin_' ~ name ~ '_edit', { id: category.id }) }}">
+	<i class="fas fa-edit"></i>
+</a>
+<a href="{{ path('admin_' ~ name ~ '_delete', { id: category.id }) }}" class="text-danger">
+	<i class="fas fa-trash-alt"></i>
+</a>
+<a href="{{path('admin_' ~ name ~ '_show', { id: category.id })}}" class="text-info">
+	<i class="fas fa-eye"></i>
+</a>

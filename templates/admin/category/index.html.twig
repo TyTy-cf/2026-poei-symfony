@@ -37,15 +37,7 @@
 								<td>{{ category.slug }}</td>
 								<td>{{ category.games|length }}</td>
 								<td>
-									<a href="{{ path('admin_category_edit', { id: category.id }) }}">
-										<i class="fas fa-edit"></i>
-									</a>
-									<a href="{{ path('admin_category_delete', { id: category.id }) }}" class="text-danger">
-										<i class="fas fa-trash-alt"></i>
-									</a>
-									<a href="{{path('admin_category_show', { id: category.id })}}" class="text-info">
-										<i class="fas fa-eye"></i>
-									</a>
+									{% include './admin/component/actionButton.html.twig' with {'name': 'category'} %}
 								</td>
 							</tr>
 						{% endfor %}
