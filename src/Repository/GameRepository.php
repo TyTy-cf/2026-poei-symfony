@@ -80,6 +80,20 @@ class GameRepository extends ServiceEntityRepository
   }
 
 
+  /**
+   * @return Game[] Returns an array of Game objects
+   */
+  public function LatestGamesSold(int $value): array
+  {
+    return $this->createQueryBuilder('g')
+      ->select('g', 'uog', 'u')
+      ->leftJoin('g.userOwnGames', 'uog')
+      ->leftJoin('uog.user', 'u')
+      ->orderBy('uog.createdAt', 'DESC')
+      ->setMaxResults($value)
+      ->getQuery()
+      ->getResult();
+  }
 
 
   //    public function findOneBySomeField($value): ?Game

@@ -51,6 +51,21 @@ class CategoryRepository extends ServiceEntityRepository
     ;
   }
 
+
+  /**
+   * @return Category[] Returns a single Category object or null
+   */
+  public function findAllCategories(): ?array
+  {
+    return $this->createQueryBuilder('c')
+      ->leftJoin('c.games', 'g')
+      ->addSelect('g')
+      ->getQuery()
+      ->getResult()
+    ;
+  }
+
+
   //    /**
   //     * @return Category[] Returns an array of Category objects
   //     */

@@ -1,5 +1,6 @@
 @import "bootstrap";
 @import "common/default.css";
+@import "@fortawesome/fontawesome-free/css/all.css";
 
 @import "page/user.css";
 @import "page/index.css";

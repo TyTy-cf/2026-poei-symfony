@@ -1,5 +1,141 @@
 {% extends './admin/base.html.twig' %}
 {% block body %}
-	<h1>hello wold
-	</h1>
-{% endblock %}
+	<div class="container">
+		<h1>Dashboard</h1>
+
+		<div class="row">
+			<div class="col-6">
+				<table class="table table-hover table-striped table-dark">
+					<h2>Latest Sold Games</h2>
+				</caption>
+				<thead>
+					<tr>
+						<th scope="col">Game Name</th>
+						<th scope="col">User Name</th>
+						<th scope="col">Date d'achat</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for game in latestGamesSold %}
+						<tr>game
+
+							<td>{{ game.name }}</td>
+							<td>${{ game.userOwnGames.user.name  }}</td>
+							<td>{{ game.createdAt|date('d/m/Y') }}</td>
+
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+		</div>
+		<div class="col-6">
+			<h2>Latest Reviews</h2>
+			<table class="table table-hover table-striped table-dark"></table>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-6">
+			<h2>Latest Released Games</h2>
+		</div>
+
+		<div class="col-6">
+			<h2>Latest User</h2>
+
+		</div>
+	</div>
+</div>{% endblock %}{# array:7 [▼
+	  0 =>
+	App\Entity
+	\
+	Game
+	 {#1195 ▼
+	    -id: 2
+	    -name: "World of Warcraft"
+	    -price: 43
+	    -description: "Nihil quis doloribus est sit. Porro voluptate saepe at incidunt exercitationem. Omnis commodi eveniet aperiam explicabo provident non fugiat exercitationem. Lab ▶"
+	    -publishedAt: DateTime @1091366512 {#1178 ▶}
+	    -thumbnailCover: "https://cdn.thegamesdb.net/images/original/boxart/front/149-1.jpg"
+	    -slug: "world-of-warcraft"
+	    -publisher:
+	Proxies\__CG__\App\Entity
+	\
+	Publisher
+	 {#1193 ▶}
+	    -countries:
+	Doctrine\ORM
+	\
+	PersistentCollection
+	 {#1190 ▶}
+	    -categories:
+	Doctrine\ORM
+	\
+	PersistentCollection
+	 {#1188 ▶}
+	    -reviews:
+	Doctrine\ORM
+	\
+	PersistentCollection
+	 {#1186 ▶}
+	    -userOwnGames:
+	Doctrine\ORM
+	\
+	PersistentCollection
+	 {#1182 ▼
+	      #collection:
+	Doctrine\Common\Collections
+	\
+	ArrayCollection
+	 {#1183 ▼
+	        -elements: array:1 [▼
+	          0 =>
+	App\Entity
+	\
+	UserOwnGame
+	 {#1180 ▼
+	            -id: 12001
+	            -game:
+	App\Entity
+	\
+	Game
+	 {#1195}
+	            -user:
+	App\Entity
+	\
+	User
+	 {#1176 ▼
+	              -id: 4
+	              -country:
+	Proxies\__CG__\App\Entity
+	\
+	Country
+	 {#1261 ▶}
+	              -email: "zcummings@gmail.com"
+	              -roles: []
+	              -password: "$2y$13$GQyJB5dHEsGK99.Qh2YWou04rTPxRxbCIp3BjnXeecTHjn5oEIxpG"
+	              -createdAt: DateTimeImmutable @1555657238 {#1196 ▶}
+	              -name: "xstreich"
+	              -nickname: "beier.marcel"
+	              -profileImage: null
+	              -wallet: 181
+	              -reviews:
+	Doctrine\ORM
+	\
+	PersistentCollection
+	 {#1278 ▶}
+	              -userOwnGames:
+	Doctrine\ORM
+	\
+	PersistentCollection
+	 {#1280 ▶}
+	            }
+	            -createdAt: DateTimeImmutable @1753109385 {#901 ▶}
+	            -gameTime: 0
+	            -lastUsedAt: null
+	            -isInstalled: false
+	          }
+	        ]
+	      } #}

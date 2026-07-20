@@ -16,34 +16,21 @@ use Symfony\Component\Routing\Attribute\Route;
 final class AdminController extends AbstractController
 {
 
-  #[Route('/{_locale}/admin/dashboard/', name: 'admin_dashboard')]
+  #[Route('/{_locale}/admin/', name: 'admin_dashboard')]
   public function index(GameRepository $gameRepository, ReviewRepository $reviewRepository, CategoryRepository $categoryRepository): Response
   {
 
     //doit être les 9 derniers jeux sortis
-    $latestReleasedGames = $gameRepository->findLatestReleases(9);
+    $latestReleasedGames = $gameRepository->findLatestReleases(8);
+    $LatestGamesSold = $gameRepository->LatestGamesSold(8);
+    // $LatestReviews = $reviewRepository->findLatestReviews(8);
 
-    // les 6 jeux avec le meilleur rating
-    $bestRatedGames = $gameRepository->findByPopularity(6);
-
-    $latestReviews = $reviewRepository->findBy([], ["upvote" => "DESC"], 6);
-
-    // les 9 jeux les plus joués (Query custom !)
-    $mostPlayedGames = $gameRepository->mostPlayedGames(9);
-
-    $categories = $categoryRepository->findBy([], ["name" => "ASC"], 9);
-
-    $mostPlayedCategories = $categoryRepository->mostPlayedCategories(5);
-
-    // dd($mostPlayedCategories);
+    dd($LatestGamesSold);
     return $this->render('admin/home/index.html.twig', [
       'controller_name' => 'HomeController',
       'latestReleasedGames' => $latestReleasedGames,
-      'latestReviews' => $latestReviews,
-      'bestRatedGames' => $bestRatedGames,
-      'categories' => $categories,
-      'mostPlayedGames' => $mostPlayedGames,
-      'mostPlayedCategories' => $mostPlayedCategories,
+      'latestGamesSold' => $LatestGamesSold
+      // 'latestReviews' => $LatestReviews,
     ]);
   }
 }
