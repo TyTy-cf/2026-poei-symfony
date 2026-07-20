@@ -1,6 +1,58 @@
 {% extends 'admin/base.html.twig' %}
 
+{% trans_default_domain 'admin' %}
 
 {% block mainTitle %}
-    Les catégories
+    {{ 'category.index.title'|trans }}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_category_new'),
+        'action': 'new',
+        'cssClass': 'actions-link'
+    } %}
+{% endblock %}
+
+{% block content %}
+
+    <table class="table table-hover table-striped table-dark">
+        <thead>
+            <tr>
+                <th>{{ 'category.property.name'|trans({}, 'entity')}}</th>
+                <th>{{ 'category.property.image'|trans({}, 'entity')}}</th>
+                <th>{{ 'category.property.slug'|trans({}, 'entity')}}</th>
+                <th>{{ 'category.property.games'|trans({}, 'entity')}}</th>
+                <th>{{ 'utils.table.actions.header'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                    <td>
+                        {% if category.image is not null %}
+                            {{ 'utils.yes'|trans }}
+                        {% else %}
+                            {{ 'utils.no'|trans }}
+                        {% endif %}
+                    </td>
+                    <td>{{ category.slug }}</td>
+                    <td>{{ category.games|length }}</td>
+                    <td>
+                        {% include 'admin/partials/_table_action_link.html.twig' with {
+                            'actionPath': path('admin_category_edit', {'slug': category.slug}),
+                            'action': 'edit'
+                        } %}
+                        {% include 'admin/partials/_table_action_link.html.twig' with {
+                            'actionPath': path('admin_category_show', {'slug': category.slug}),
+                            'action': 'show'
+                        } %}
+                        {% include 'admin/partials/_table_action_link.html.twig' with {
+                            'actionPath': path('admin_category_delete', {'slug': category.slug}),
+                            'action': 'delete'
+                        } %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

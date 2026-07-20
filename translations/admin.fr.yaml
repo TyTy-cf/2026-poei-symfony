@@ -1,9 +1,30 @@
 
 home:
     title: "Dashboard SteamIsh"
+    lastest_purchases: "Derniers achats"
+    lastest_reviews: "Derniers commentaires"
+    lastest_games: "Derniers jeux sortis"
+    lastest_users: "Derniers utilisateurs inscrits"
 
+utils:
+    yes: "Oui"
+    no: "Non"
+    table:
+        actions:
+            header: "Actions"
+            edit:
+                title: "Modifier"
+            delete:
+                title: "Supprimer"
+            show:
+                title: "Voir"
+            new:
+                title: "Ajouter"
+            back:
+                title: "Retour"
 
 menu:
+    dashboard: "Dasboard"
     category:
         title: "Catégories"
         index: "Index"

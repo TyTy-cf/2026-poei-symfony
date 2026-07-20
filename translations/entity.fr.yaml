@@ -8,3 +8,28 @@ user:
         password: "Mot de passe"
         repeatPassword: "Répéter le mot de passe"
         profileImage: "Image de profil"
+        created_at: "Inscrit le"
+        games: "Ses jeux"
+
+category:
+    property:
+        name: "Nom"
+        image: "Image"
+        slug: "Slug"
+        games: "Jeux"
+
+game:
+    property:
+        name: "Nom"
+        thumbnailCover: "Image"
+        slug: "Slug"
+        published_at: "Sortie le"
+        price: "Prix"
+
+uog:
+    property:
+        created_at: "Date d'achat"
+
+review:
+    property:
+        created_at: "Ecrit le"

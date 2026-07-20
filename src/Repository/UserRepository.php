@@ -47,4 +47,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult();
     }
 
+    public function findLatest(?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('u', 'uog')
+            ->leftJoin('u.userOwnGames', 'uog')
+            ->orderBy('u.createdAt', 'DESC')
+            ->groupBy('u.id');
+
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

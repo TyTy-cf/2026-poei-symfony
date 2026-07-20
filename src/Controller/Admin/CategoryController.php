@@ -4,7 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Repository\CategoryRepository;
 use App\Service\CategoryService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +24,18 @@ final class CategoryController extends AbstractController
     {
     }
 
+    #[Route(name: 'index')]
+    public function index(
+        CategoryRepository $categoryRepository,
+    ): Response
+    {
+        $categories = $categoryRepository->findBy([], ['name' => 'ASC']);
+
+        return $this->render('admin/category/index.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
     #[Route('new', name: 'new')]
     public function new(
         CategoryService $categoryService,
@@ -29,6 +43,23 @@ final class CategoryController extends AbstractController
     ): Response
     {
         return $this->handleForm($categoryService, new Category(), $request);
+    }
+
+    #[Route('{slug}', name: 'show')]
+    public function show(
+        CategoryRepository $categoryRepository,
+        string             $slug,
+    ): Response
+    {
+        $category = $categoryRepository->findByOneFullBySlug($slug);
+        if ($category === null) {
+            $this->addFlash('danger', $this->translator->trans('admin.error', [], 'alert'));
+            return $this->redirectToRoute('admin_category_index');
+        }
+
+        return $this->render('admin/category/show.html.twig', [
+            'category' => $category,
+        ]);
     }
 
     #[Route('edit/{slug}', name: 'edit')]
@@ -62,7 +93,7 @@ final class CategoryController extends AbstractController
                 $this->addFlash('danger', $this->translator->trans('admin.error', [], 'alert'));
             }
 
-            return $this->redirectToRoute('admin_category_new');
+            return $this->redirectToRoute('admin_category_index');
         }
 
         return $this->render('admin/category/form.html.twig', [
@@ -70,6 +101,26 @@ final class CategoryController extends AbstractController
             'category' => $category,
             'isEdit' => $isEdit,
         ]);
+    }
+
+    #[Route('delete/{slug}', name: 'delete')]
+    public function delete(
+        CategoryRepository     $categoryRepository,
+        EntityManagerInterface $em,
+        string                 $slug,
+    ): Response
+    {
+        $category = $categoryRepository->findOneBy(['slug' => $slug]);
+
+        if ($category === null) {
+            $this->addFlash('danger', $this->translator->trans('admin.error', [], 'alert'));
+        } else {
+            $em->remove($category);
+            $em->flush();
+            $this->addFlash('success', $this->translator->trans('admin.category.deleted', [], 'alert'));
+        }
+
+        return $this->redirectToRoute('admin_category_index');
     }
 
 }
