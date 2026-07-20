@@ -72,6 +72,12 @@ final class CategoryController extends AbstractController
         return $this->handleForm($categoryService, $category, $request, true);
     }
 
+    #[Route('delete/{slug}', name: 'delete')]
+    public function delete(Category $category, EntityManagerInterface $em): void
+    {
+            $this->em->remove($category);
+            $this->em->flush();
+    }
 
     private function handleForm(
         CategoryService $categoryService,
