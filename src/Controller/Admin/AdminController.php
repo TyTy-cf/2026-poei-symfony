@@ -17,7 +17,6 @@ class AdminController extends AbstractController
     {
 
         $lastGame = $gameRepository->latestGames(5);
-        dump($lastGame);
 
 
         return $this->render('admin/dashboard.html.twig', [

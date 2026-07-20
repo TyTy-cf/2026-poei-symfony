@@ -29,15 +29,11 @@
                         </thead>
                         <tbody>
                             {% for game in last_game %}
-
-                                <tr>
-                                    {{ game.name }}
-                                </tr>
-                                <tr>
-
-                                </tr>
-
-                            {% endfor %}
+                            <tr>
+                                <td>{{ game.name }}</td>
+                                <td>{{ game.createdAt|date('d/m/Y') }}</td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
 
