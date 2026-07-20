@@ -1,17 +1,19 @@
 
-<a href="{{ actionPath }}"
-   class="text-decoration-none {% if cssClass is defined %}{{ cssClass }}{% endif %}"
-   title="{{ ('utils.table.actions.' ~ action ~ '.title')|trans }}"
->
-    {% if action == 'edit' %}
-        <i class="fa-solid fa-pen text-warning"></i>
-    {% elseif action == 'new' %}
-        <i class="fa-solid fa-plus-circle text-primary"></i>
-    {% elseif action == 'show' %}
-        <i class="fa-solid fa-eye text-success"></i>
-    {% elseif action == 'delete' %}
-        <i class="fa-solid fa-trash text-danger"></i>
-    {% elseif action == 'index' %}
-        <i class="fa-solid fa-arrow-left text-primary"></i>
-    {% endif %}
-</a>
+<button class="btn">
+    <a href="{{ actionPath }}"
+       class="text-decoration-none {% if cssClass is defined %}{{ cssClass }}{% endif %}"
+       title="{{ ('utils.table.actions.' ~ action ~ '.title')|trans }}"
+    >
+        {% if action == 'edit' %}
+            <i class="fa-solid fa-pen text-warning"></i>
+        {% elseif action == 'new' %}
+            <i class="fa-solid fa-plus-circle text-primary"></i>
+        {% elseif action == 'show' %}
+            <i class="fa-solid fa-eye text-success"></i>
+        {% elseif action == 'delete' %}
+            <i class="fa-solid fa-trash text-danger"></i>
+        {% elseif action == 'index' %}
+            <i class="fa-solid fa-arrow-left text-primary"></i>
+        {% endif %}
+    </a>
+</button>

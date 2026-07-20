@@ -16,6 +16,7 @@ utils:
                 title: "Modifier"
             delete:
                 title: "Supprimer"
+                confirm: "'Êtes vous sûr de vouloir supprimer ce contenu ?'"
             show:
                 title: "Voir"
             new:
@@ -29,6 +30,10 @@ menu:
         title: "Catégories"
         index: "Index"
         new: "Nouvelle"
+    country:
+        title: "Pays"
+        index: "Index"
+        new: "Nouveau"
 
 category:
     index:
@@ -37,3 +42,11 @@ category:
         title: "Nouvelle catégorie"
     edit:
         title: 'Modifier la catégorie "%categ%"'
+
+country:
+    index:
+        title: "Les pays"
+    new:
+        title: "Nouveau pays"
+    edit:
+        title: "Modifier le pays %country%"

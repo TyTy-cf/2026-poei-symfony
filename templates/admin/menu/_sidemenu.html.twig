@@ -34,4 +34,24 @@
             </li>
         </ul>
     </div>
+
+    <hr>
+
+    <div class="ps-4">
+        <p class="p-0 m-0">{{ 'menu.country.title'|trans }}</p>
+        <ul class="list-unstyled ps-2">
+            <li>
+                {% include 'admin/partials/_menu_link.html.twig' with {
+                    'pathName': 'admin_country_index',
+                    'label':  'menu.country.index'|trans
+                } %}
+            </li>
+            <li>
+                {% include 'admin/partials/_menu_link.html.twig' with {
+                    'pathName': 'admin_country_new',
+                    'label':  'menu.country.new'|trans
+                } %}
+            </li>
+        </ul>
+    </div>
 </section>

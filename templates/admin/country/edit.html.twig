@@ -1,0 +1,18 @@
+{% extends 'admin/base.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+{% block mainTitle %}
+    {{ 'country.edit.title'|trans({'%country%': country.name}) }}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_country_index'),
+        'action': 'index',
+        'cssClass': 'actions-link'
+    } %}
+{% endblock %}
+
+{% block content %}
+
+    {{ include('admin/country/_form.html.twig') }}
+
+{% endblock %}

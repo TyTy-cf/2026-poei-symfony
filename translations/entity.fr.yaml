@@ -11,6 +11,14 @@ user:
         created_at: "Inscrit le"
         games: "Ses jeux"
 
+country:
+    property:
+        name: "Nom"
+        code: "Code"
+        nationality: "Nationalité"
+        slug: "Slug"
+        url_flag: "Drapeau"
+
 category:
     property:
         name: "Nom"
