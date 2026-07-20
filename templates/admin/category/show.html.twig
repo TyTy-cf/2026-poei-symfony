@@ -7,6 +7,14 @@
 {% block content %}
 <div class="container">
     <div class="row">
+        <div class="col-12">
+            {% dump showOne %}
+            {% if showOne.0.image == "" %}
+                <img src="./assets/images/potitchien.jpeg">
+           {% else %}
+            <img src="{{ showOne.0.image }}">
+            {% endif %}
+        </div>
 
     </div>
 </div>
