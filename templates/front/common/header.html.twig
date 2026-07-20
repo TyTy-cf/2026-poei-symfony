@@ -8,11 +8,9 @@
                 <a class="navbar-brand steamish-link" href="{{ path("app_login") }}">Login</a>
                 <a class="navbar-brand steamish-link" href="{{ path("app_register") }}">Inscription</a>
             {% else %}
-
                 <a class="navbar-brand steamish-link" href="{{ path("app_user_show", {'name': app.user.name}) }}">Mon profil</a>
                 {% if is_granted("ROLE_ADMIN") %}
-                    <a class="navbar-brand steamish-link" href="{{ path("admin_category_new") }}">Créer une catégorie</a>
-                    <a class="navbar-brand steamish-link" href="{{ path("admin_dashboard") }}">Dashboard admin</a>
+                    <a class="navbar-brand steamish-link" href="{{ path("admin_home") }}">Admin</a>
                 {% endif %}
                 <a class="navbar-brand steamish-link" href="{{ path("app_logout") }}">Se déconnecter</a>
             {% endif %}

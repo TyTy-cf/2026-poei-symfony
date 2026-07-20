@@ -40,13 +40,6 @@
             </div>
         </div>
 
-        <section class="mt-5">
-            <h2>{{ 'game.show.title.description'|trans }}</h2>
-            <div class="w-100">
-                {{ game.description|raw }}
-            </div>
-        </section>
-
         {% if similarGames|length > 0 %}
             <section class="mt-5">
                 {% include 'front/partials/_game_loop.html.twig' with {
@@ -55,6 +48,13 @@
                 } %}
             </section>
         {% endif %}
+
+        <section class="mt-5">
+            <h2>{{ 'game.show.title.description'|trans }}</h2>
+            <div class="w-100">
+                {{ game.description|raw }}
+            </div>
+        </section>
 
         {% if game.reviews|length > 0 %}
             <section class="mt-5">

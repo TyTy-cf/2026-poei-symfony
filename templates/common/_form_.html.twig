@@ -1,0 +1,9 @@
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{{ form_start(form) }} {# <form> #}
+    {% for child in form %}
+        {{ form_row(child) }}
+    {% endfor %}
+    {% include 'common/_buttons_form.html.twig' %}
+{{ form_end(form) }} {# </form> #}
