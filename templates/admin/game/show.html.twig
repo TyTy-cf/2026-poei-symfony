@@ -1,0 +1,40 @@
+{% extends './admin/base.html.twig' %}
+
+{% block title %}
+	{{ game.name }}
+	- Steam Ish
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="text-center my-5">{{ game.name }}</h1>
+	</div>
+	<table class="table table-hover table-striped table-dark">
+		<thead>
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Slug</th>
+				<th scope="col">Price</th>
+				<th scope="col">Image</th>
+
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for game in game.games %}
+				<tr>
+					<td>{{ game.name }}</td>
+					<td>{{ game.slug }}</td>
+					<td>{{ game.price }}</td>
+					<td>
+						{% if game.thumbnailCover %}
+							yes
+						{% else %}
+							no
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</tbody>
+</table>{% endblock %}
