@@ -1,9 +1,19 @@
 {# this will the side bar of the dashboard in an admin section  #}
 <ul class="list-group">
-	<li class="list-group-item">
+	<a href="{{path("app_home") }}">
+		<li class="list-group-item">Home</li>
 
-		<a href="{{path("app_home") }}">Home</a>
-	</li>
+	</a>
+	<a href="{{path("admin_dashboard") }}">
+
+		<li class="list-group-item">
+
+			Index
+
+		</li>
+	</a>
+
+
 	<a href="{{ path("admin_category_index") }}">
 		<li class="list-group-item selected">categories</li>
 	</a>

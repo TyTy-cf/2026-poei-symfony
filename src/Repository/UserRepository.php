@@ -49,6 +49,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     ;
   }
 
+  public function findLatestUsers(int $value): array
+  {
+    return $this->createQueryBuilder('u')
+      ->orderBy('u.createdAt', 'DESC')
+      ->join('u.userOwnGames', 'uog')
+      ->groupBy('u.id')
+      ->setMaxResults($value)
+      ->getQuery()
+      ->getResult();
+  }
+
   //    /**
   //     * @return User[] Returns an array of User objects
   //     */

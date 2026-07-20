@@ -87,10 +87,11 @@ class GameRepository extends ServiceEntityRepository
   {
     return $this->createQueryBuilder('g')
       ->select('g', 'uog', 'u')
-      ->leftJoin('g.userOwnGames', 'uog')
-      ->leftJoin('uog.user', 'u')
+      ->Join('g.userOwnGames', 'uog')
+      ->Join('uog.user', 'u')
       ->orderBy('uog.createdAt', 'DESC')
       ->setMaxResults($value)
+      ->groupBy('g.id')
       ->getQuery()
       ->getResult();
   }
