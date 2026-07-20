@@ -6,6 +6,8 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use App\Service\CategoryService;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[Route('/{_locale}/admin/category/', name: 'admin_category_')]
 final class CategoryController extends AbstractController
 {
+
 
     public function __construct(
         private readonly TranslatorInterface $translator,
@@ -35,13 +38,15 @@ final class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: '_show')]
+    #[Route('{slug}', name: '_show')]
     public function show(
         CategoryRepository $categoryRepository,
         ?string $slug
     ): Response
     {
         $category = $categoryRepository->findAllWithGamesOrdered($slug);
+
+
 
         return $this->render('admin/category/show.html.twig', [
             'category' => $category,
@@ -66,6 +71,7 @@ final class CategoryController extends AbstractController
     {
         return $this->handleForm($categoryService, $category, $request, true);
     }
+
 
     private function handleForm(
         CategoryService $categoryService,

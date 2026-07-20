@@ -26,5 +26,7 @@ category:
         title: 'Modifier la catégorie "%categ%"'
     show :
         title: 'Catégorie "%categ%"'
+        game : 'Les jeux "%categ%"'
+        price : 'Prix'
 
 

@@ -22,6 +22,36 @@
     </div>
 </div>
 
+    <h2 class="m-2"> {{ 'category.show.game'|trans({'%categ%': category.name}) }} </h2>
 
+    <table class="table table-hover table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'category.index.nom'|trans }}</th>
+            <th scope="col">{{ 'category.index.image'|trans }}</th>
+            <th scope="col">{{ 'category.index.slug'|trans }}</th>
+            <th scope="col">{{ 'category.show.price'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for game in category.games %}
+
+            <tr>
+                <a href="{{ path('app_game_show', {'slug': game.slug}) }}">
+                    <td>{{ game.name }}</td>
+                    <td>
+                        {% if game.thumbnailCover is null %}
+                            {{ 'category.index.no_image'|trans }}
+                        {% else %}
+                            {{ 'category.index.have_image'|trans }}
+                        {% endif%}
+                    </td>
+                    <td>{{ game.slug }}</td>
+                    <td>{{ game.price }}</td>
+                </a>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
