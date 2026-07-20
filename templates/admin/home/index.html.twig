@@ -1,100 +1,98 @@
 {% extends './admin/base.html.twig' %}
 {% block body %}
-	<div class="container">
-		<h1>Dashboard</h1>
-
-		<div class="row">
-			<div class="col-6">
-				<table class="table table-hover table-striped table-dark">
-					<h2>Latest Sold Games</h2>
-				</caption>
-				<thead>
-					<tr>
-						<th scope="col">Game Name</th>
-						<th scope="col">User Name</th>
-						<th scope="col">Date d'achat</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for game in latestGamesSold %}
-						<tr>
-							<td>{{ game.name }}</td>
-							<td>{{ game.userOwnGames[0].user.name  }}</td>
-							<td>{{ game.userOwnGames[0].createdAt|date('d/m/Y') }}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-
-
-		</div>
-		<div class="col-6">
-			<h2>Latest Reviews</h2>
-			<table class="table table-hover table-striped table-dark">
-				<thead>
-					<tr>
-						<th scope="col">Game</th>
-						<th scope="col">User</th>
-						<th scope="col">Date</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for review in latestReviews %}
-						<tr>
-							<td>{{ review.game.name }}</td>
-							<td>{{ review.user.name }}</td>
-							<td>{{ review.createdAt|date('d/m/Y') }}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
-
+	<h1>Dashboard</h1>
 
 	<div class="row">
 		<div class="col-6">
-			<h2>Latest Games</h2>
 			<table class="table table-hover table-striped table-dark">
-				<thead>
+				<h2>Latest Sold Games</h2>
+			</caption>
+			<thead>
+				<tr>
+					<th scope="col">Game Name</th>
+					<th scope="col">User Name</th>
+					<th scope="col">Date d'achat</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for game in latestGamesSold %}
 					<tr>
-						<th scope="col">Game</th>
-						<th scope="col">Release Date</th>
+						<td>{{ game.name }}</td>
+						<td>{{ game.userOwnGames[0].user.name  }}</td>
+						<td>{{ game.userOwnGames[0].createdAt|date('d/m/Y') }}</td>
 					</tr>
-				</thead>
-				<tbody>
-					{% for game in latestReleasedGames %}
-						<tr>
-							<td>{{ game.name }}</td>
-							<td>{{ game.publishedAt|date('d/m/Y') }}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
+				{% endfor %}
+			</tbody>
+		</table>
 
-
-		<div class="col-6">
-			<h2>Latest Users</h2>
-			<table class="table table-hover table-striped table-dark">
-				<thead>
-					<tr>
-						<th scope="col">User</th>
-						<th scope="col">Registration Date</th>
-						<th scope="col">Nrb Of Owned Games</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for user in LatestUsers %}
-						<tr>
-							<td>{{ user.name }}</td>
-							<td>{{ user.createdAt|date('d/m/Y') }}</td>
-							<td>{{ user.userOwnGames|length }}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
 
 	</div>
+	<div class="col-6">
+		<h2>Latest Reviews</h2>
+		<table class="table table-hover table-striped table-dark">
+			<thead>
+				<tr>
+					<th scope="col">Game</th>
+					<th scope="col">User</th>
+					<th scope="col">Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for review in latestReviews %}
+					<tr>
+						<td>{{ review.game.name }}</td>
+						<td>{{ review.user.name }}</td>
+						<td>{{ review.createdAt|date('d/m/Y') }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-6">
+		<h2>Latest Games</h2>
+		<table class="table table-hover table-striped table-dark">
+			<thead>
+				<tr>
+					<th scope="col">Game</th>
+					<th scope="col">Release Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for game in latestReleasedGames %}
+					<tr>
+						<td>{{ game.name }}</td>
+						<td>{{ game.publishedAt|date('d/m/Y') }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="col-6">
+		<h2>Latest Users</h2>
+		<table class="table table-hover table-striped table-dark">
+			<thead>
+				<tr>
+					<th scope="col">User</th>
+					<th scope="col">Registration Date</th>
+					<th scope="col">Nrb Of Owned Games</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in LatestUsers %}
+					<tr>
+						<td>{{ user.name }}</td>
+						<td>{{ user.createdAt|date('d/m/Y') }}</td>
+						<td>{{ user.userOwnGames|length }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
 </div>{% endblock %}
