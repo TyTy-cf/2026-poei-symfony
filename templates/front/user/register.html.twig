@@ -1,7 +1,5 @@
 {% extends 'front/base.html.twig' %}
 
-{% form_theme form 'bootstrap_5_layout.html.twig' %}
-
 {% block title %}
     {{ 'register.title'|trans }}
 {% endblock %}
@@ -10,12 +8,7 @@
 
     <div class="container mt-5">
         <section class="col-md-6 col-12 mx-auto">
-            {{ form_start(form) }} {# <form> #}
-                {% for child in form %}
-                    {{ form_row(child) }}
-                {% endfor %}
-                {% include 'front/common/_buttons_form.html.twig' %}
-            {{ form_end(form) }} {# </form> #}
+            {% include 'common/_form_.html.twig' %}
         </section>
     </div>
 

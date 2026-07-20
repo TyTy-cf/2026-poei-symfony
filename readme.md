@@ -422,3 +422,21 @@ Utilisez cette fonction (dans un service !) pour générer le slug de la catégo
   - Les 8 derniers commentaires postés, afficher : "nom du jeu", "par qui", "date de création"
   - Les 8 derniers jeux sortis, afficher : "nom du jeu", "date de sortie"
   - Les 8 derniers utilisateurs inscrits (avec lien vers la page de leur profil), afficher : "nom du user", "date d'inscription", "nb jeux achetés"
+
+
+### 15. Finaliser le "CRUD" des Catégories
+
+
+- Le faire dans le `CategoryController` Admin
+- Faire un `index` des catégories, on affichera une table HTML avec les infos suivantes :
+  - `name`
+  - La présence ou non, d'une `image`
+  - `slug`
+  - Le nombre de jeux de cette catégorie
+  - Il y aura une cinquième colonne,nommée "Actions", elle contient les actions suivantes :
+    - `edit` => Lien vers la fonction de modification d'une catégorie
+    - `delete` => Lien vers la fonction de suppression d'une catégorie (à faire !)
+    - `show` => Lien vers le détail de la catégorie (à faire !), ici on affichera toutes les infos de la catégorie (y compris l'image) et si vous le souhaite, les jeux présent dans cette catégorie
+    - PS : utiliser de belles icônes (Fontawsome ?) pour les différentes actions, c'est plus parlant... et ça prend moins de place
+  - Vous pouvez, si vous le souhaiter, ajouter un lien vers le `new` pour une catégorie (genre un icone `+` à côté du titre de l'index)
+
