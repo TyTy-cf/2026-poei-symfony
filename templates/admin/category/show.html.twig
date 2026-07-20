@@ -2,56 +2,56 @@
 
 {% trans_default_domain 'admin' %}
 
-
 {% block mainTitle %}
-    {{ 'category.show.title'|trans({'%categ%': category.name}) }}
+    {{ category.name }} - <span class="text-light" title="{{ 'category.property.slug'|trans({}, 'entity') }}">{{ category.slug }}</span>
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_category_index'),
+        'action': 'index',
+        'cssClass': 'actions-link'
+    } %}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_category_edit', {'slug': category.slug}),
+        'action': 'edit',
+        'cssClass': 'actions-link'
+    } %}
 {% endblock %}
 
 {% block content %}
 
+    {% if category.image is not null %}
+        <img class="img-fluid" src="{{ asset(category.image) }}" alt="{{ category.name }}">
+    {% endif %}
 
-<div class="container">
-    <div class="row game-show-container">
-        <div class="col-md-6 col-12">
-            <img class="front-image" src="{{ category.image }}">
-        </div>
-        <div class="col-md-6 col-12 game-show-infos mt-md-0 mt-4">
-            <h1 class="mt-4">{{ category.name }}</h1>
-        </div>
-
-    </div>
-</div>
-
-    <h2 class="m-2"> {{ 'category.show.game'|trans({'%categ%': category.name}) }} </h2>
+    <h2>{{ 'category.property.games'|trans({}, 'entity') }}</h2>
 
     <table class="table table-hover table-striped table-dark">
         <thead>
-        <tr>
-            <th scope="col">{{ 'category.index.nom'|trans }}</th>
-            <th scope="col">{{ 'category.index.image'|trans }}</th>
-            <th scope="col">{{ 'category.index.slug'|trans }}</th>
-            <th scope="col">{{ 'category.show.price'|trans }}</th>
-        </tr>
+            <tr>
+                <th>{{ 'game.property.name'|trans({}, 'entity')}}</th>
+                <th>{{ 'game.property.thumbnailCover'|trans({}, 'entity')}}</th>
+                <th>{{ 'game.property.price'|trans({}, 'entity')}}</th>
+            </tr>
         </thead>
         <tbody>
-        {% for game in category.games %}
-
-            <tr>
-                <a href="{{ path('app_game_show', {'slug': game.slug}) }}">
-                    <td>{{ game.name }}</td>
+            {% for game in category.games %}
+                <tr>
                     <td>
-                        {% if game.thumbnailCover is null %}
-                            {{ 'category.index.no_image'|trans }}
-                        {% else %}
-                            {{ 'category.index.have_image'|trans }}
-                        {% endif%}
+                        <a class="text-decoration-none steamish-link" href="{{ path('app_game_show', {'slug': game.slug}) }}">
+                            {{ game.name }}
+                        </a>
                     </td>
-                    <td>{{ game.slug }}</td>
-                    <td>{{ game.price }}</td>
-                </a>
-            </tr>
-        {% endfor %}
+                    <td>
+                        {% if game.thumbnailCover is not null %}
+                            {{ 'utils.yes'|trans }}
+                        {% else %}
+                            {{ 'utils.no'|trans }}
+                        {% endif %}
+                    </td>
+                    <td>{{ game.price }}€</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
 {% endblock %}
+

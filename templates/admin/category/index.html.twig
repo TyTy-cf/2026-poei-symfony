@@ -1,50 +1,57 @@
 {% extends 'admin/base.html.twig' %}
 
-{% trans_default_domain 'admin' %}
-
 
 {% block mainTitle %}
-    Les catégories
+    {{ 'category.index.title'|trans }}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_category_new'),
+        'action': 'new',
+        'cssClass': 'actions-link'
+    } %}
 {% endblock %}
 
 {% block content %}
 
     <table class="table table-hover table-striped table-dark">
         <thead>
-        <tr>
-            <th scope="col">{{ 'category.index.nom'|trans }}</th>
-            <th scope="col">{{ 'category.index.image'|trans }}</th>
-            <th scope="col">{{ 'category.index.slug'|trans }}</th>
-            <th scope="col">{{ 'category.index.jeux'|trans }}</th>
-            <th scope="col">{{ 'category.index.actions'|trans }}</th>
-        </tr>
+            <tr>
+                <th>{{ 'category.property.name'|trans({}, 'entity')}}</th>
+                <th>{{ 'category.property.image'|trans({}, 'entity')}}</th>
+                <th>{{ 'category.property.slug'|trans({}, 'entity')}}</th>
+                <th>{{ 'category.property.games'|trans({}, 'entity')}}</th>
+                <th>{{ 'utils.table.actions.header'|trans }}</th>
+            </tr>
         </thead>
         <tbody>
             {% for category in categories %}
-
                 <tr>
                     <td>{{ category.name }}</td>
                     <td>
-                        {% if category.image is null %}
-                            {{ 'category.index.no_image'|trans }}
+                        {% if category.image is not null %}
+                            {{ 'utils.yes'|trans }}
                         {% else %}
-                            {{ 'category.index.have_image'|trans }}
-                        {% endif%}
+                            {{ 'utils.no'|trans }}
+                        {% endif %}
                     </td>
                     <td>{{ category.slug }}</td>
+                    <td>{{ category.games|length }}</td>
                     <td>
-                            {{ category.games|length }}
-                    </td>
-                    <td>
-                        <button class="btn"><a href="{{ path('admin_category_edit', {'slug': category.slug}) }}"><i class="fa-solid fa-pen text-warning"></i></a></button>
-                        <button class="btn"><a href="{{ path('admin_category__show', {'slug': category.slug}) }}"><i class="fa-solid fa-eye text-success"></i></a></button>
-                        <button class="btn"><a href=""><i class="fa-regular fa-calendar-xmark text-danger"></i></a></button>
+                        {% include 'admin/partials/_table_action_link.html.twig' with {
+                            'actionPath': path('admin_category_edit', {'slug': category.slug}),
+                            'action': 'edit'
+                        } %}
+                        {% include 'admin/partials/_table_action_link.html.twig' with {
+                            'actionPath': path('admin_category_show', {'slug': category.slug}),
+                            'action': 'show'
+                        } %}
+                        {% include 'admin/partials/_table_action_link.html.twig' with {
+                            'actionPath': path('admin_category_delete', {'slug': category.slug}),
+                            'action': 'delete'
+                        } %}
                     </td>
                 </tr>
-
             {% endfor %}
         </tbody>
     </table>
 
 {% endblock %}
-

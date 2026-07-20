@@ -31,3 +31,11 @@ body {
 .steamish-link:hover {
     color: var(--default-orange-darker);
 }
+
+.steamish-link-active {
+    color: var(--default-orange-darker);
+}
+
+.actions-link {
+    font-size: 2rem;
+}

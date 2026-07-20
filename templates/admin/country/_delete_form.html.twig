@@ -1,0 +1,11 @@
+{% trans_default_domain 'admin' %}
+
+<form method="post"
+      action="{{ path('admin_country_delete', {'id': country.id}) }}"
+      onsubmit="return confirm({{ 'utils.table.actions.delete.confirm'|trans }});"
+>
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ country.id) }}">
+    <button class="btn">
+        <i class="fa-solid fa-trash text-danger"></i>
+    </button>
+</form>

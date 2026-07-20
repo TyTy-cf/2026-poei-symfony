@@ -10,6 +10,11 @@
     {% else %}
         {{ 'category.new.title'|trans }}
     {% endif %}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_category_index'),
+        'action': 'index',
+        'cssClass': 'actions-link'
+    } %}
 {% endblock %}
 
 {% block content %}
