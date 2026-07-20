@@ -1,80 +1,114 @@
-{% extends 'front/base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 
-{% block body %}
+{% block content %}
 
-    <div class="container">
-        <div class="row">
-
-            <div class="col-6">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Jeu</th>
-                        <th>User</th>
-                        <th>Date d'achat</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for sell in last_sells %}
-                        {% dump(sell.createdAt) %}
-                        <tr>
-                            <th>{{ sell.game.name }}</th>
-                            <th>{{ sell.user.name }}</th>
-                            <th>{{ sell.createdAt|date('d/m/Y') }}</th>
-
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="col-6">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Jeu</th>
-                        <th>User</th>
-                        <th>Date de création</th>
-                        <th>Content</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for review in latest_review  %}
-                        <tr>
-                            <th>{{ review.game.name }}</th>
-                            <th>{{ review.user.name }}</th>
-                            <th>{{ review.createdAt|date("d/m/Y") }}</th>
-                            <th>{{ review.content|slice(0,10) }}</th>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="col-6">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Jeu</th>
-                        <th>Publisher</th>
-                        <th>Date de sortie</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for game in latest_games  %}
-                        <tr>
-                            <th>{{ game.name }}</th>
-                            <th>{{ game.publisher.name }}</th>
-                            <th>{{ game.publishedAt|date("d/m/Y") }}</th>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+    <table class="table table-hover table-striped table-dark">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Slug</th>
+            <th>Image</th>
+            <th>Nb de jeux</th>
+            <th>Bouton</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% dump allCategories %}
+        {% for categ in allCategories %}
+            <tr>
+                <th>{{ categ.0.name }}</th>
+                <th>{{ categ.0.slug }}</th>
+                {% if categ.0.image == "" %}
+                    <th>Non</th>
+                {% else %}
+                    <th>Oui</th>
+                {% endif %}
+                <th>{{ categ.1 }}</th>
+                <th>Bouton</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 
-        </div>
-    </div>
+
+
+
+
+
+{#    <div class="container">#}
+{#        <div class="row">#}
+
+{#            <div class="col-6">#}
+{#                <table>#}
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th>Jeu</th>#}
+{#                        <th>User</th>#}
+{#                        <th>Date d'achat</th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                    {% for sell in last_sells %}#}
+{#                        {% dump(sell.createdAt) %}#}
+{#                        <tr>#}
+{#                            <th>{{ sell.game.name }}</th>#}
+{#                            <th>{{ sell.user.name }}</th>#}
+{#                            <th>{{ sell.createdAt|date('d/m/Y') }}</th>#}
+
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+
+{#            <div class="col-6">#}
+{#                <table>#}
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th>Jeu</th>#}
+{#                        <th>User</th>#}
+{#                        <th>Date de création</th>#}
+{#                        <th>Content</th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                    {% for review in latest_review  %}#}
+{#                        <tr>#}
+{#                            <th>{{ review.game.name }}</th>#}
+{#                            <th>{{ review.user.name }}</th>#}
+{#                            <th>{{ review.createdAt|date("d/m/Y") }}</th>#}
+{#                            <th>{{ review.content|slice(0,10) }}</th>#}
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+
+{#            <div class="col-6">#}
+{#                <table>#}
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th>Jeu</th>#}
+{#                        <th>Publisher</th>#}
+{#                        <th>Date de sortie</th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                    {% for game in latest_games  %}#}
+{#                        <tr>#}
+{#                            <th>{{ game.name }}</th>#}
+{#                            <th>{{ game.publisher.name }}</th>#}
+{#                            <th>{{ game.publishedAt|date("d/m/Y") }}</th>#}
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+
+
+{#        </div>#}
+{#    </div>#}
 
 {% endblock %}
