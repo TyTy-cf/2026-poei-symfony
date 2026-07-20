@@ -1,0 +1,41 @@
+{% extends 'admin/base.html.twig' %}
+
+
+{% block mainTitle %}
+    Les catégories
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <table class="table table-hover table-striped table-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Image</th>
+                <th>Slug</th>
+                <th>Nombre de jeux</th>
+                <th>Actions</th>
+            </tr>
+                {% for category in categories %}
+                    <tr>
+                        <td>{{ category.name }}</td>
+                        <td>
+                            {% if category.image is null %}
+                                Non
+                                {% else %}
+                                Oui
+                            {% endif %}
+                        </td>
+                        <td>{{ category.slug }}</td>
+                        <td>{{ category.games.count }}</td>
+                        <td>
+                            <ul>
+                                <li><a href="{{ path('admin_category_edit',{slug: category.slug }) }}">Edit</a></li>
+                                <li><a href="{{ path('admin_category_delete',{slug: category.slug }) }}">Delete</a></li>
+                                <li><a href="{{ path('admin_category_show',{slug: category.slug }) }}">Show</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+        </table>
+    </div>
+{% endblock %}

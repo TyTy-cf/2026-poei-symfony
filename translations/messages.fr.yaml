@@ -34,7 +34,7 @@ footer:
 
 user:
     show:
-        title: "Profil de %userName% !"
+        title: "Profil de "
         inscription: "Inscrit le: %userCreatedAt%"
         game_time: "%gameName%, temps de jeu : %gameTime%"
         vote: "votes positifs: %upvote%, vote négatifs: %downvote%"
@@ -75,3 +75,7 @@ login:
     log_please: "Veuillez vous connecter"
     login: "Se connecter"
 
+admin:
+    category:
+        updated: "La catégorie a été mise à jour"
+        created: "La catégorie a été ajouté"

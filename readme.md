@@ -26,7 +26,8 @@
     - [10. Prévoir un message flash](#10-prévoir-un-message-flash)
     - [11. Faire la page d'une catégorie](#11-faire-la-page-dune-catégorie)
     - [12. Faire la page d'un publisher](#12-faire-la-page-dun-publisher)
-    - [13. Faire un formulaire pour les `Category`](#13-faire-un-formulaire-pour-les-category)
+    - [13. Faire un formulaire pour les Category](#13-faire-un-formulaire-pour-les-category)
+    - [14. Faire un AdminController`](#14-faire-un-admin-controller)
 
 
 ## Installation
@@ -196,7 +197,7 @@ Représente un avis/critique laissé par un utilisateur sur un jeu.
 ### 2. Faire la home de SteamIsh
 
 
-**Fichiers impactés : ** `HomeController` & `front/home/index.html.twig` 
+**Fichiers impactés : ** `HomeController` & `front/home/index.html.twig`
 
 
 Vous devez créer les blocs suivants sur la page Twig :
@@ -234,7 +235,7 @@ Pour les catégories vous afficherez :
 
 - "trends" (Les tendances) : les 9 jeux les plus joués (Query custom !)
 - "bests" (Les meilleures sorties) : doit être les 9 derniers jeux sortis
-- "tops" (Les tops jeux) : les 6 jeux avec le meilleur rating 
+- "tops" (Les tops jeux) : les 6 jeux avec le meilleur rating
 
 
 ### 4. Faire la page de détail d'un jeu
@@ -256,12 +257,12 @@ Pour les catégories vous afficherez :
 - Créer une fonction `show` dans celui-ci, dont la route sera : `/user/{name}`
 - Optimiser la requête de récupération d'un user...
 - La fonction doit afficher le détail d'un user dont le name est passé en paramètre
-- On affichera : 
-  - Le nickname du user
-  - "Inscrit le xx/xx/xx"
-  - La liste de ses jeux possédés **avec leur temps de jeu** (seulement par jeu ici)
-  - La liste de ses commentaires postés
-  - **En réutilisant des traitements déjà réalisés... calculer et afficher le temps de jeu total de l'utilisateur au format "hh:mm"**
+- On affichera :
+    - Le nickname du user
+    - "Inscrit le xx/xx/xx"
+    - La liste de ses jeux possédés **avec leur temps de jeu** (seulement par jeu ici)
+    - La liste de ses commentaires postés
+    - **En réutilisant des traitements déjà réalisés... calculer et afficher le temps de jeu total de l'utilisateur au format "hh:mm"**
 
 
 ### 6. Ajouter des liens
@@ -316,7 +317,7 @@ Bien sûr on utilisera dorénavant que les chaînes de traductions dans le site
 - La fonction doit afficher les informations de l'éditeur, ainsi que ses jeux créés
 
 
-### 13. Faire un formulaire pour les `Category`
+### 13. Faire un formulaire pour les Category
 
 
 - Faire un formulaire qui gère l'ajout d'une Category (ne faites pas de lien dans le header pour le moment, on y accède par l'URL)
@@ -324,7 +325,7 @@ Bien sûr on utilisera dorénavant que les chaînes de traductions dans le site
 - Ajouter les règles de validations dans l'entité
 - Le slug ne doit pas apparaître dans le formulaire !
 
-Utilisez cette fonction (dans un service !) pour générer le slug de la catégorie à partir de son nom : 
+Utilisez cette fonction (dans un service !) pour générer le slug de la catégorie à partir de son nom :
 
 ```php
 
@@ -407,5 +408,34 @@ Utilisez cette fonction (dans un service !) pour générer le slug de la catégo
 ```
 
 
+### 14. Faire un AdminController
 
 
+- Il aura une route de chemin : `/{_locale}/admin` (adapter le nom de la route pour qu'elle soit sécurisée...)
+- Il s'agit du dashboard Admin
+- La vue doit `extends` un `base.html.twig` spécifique à l'admin
+- Cette vue doit avoir un menu sur la gauche, avec les liens des différents menus admins et le contenu affiché sur la partie de droite (Environ 20% pour le menu et 80% pour le contenu)
+- Ajouter dans le menu de gauche un lien vers la nouvelle catégorie
+- Modifier le `header.html.twig` pour qu'il aille vers le `AdminController`
+- La page par défaut de l'`AdminController`, afficher les informations suivantes sous forme de table HTML :
+    - Les 8 dernières ventes de jeu (`userOwnGames.createdAt`), afficher : "nom du jeu", "nom user", "date d'achat"
+    - Les 8 derniers commentaires postés, afficher : "nom du jeu", "par qui", "date de création"
+    - Les 8 derniers jeux sortis, afficher : "nom du jeu", "date de sortie"
+    - Les 8 derniers utilisateurs inscrits (avec lien vers la page de leur profil), afficher : "nom du user", "date d'inscription", "nb jeux achetés"
+
+
+### 15. Finaliser le "CRUD" des Catégories
+
+
+- Le faire dans le `CategoryController` Admin
+- Faire un `index` des catégories, on affichera une table HTML avec les infos suivantes :
+    - `name`
+    - La présence ou non, d'une `image`
+    - `slug`
+    - Le nombre de jeux de cette catégorie
+    - Il y aura une cinquième colonne,nommée "Actions", elle contient les actions suivantes :
+        - `edit` => Lien vers la fonction de modification d'une catégorie
+        - `delete` => Lien vers la fonction de suppression d'une catégorie (à faire !)
+        - `show` => Lien vers le détail de la catégorie (à faire !), ici on affichera toutes les infos de la catégorie (y compris l'image) et si vous le souhaite, les jeux présent dans cette catégorie
+        - PS : utiliser de belles icônes (Fontawsome ?) pour les différentes actions, c'est plus parlant... et ça prend moins de place
+    - Vous pouvez, si vous le souhaiter, ajouter un lien vers le `new` pour une catégorie (genre un icone `+` à côté du titre de l'index)

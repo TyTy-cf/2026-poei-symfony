@@ -1,7 +1,7 @@
 {% extends 'front/base.html.twig' %}
 
 {% block title %}
-    Profil de {{ user.name }} !
+    {{ 'user.show.title'|trans}} {{ user.name }}!
 {% endblock %}
 
 {% block body %}

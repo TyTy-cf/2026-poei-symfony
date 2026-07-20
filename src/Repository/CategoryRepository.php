@@ -32,4 +32,6 @@ class CategoryRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+//    public function findAllFull
+
 }
