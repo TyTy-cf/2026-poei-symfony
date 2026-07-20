@@ -47,4 +47,17 @@ class ReviewRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findLatestReview(?int $limit = null) : array
+    {
+        $qb = $this->createQueryBuilder("r")
+            ->orderBy("r.createdAt", "DESC");
+
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+
+    }
+
 }

@@ -77,4 +77,18 @@ class GameRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findLatestGames(?int $limit = null):array
+    {
+        $qb = $this->createQueryBuilder("g")
+            ->join("g.publisher", "p")
+            ->orderBy("g.publishedAt", "DESC");
+
+            if ($limit !== null) {
+                $qb->setMaxResults($limit);
+            }
+
+        return $qb->getQuery()->getResult();
+
+    }
+
 }

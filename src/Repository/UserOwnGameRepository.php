@@ -16,6 +16,17 @@ class UserOwnGameRepository extends ServiceEntityRepository
         parent::__construct($registry, UserOwnGame::class);
     }
 
+    public function findLastSells(?int $limit = null) : array
+    {
+        $qb = $this->createQueryBuilder("uog")
+            ->leftJoin("uog.game", "g")
+            ->leftJoin("uog.user", "u");
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+        return $qb->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return UserOwnGame[] Returns an array of UserOwnGame objects
     //     */
