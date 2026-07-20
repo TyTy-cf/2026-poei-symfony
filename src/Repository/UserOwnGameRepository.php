@@ -16,39 +16,19 @@ class UserOwnGameRepository extends ServiceEntityRepository
         parent::__construct($registry, UserOwnGame::class);
     }
 
-    public function findLastSells(?int $limit = null) : array
+    public function findLatest(?int $limit = null): array
     {
-        $qb = $this->createQueryBuilder("uog")
-            ->leftJoin("uog.game", "g")
-            ->leftJoin("uog.user", "u");
-        if ($limit !== null) {
+        $qb = $this->createQueryBuilder('uog')
+            ->select('uog, u, g')
+            ->leftJoin('uog.game', 'g')
+            ->leftJoin('uog.user', 'u')
+            ->orderBy('uog.createdAt', 'DESC');
+
+        if ($limit !== null)     {
             $qb->setMaxResults($limit);
         }
+
         return $qb->getQuery()->getResult();
     }
 
-    //    /**
-    //     * @return UserOwnGame[] Returns an array of UserOwnGame objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?UserOwnGame
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

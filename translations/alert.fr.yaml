@@ -8,3 +8,10 @@ user:
   edit:
       success: "Modifications effectuées !"
       danger: "Une erreur est survenue lors de la modification du profil"
+
+admin:
+    error: "Une erreur inconnue est survenue !"
+    category:
+        updated: "Catégorie modifiée !"
+        created: "Catégorie ajoutée !"
+        deleted: "Catégorie supprimée !"

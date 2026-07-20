@@ -1,7 +1,98 @@
 {% extends 'admin/base.html.twig' %}
 
+{% trans_default_domain 'admin' %}
+
+{% block mainTitle %}
+    {{ 'home.title'|trans }}
+{% endblock %}
+
 {% block content %}
 
-    <h1>{{ 'home.title'|trans }}</h1>
+    <div class="row">
+        <div class="col-md-6 col-12 p-1">
+            <h2>{{ 'home.lastest_purchases'|trans }}</h2>
+            <table class="table table-striped table-hover table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">{{ 'game.property.name'|trans({}, 'entity') }}</th>
+                    <th scope="col">{{ 'user.property.nickname'|trans({}, 'entity') }}</th>
+                    <th scope="col">{{ 'uog.property.created_at'|trans({}, 'entity') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for purchase in latestPurchases %}
+                    <tr>
+                        <td>{{ purchase.game.name }}</td>
+                        <td>{{ purchase.user.email }}</td>
+                        <td>{{ purchase.createdAt|date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 col-12 p-1">
+            <h2>{{ 'home.lastest_reviews'|trans }}</h2>
+            <table class="table table-striped table-hover table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">{{ 'game.property.name'|trans({}, 'entity') }}</th>
+                    <th scope="col">{{ 'user.property.nickname'|trans({}, 'entity') }}</th>
+                    <th scope="col">{{ 'review.property.created_at'|trans({}, 'entity') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for comment in latestComments %}
+                        <tr>
+                            <td>{{ comment.game.name }}</td>
+                            <td>{{ comment.user.email }}</td>
+                            <td>{{ comment.createdAt|date }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 col-12 p-1">
+            <h2>{{ 'home.lastest_games'|trans }}</h2>
+            <table class="table table-striped table-hover table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">{{ 'game.property.name'|trans({}, 'entity') }}</th>
+                    <th scope="col">{{ 'game.property.published_at'|trans({}, 'entity') }}</th>
+                    <th scope="col">{{ 'game.property.price'|trans({}, 'entity') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for game in latestGames %}
+                        <tr>
+                            <td>{{ game.name }}</td>
+                            <td>{{ game.publishedAt|date }}</td>
+                            <td>{{ game.price }}€</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 col-12 p-1">
+            <h2>{{ 'home.lastest_users'|trans }}</h2>
+            <table class="table table-striped table-hover table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">{{ 'user.property.name'|trans({}, 'entity') }}</th>
+                    <th scope="col">{{ 'user.property.created_at'|trans({}, 'entity') }}</th>
+                    <th scope="col">{{ 'user.property.games'|trans({}, 'entity') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for user in latestUsers %}
+                        <tr>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.createdAt|date }}</td>
+                            <td>{{ user.userOwnGames|length }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 {% endblock %}

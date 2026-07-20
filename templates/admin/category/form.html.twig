@@ -2,12 +2,19 @@
 
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 
+{% trans_default_domain 'admin' %}
+
 {% block mainTitle %}
     {% if isEdit is true %}
-        Modifier la catégorie "{{ category.name }}"
+        {{ 'category.edit.title'|trans({'%categ%': category.name}) }}
     {% else %}
-        Ajouter une catégorie
+        {{ 'category.new.title'|trans }}
     {% endif %}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_category_index'),
+        'action': 'index',
+        'cssClass': 'actions-link'
+    } %}
 {% endblock %}
 
 {% block content %}

@@ -1,23 +1,57 @@
 {% extends 'admin/base.html.twig' %}
 
+{% trans_default_domain 'admin' %}
+
 {% block mainTitle %}
-    Show
+    {{ category.name }} - <span class="text-light" title="{{ 'category.property.slug'|trans({}, 'entity') }}">{{ category.slug }}</span>
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_category_index'),
+        'action': 'index',
+        'cssClass': 'actions-link'
+    } %}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_category_edit', {'slug': category.slug}),
+        'action': 'edit',
+        'cssClass': 'actions-link'
+    } %}
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            {% dump showOne %}
-            {% if showOne.0.image == "" %}
-                <img src="./assets/images/potitchien.jpeg">
-           {% else %}
-            <img src="{{ showOne.0.image }}">
-            {% endif %}
-        </div>
 
-    </div>
-</div>
+    {% if category.image is not null %}
+        <img class="img-fluid" src="{{ asset(category.image) }}" alt="{{ category.name }}">
+    {% endif %}
+
+    <h2>{{ 'category.property.games'|trans({}, 'entity') }}</h2>
+
+    <table class="table table-hover table-striped table-dark">
+        <thead>
+            <tr>
+                <th>{{ 'game.property.name'|trans({}, 'entity')}}</th>
+                <th>{{ 'game.property.thumbnailCover'|trans({}, 'entity')}}</th>
+                <th>{{ 'game.property.price'|trans({}, 'entity')}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for game in category.games %}
+                <tr>
+                    <td>
+                        <a class="text-decoration-none steamish-link" href="{{ path('app_game_show', {'slug': game.slug}) }}">
+                            {{ game.name }}
+                        </a>
+                    </td>
+                    <td>
+                        {% if game.thumbnailCover is not null %}
+                            {{ 'utils.yes'|trans }}
+                        {% else %}
+                            {{ 'utils.no'|trans }}
+                        {% endif %}
+                    </td>
+                    <td>{{ game.price }}€</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}
-
 

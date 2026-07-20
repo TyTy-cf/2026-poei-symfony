@@ -1,6 +1,52 @@
 
 home:
     title: "Dashboard SteamIsh"
+    lastest_purchases: "Derniers achats"
+    lastest_reviews: "Derniers commentaires"
+    lastest_games: "Derniers jeux sortis"
+    lastest_users: "Derniers utilisateurs inscrits"
+
+utils:
+    yes: "Oui"
+    no: "Non"
+    table:
+        actions:
+            header: "Actions"
+            edit:
+                title: "Modifier"
+            delete:
+                title: "Supprimer"
+                confirm: "'Êtes vous sûr de vouloir supprimer ce contenu ?'"
+            show:
+                title: "Voir"
+            new:
+                title: "Ajouter"
+            back:
+                title: "Retour"
+
+menu:
+    dashboard: "Dasboard"
+    category:
+        title: "Catégories"
+        index: "Index"
+        new: "Nouvelle"
+    country:
+        title: "Pays"
+        index: "Index"
+        new: "Nouveau"
+
 category:
-    index: "Index"
-    new: "Nouvelle"
+    index:
+        title: "Les catégories"
+    new:
+        title: "Nouvelle catégorie"
+    edit:
+        title: 'Modifier la catégorie "%categ%"'
+
+country:
+    index:
+        title: "Les pays"
+    new:
+        title: "Nouveau pays"
+    edit:
+        title: "Modifier le pays %country%"
