@@ -6,7 +6,7 @@
         {% if isEdit %}Formulaire de modification de {{ category.name }}
         {% else %}Formulaire de création de catégorie
         {% endif %}{% endblock %}
-    {% block mainTitle %}
+    {% block mainTitle %}{% include 'admin/partials/navigation.html.twig' with {routeName: 'admin_categories', } %}
         {% if isEdit %}Formulaire de modification de {{ category.name }}
         {% else %}Formulaire de création de catégorie
         {% endif %}{% endblock %}

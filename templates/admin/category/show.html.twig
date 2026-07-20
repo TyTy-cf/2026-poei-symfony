@@ -1,7 +1,8 @@
 {% extends 'admin/base.html.twig' %}
 
     {% block title %}{{ category.name }}{% endblock %}
-    {% block mainTitle %}Catégorie {{ category.name }}{% endblock %}
+    {% block mainTitle %}{% include 'admin/partials/navigation.html.twig' with {routeName: 'admin_categories', } %}
+        Catégorie {{ category.name }}{% endblock %}
 
 
 {% block body %}

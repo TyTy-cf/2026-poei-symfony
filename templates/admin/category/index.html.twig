@@ -1,8 +1,8 @@
 {% extends 'admin/base.html.twig' %}
 
-    {% block title %}Liste des catégories{% endblock %}
-{% block mainTitle %}Liste des catégories <a href="{{ path('admin_add_category') }}"><i
-        class="fa-solid fa-square-plus"></i></a>{% endblock %}
+{% block title %}Liste des catégories{% endblock %}
+{% block mainTitle %}{% include 'admin/partials/navigation.html.twig' with {routeName: 'admin_dashboard', } %}
+    Liste des catégories <a href="{{ path('admin_add_category') }}"><i class="fa-solid fa-square-plus"></i></a>{% endblock %}
 
 
 {% block body %}
@@ -24,14 +24,7 @@
                 <td>{{ category.slug }}</td>
                 <td>{{ category.games | length }}</td>
                 <td>
-                    <div class="d-flex align-items-stretch justify-content-evenly">
-                        <a href="{{ path('admin_category', {slug: category.slug}) }}">
-                            <i class="fa-solid fa-eye"></i></a>
-                        <a href="{{ path('admin_edit_category', {slug: category.slug}) }}">
-                            <i class="fa-solid fa-pen"></i></a>
-                        <a href="{{ path('admin_delete_category', {slug: category.slug}) }}">
-                            <i class="fa-solid fa-trash-can link-danger"></i></a>
-                    </div>
+                    {% include 'admin/partials/actionButtonsSED.html.twig' with {type: 'category', slug: category.slug} %}
                 </td>
             </tr>
         {% endfor %}
