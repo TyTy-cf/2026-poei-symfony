@@ -21,4 +21,15 @@ class CategoryRepository extends ServiceEntityRepository
         return $this->findBy([], ['name' => 'ASC'], $limit);
     }
 
+    public function findOneFullBy(string $slug): ?Category
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->leftJoin('c.games', 'g')
+            ->where('c.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

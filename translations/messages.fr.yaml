@@ -28,7 +28,9 @@ security:
         title: "Se connecter"
 
 footer:
-    title: "Nos meilleures catégories"
+    title:
+        best_categories: "Nos meilleures catégories"
+        commented_game: "Nos jeux populaires"
 
 user:
     show:

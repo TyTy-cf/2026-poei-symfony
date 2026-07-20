@@ -3,7 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
-use App\Form\RegisterType;
+use App\Repository\CategoryRepository;
+use App\Form\CategoryType;
 use App\Service\SlugifyService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,10 +17,36 @@ final class CategoryController extends AbstractController
 {
 
     #[Route('edit/{slug}', name: 'edit')]
-    public function edit(): Response
+    public function edit(
+        Request                $request,
+        EntityManagerInterface $em,
+        SlugifyService         $slugifyService,
+        CategoryRepository      $categoryRepository,
+        string $slug,
+//        Category                $categoryEdit
+    ): Response
     {
-        return $this->render('admin/category/new.html.twig', [
-            'controller_name' => 'CategoryController',
+        $categoryEdit = $categoryRepository->findOneFullBy($slug);
+        $form = $this->createForm(CategoryType::class, $categoryEdit);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $name = $form->getData()->getName();
+            $categoryEdit->setSlug($slugifyService->slugify($name));
+            foreach ($categoryEdit->getGames() as $game) {
+                $game->addCategory($categoryEdit);
+            }
+            try {
+                $em->persist($categoryEdit);
+                $em->flush();
+                $this->addFlash("success", "c'est modifié en base");
+            } catch (\Exception $e) {
+                $this->addFlash("error", "et bah non");
+            }
+        }
+        return $this->render('admin/category/edit.html.twig', [
+            'category' => $categoryEdit,
+            'form' => $form,
         ]);
     }
 
@@ -31,12 +58,15 @@ final class CategoryController extends AbstractController
     ): Response
     {
         $category = new Category();
-        $form = $this->createForm(RegisterType::class, $category);
+        $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $name = $form->getData()->getName();
             $category->setSlug($slugifyService->slugify($name));
+            foreach ($category->getGames() as $game) {
+                $game->addCategory($category);
+            }
             try {
                 $em->persist($category);
                 $em->flush();
@@ -45,7 +75,7 @@ final class CategoryController extends AbstractController
                 $this->addFlash("error", "et bah non");
             }
         }
-        return $this->render('admin/category/edit.html.twig', [
+        return $this->render('admin/category/new.html.twig', [
             'form' => $form,
         ]);
     }

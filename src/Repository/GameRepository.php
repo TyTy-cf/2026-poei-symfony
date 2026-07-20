@@ -80,4 +80,18 @@ class GameRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findCommentedGames(?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.reviews', 'r')
+            ->groupBy('g')
+            ->orderBy('r.createdAt', 'DESC');
+
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

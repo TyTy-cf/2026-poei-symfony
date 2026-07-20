@@ -1,11 +1,20 @@
 <footer>
 
-    <div class="d-flex justify-content-around">
+    <div class="d-flex justify-content-evenly mt-4">
         <div>
-            <p>Nos meilleures catégoies</p>
+            <p>{{ 'footer.title.best_categories'|trans }}</p>
             <ul class="list-unstyled">
                 {% for categ in best_categories() %}
                     <li>{{ categ.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div>
+            <p>{{ 'footer.title.commented_game'|trans }}</p>
+            <ul class="list-unstyled">
+                {% for game in commented_games() %}
+                    <li><a class="text-decoration-none" href="{{ path('app_game_show', {'slug': game.slug}) }}">{{ game.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>

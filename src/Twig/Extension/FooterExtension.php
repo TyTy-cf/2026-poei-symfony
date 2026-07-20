@@ -14,6 +14,8 @@ class FooterExtension extends AbstractExtension
     {
         return [
             new TwigFunction('best_categories', [FooterRuntime::class, 'bestCategories']),
+            new TwigFunction('commented_games', [FooterRuntime::class, 'commentedGames']),
+
         ];
     }
 
