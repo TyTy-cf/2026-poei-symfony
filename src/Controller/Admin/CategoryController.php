@@ -34,9 +34,11 @@ final class CategoryController extends AbstractController
             string $slug
     ): Response
     {
+        $categ = $categoryRepository->showOne($slug);
         $showOne = $categoryRepository->showOne($slug);
 
         return $this->render("admin/category/show.html.twig", [
+            "categ" => $categ,
             "showOne" => $showOne
         ]);
 

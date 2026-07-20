@@ -32,11 +32,14 @@ class CategoryRepository extends ServiceEntityRepository
 
     }
 
-    public function showOne(string $slug): ?Category
-    {
-        $qb = $this->createQueryBuilder("c")
-            ->where("c.slug = $slug");
-        return $qb->getQuery()->getResult();
-    }
+  public function showOne(string $slug): array
+  {
+      return $this->createQueryBuilder("c")
+          ->where("c.slug = :slug")
+          ->setParameter("slug", $slug)
+          ->getQuery()
+          ->getResult();
+  }
+
 
 }
