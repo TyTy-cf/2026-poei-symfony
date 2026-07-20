@@ -1,0 +1,10 @@
+{% extends './admin/base.html.twig' %}
+
+
+{% block body %}
+    <h1>Create new Publisher</h1>
+
+    {{ include('admin/publisher/_form.html.twig') }}
+
+    <a href="{{ path('admin_publisher_index') }}">back to list</a>
+{% endblock %}
