@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="col-12 my-5">
+        <h2>{{ 'footer.title.cat_pop' | trans }}</h2>
+    </div>
+
+    <div class="row row-gap-3">
+        {% for category in popular_categories() %}
+            {# Cards #}
+            <div class="col-2">
+                <div class="card hover-zoom">
+                    <div class="ratio ratio-1x1">
+                        <img src="{{ category.image | default('https://picsum.photos/200') }}"
+                             class="card-img-top object-fit-cover" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ category.name }}</h5>
+                        <a href="{{ path('app_category', {slug: category.slug}) }}" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include 'front/partials/gameCardsSection.html.twig' with {'games': popular_games(), 'title': 'footer.title.games_most_played' | trans } %}
+</div>

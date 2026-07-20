@@ -1,32 +1,33 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}Bienvenu sur SteamIsh thingy{% endblock %}
+{% trans_default_domain 'home' %}
+
+{% block title %}{{ 'title.tab' | trans }}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
 {% endblock %}
 
 {% block body %}
-
     <div class="jumbotron jumbotron-fluid bg-dark-subtle">
         <div class="container">
             <div class="row p-5">
-                <h1 class="display-1">STEAMISH</h1>
-                <p class="lead">Le seul endroit où venir acheter vos jeux</p>
+                <h1 class="display-1">{{ 'title.main' | trans }}</h1>
+                <p class="lead">{{ 'title.subtitle' | trans }}</p>
             </div>
         </div>
     </div>
 
     <div class="container pb-4">
         {# Cards #}
-        {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesNewest, 'title': 'Les Tendances'} %}
+        {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesTrending, 'title': 'title.trends' | trans } %}
 
-        {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesPriceDesc, 'title': 'Meilleures Sorties'} %}
+        {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesBest, 'title': 'title.best' | trans} %}
     </div>
     <div class="jumbotron jumbotron-fluid p-4 bg-dark-subtle">
         <div class="container-fluid">
             <div class="col-12 mb-5 mt-4">
-                <h2>Ils nous font confiance</h2>
+                <h2>{{ 'title.reviews' | trans }}</h2>
             </div>
             <div class="row d-flex flex-row flex-nowrap overflow-auto pb-4">
                 {% for reviewNewest in reviewsNewest %}
@@ -39,23 +40,24 @@
 
     <div class="container">
 
-        {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesPriceDesc, 'title': 'Les Tops Jeux'} %}
+        {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesTop, 'title': 'title.top' | trans} %}
 
         <div class="col-12 my-5">
-            <h2>Categories</h2>
+            <h2>{{ 'title.categories' | trans }}</h2>
         </div>
 
         <div class="row row-gap-3">
             {% for category in categories %}
                 {# Cards #}
                 <div class="col-2">
-                    <div class="card">
+                    <div class="card hover-zoom">
                         <div class="ratio ratio-1x1">
                             <img src="{{ category.image | default('https://picsum.photos/200') }}"
                                  class="card-img-top object-fit-cover" alt="...">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ category.name }}</h5>
+                            <a href="{{ path('app_category', {slug: category.slug}) }}" class="stretched-link"></a>
                         </div>
                     </div>
                 </div>

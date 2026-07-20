@@ -1,0 +1,12 @@
+home:
+    page_title: "Steam Ish, un truc comme ca, les jeux c'est cool"
+    title: "Steam Ish"
+    subtitle: "Le seul endroit où venir acheter vos jeux"
+publisher:
+    title:
+        tab: 'Jeux de %publisher%'
+        subtitle: "les jeux de %publisher%"
+footer:
+    title:
+        cat_pop: 'Catégories populaires'
+        games_most_played: 'Jeux les plus joués'

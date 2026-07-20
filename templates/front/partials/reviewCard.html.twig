@@ -1,24 +1,21 @@
 <div class="col-{{ cardSize | default(4) }}">
     <div class="card h-100">
         <div class="card-body d-flex flex-column">
-            <ul class="list-unstyled">
-                {% for i in 0..4 %}
-                    {% if review.rating-i >= 1 %}
-                        <li class="d-inline"><i class="fa-solid fa-star"></i></li>
-                    {% else %}
-                        <li class="d-inline"><i class="fa-regular fa-star"></i></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+            {% if game.slug is defined %}
+                <a href="{{ path('app_game', {slug: game.slug}) }}" class="link-light link-underline-opacity-0">
+                    <p class="my-0 text-secondary">{{ game.name }}</p></a>
+            {% endif %}
+            {% include 'front/partials/starRating.html.twig' with {'rating': review.rating} %}
             <p class="card-text">{{ review.content | slice(0, 50) }}</p>
             <div class="row mt-auto">
                 <div class="d-flex align-items-center">
                     <div class="col-1">
-                        <div class="ratio ratio-1x1"><img class="img-thumbnail rounded-circle"
-                                                          src="{{ review.user.profileImage | default('https://picsum.photos/200') }}"
-                                                          alt=""></div>
+                        <div class="ratio ratio-1x1">
+                            <img class="img-thumbnail rounded-circle"
+                                 src="{{ review.user.profileImage | default('https://picsum.photos/200') }}"
+                                 alt=""></div>
                     </div>
-                    <div class="col-8 pb-0 ps-3"><p class="my-auto">{{ review.user.name }}</p>
+                    <div class="col-8 pb-0 ps-3"><a href="{{ path('app_user', {name: review.user.name}) }}" class="link-light link-underline-opacity-0"><p class="my-auto">{{ review.user.name }}</p></a>
                     </div>
                     <div class="col-3 pb-0 mt-auto"><p
                             class="mb-0 text-secondary text-end">{{ review.createdAt | date("d/m/Y") }}</p>

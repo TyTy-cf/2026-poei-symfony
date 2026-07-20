@@ -16,7 +16,7 @@ init:
 
 db-reset:
 	@echo "DELETE DB..."
-	@docker compose exec -T mariadb mysql -uroot -proot -e "DROP database IF EXISTS data.sql;"
+	@docker compose exec -T mariadb mysql -uroot -proot -e "DROP database IF EXISTS db_steamish;"
 
 	@echo "CREATE DB..."
 	@docker compose exec -T php php bin/console doctrine:database:create
@@ -32,6 +32,7 @@ db:
 
 	@echo "CREATE DB..."
 	@docker compose exec -T php php bin/console doctrine:database:create
+	@docker compose exec -T php php bin/console d:m:m -n
 	@echo "Database import completed."
 
 db-data:

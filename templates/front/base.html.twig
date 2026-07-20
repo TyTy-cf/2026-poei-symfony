@@ -14,6 +14,9 @@
 
     </head>
     <body>
+    {% include 'front/partials/header.html.twig' %}
+        {% include 'front/partials/alert.html.twig' %}
         {% block body %}{% endblock %}
+        {% include 'front/partials/footer.html.twig' %}
     </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,4 +41,21 @@ class CategoryRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function getQb(): QueryBuilder
+    {
+        return $this->createQueryBuilder('c');
+    }
+
+    public function findByMostPlayed()
+    {
+        $qb = $this->getQb()
+            ->join('c.games', 'g')
+            ->join('g.userOwnGames', 'u')
+            ->groupBy('c')
+            ->orderBy('SUM(u.gameTime)', 'DESC')
+            ->setMaxResults(5);
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -1,13 +1,26 @@
 .jumbotron-custom {
-    height: 100px;
+    height: 150px;
     display: block;
     z-index: -1;
 }
 
 .img-jumbotron {
-    height: 250px;
+    height: 300px;
 }
 
 .bg-blur {
     backdrop-filter: blur(20px);
+}
+
+.hover-zoom:hover {
+    transform: scale(1.05);
+}
+
+.hover-zoom {
+    transition: transform 100ms;
+}
+
+.avatar-sm {
+    height: 2.5rem;
+    width: 2.5rem;
 }

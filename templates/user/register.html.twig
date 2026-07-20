@@ -1,0 +1,28 @@
+{% extends 'front/base.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Formulaire d'inscription{% endblock %}
+
+{% block body %}
+    <div class="jumbotron jumbotron-fluid bg-dark-subtle">
+        <div class="container">
+            <div class="row p-5">
+                <h1 class="display-1">Formulaire d'inscription</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-4">
+        <div class="col-6 offset-3">
+            {{ form_start(form) }}
+            {{ form_row(form) }}
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-primary" type="submit">
+                    {{ 'button.confirm' | trans({}, 'component') }}
+                </button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

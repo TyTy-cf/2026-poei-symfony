@@ -1,0 +1,33 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Catégories{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron jumbotron-fluid bg-dark-subtle">
+        <div class="container">
+            <h1 class="display-1">Categories</h1>
+            <p class="lead">Liste des catégories</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row row-gap-3">
+            {% for category in categories %}
+                {# Cards #}
+                <div class="col-2">
+                    <div class="card hover-zoom">
+                        <div class="ratio ratio-1x1">
+                            <img src="{{ category.image | default('https://picsum.photos/200') }}"
+                                 class="card-img-top object-fit-cover" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ category.name }}</h5>
+                            <a href="{{ path('app_category', {slug: category.slug}) }}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

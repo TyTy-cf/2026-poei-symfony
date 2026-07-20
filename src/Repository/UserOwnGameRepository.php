@@ -16,6 +16,11 @@ class UserOwnGameRepository extends ServiceEntityRepository
         parent::__construct($registry, UserOwnGame::class);
     }
 
+    public function getQB()
+    {
+        return $this->createQueryBuilder('uog');
+    }
+
     //    /**
     //     * @return UserOwnGame[] Returns an array of UserOwnGame objects
     //     */
@@ -40,4 +45,15 @@ class UserOwnGameRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findLatest(int $int)
+    {
+        $qb = $this->getQB()
+            ->select('uog, u, g')
+            ->leftJoin('uog.game', 'g')
+            ->leftJoin('uog.user', 'u')
+            ->orderBy('uog.createdAt', 'DESC')
+            ->setMaxResults($int);
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -1,0 +1,3 @@
+user:
+    password:
+        regex: 'Le mot de passe doit contenir au moins 9 caractères, une majuscule, un caractère spécial et un chiffre'

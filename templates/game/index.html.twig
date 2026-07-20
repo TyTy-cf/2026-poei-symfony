@@ -1,6 +1,8 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}{{ game.name }}{% endblock %}
+{% trans_default_domain 'game' %}
+
+{% block title %}{{ 'title.tab' | trans({'%gameName%': game.name}) }}{% endblock %}
 
 {% block body %}
     <div class="ratio jumbotron-custom">
@@ -12,17 +14,20 @@
                 <div class="ratio ratio-16x9"><img src="{{ game.thumbnailCover }}" alt="poster of {{ game.name }}"
                                                    class="img-fluid object-fit-cover rounded-3 border"></div>
             </div>
-            <div class="col-6 bg-dark bg-blur bg-opacity-50 p-5 d-flex flex-column rounded-3">
-                <h1 class="text-center">{{ game.name }}</h1>
-                <p class="text-center">Date de sortie : {{ game.publishedAt | date("d/m/Y") }}</p>
+            <div
+                class="col-6 bg-dark bg-blur bg-opacity-50 p-5 d-flex flex-column rounded-3 justify-content-center align-items-center">
+                <h1>{{ game.name }}</h1>
+                <p>Date de sortie : {{ game.publishedAt | date("d/m/Y") }}</p>
+                <div class="col">{% include 'front/partials/starRating.html.twig' with {'rating': averageScore} %}</div>
                 <a href="#" class="btn btn-primary mt-auto">Acheter le jeu</a>
             </div>
         </div>
         <div class="row mt-5">
             <div class="col-6">
                 <h2>A propos</h2>
+                <p>{{ game.description }}</p>
             </div>
-            <div class="col-4 px-5 pt-5">
+            <div class="col-4 offset-1 px-5 pt-5">
                 <ul class="list-unstyled">
                     <li class="d-flex justify-content-between">
                         <p>Compatibilité par pays:</p><a href="#">Voir la liste</a>
@@ -30,7 +35,7 @@
                     {% if game.publisher.name is defined %}
 
                         <li class="d-flex justify-content-between">
-                            <p>Éditeur:</p><a href="#">{{ game.publisher.name }}</a>
+                            <p>Éditeur:</p><a href="{{ path('app_publisher', {slug: game.publisher.slug}) }}">{{ game.publisher.name }}</a>
                         </li>
                     {% endif %}
                     <li class="d-flex justify-content-between">
@@ -42,7 +47,7 @@
                         <p>
                             {% for category in game.categories %}
                                 {% if loop.index0 %}, {% endif %}
-                                <a href="#">{{ category.name }}</a>
+                                <a href="{{ path('app_category', {slug: category.slug}) }}">{{ category.name }}</a>
                             {% endfor %}
                         </p>
                     </li>
@@ -54,13 +59,27 @@
                 {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesPublisher, 'title': 'Jeux du même éditeur :'} %}
             </div>
         {% endif %}
-        <div class="row mt-5">
-            <h2>Avis des joueurs :</h2>
-            <div class="row gap-3 mt-4">
-                {% for review in game.reviews %}
+        <div class="row mt-5" id="reviews">
+            <h2>Avis des joueurs ({{ game.reviews.count }}) :</h2>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination mt-4">
+                    <li class="page-item"><a class="page-link" href="{{ path('app_game', {slug: game.slug, page: currentPage-1}) }}#reviews">Previous</a></li>
+                    {% for i in 1..(game.reviews.count/10) %}
+                        <li class="page-item {% if i == currentPage %} active {% endif %}"><a class="page-link"
+                                                 href="{{ path('app_game', {slug: game.slug, page: i}) }}#reviews">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+                    <li class="page-item"><a class="page-link" href="{{ path('app_game', {slug: game.slug, page: currentPage+1}) }}#reviews">Next</a></li>
+                </ul>
+            </nav>
+            <div class="row gap-3">
+                {% for review in reviewsNewest %}
                     {% include 'front/partials/reviewCard.html.twig' with {'review': review, 'cardSize': 12} %}
                 {% endfor %}
             </div>
+        </div>
+        <div class="row">
+            {% include 'front/partials/gameCardsSection.html.twig' with {'games': gamesSimilar, 'title': 'Jeux similaires :'} %}
         </div>
     </div>
 {% endblock %}

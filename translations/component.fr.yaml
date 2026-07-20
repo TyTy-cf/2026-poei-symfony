@@ -1,0 +1,4 @@
+button:
+    confirm: 'Valider'
+    cancel: 'Annuler'
+    close: 'Fermer'

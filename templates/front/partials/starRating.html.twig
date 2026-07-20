@@ -1,0 +1,9 @@
+<ul class="list-unstyled">
+    {% for i in 0..4 %}
+        {% if rating-i >= 1 %}
+            <li class="d-inline"><i class="fa-solid fa-star"></i></li>
+        {% else %}
+            <li class="d-inline"><i class="fa-regular fa-star"></i></li>
+        {% endif %}
+    {% endfor %}
+</ul>

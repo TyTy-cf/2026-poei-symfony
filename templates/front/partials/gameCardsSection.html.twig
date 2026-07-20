@@ -7,7 +7,7 @@
 <div class="row row-gap-3">
     {% for game in games %}
         <div class="col-4">
-            <div class="card">
+            <div class="card hover-zoom">
                 <div class="ratio ratio-16x9">
                     <img src="{{ game.thumbnailCover }}" class="card-img-top object-fit-cover" alt="...">
                 </div>
@@ -16,6 +16,9 @@
                         <p class="card-text m-0">{{ game.name }}</p>
                         <span class="fw-bold">{{ game.price }} €</span>
                     </div>
+                    {% if userPage is defined and userPage %}
+                        <p class="card-text m-0">{{ game.userOwnGames[0].gameTime | game_time }}</p>
+                    {% endif %}
                     <a href="{{ path('app_game', {slug: game.slug}) }}" class="stretched-link"></a>
                 </div>
             </div>

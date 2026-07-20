@@ -1,0 +1,26 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron jumbotron-fluid bg-dark-subtle">
+        <div class="container">
+            <div class="row p-5">
+                <div class="col-3">
+                    <img src="{{ category.image }}" alt="" class="img-fluid rounded-3">
+                </div>
+                <div class="col-9">
+                    <h1 class="display-1">Categorie {{ category.name }}</h1>
+                    <p class="lead">Les jeux de la catégorie {{ category.name }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+    <div class="row pt-5">
+        {% include 'front/partials/gameCardsSection.html.twig' with {'games': category.games} %}
+    </div>
+</div>
+{% endblock %}

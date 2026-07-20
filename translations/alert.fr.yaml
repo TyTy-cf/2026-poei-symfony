@@ -1,0 +1,5 @@
+admin:
+    category:
+        updated: 'Catégorie bien update'
+        created: 'Catégorie bien Crée'
+    error: 'Euh ya une erreur chef'

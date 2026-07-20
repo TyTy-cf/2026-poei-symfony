@@ -1,0 +1,93 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block sideMenu %}
+
+{% endblock %}
+
+{% block mainTitle %}DashBoard administrateur{% endblock %}
+
+{% block body %}
+        <div class="col-6 p-2">
+            <p class="h2">Derniers achats</p>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Nom du jeu</th>
+                    <th scope="col">Utilisateur</th>
+                    <th scope="col">Date d'achat</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for purchase in latestPurchases %}
+                    <tr>
+                        <th>{{ purchase.game.name }}</th>
+                        <td class="text-break">{{ purchase.user.email }}</td>
+                        <td>{{ purchase.createdAt | date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6 p-2">
+            <p class="h2">Derniers commentaires</p>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Nom du jeu</th>
+                    <th scope="col">Utilisateur</th>
+                    <th scope="col">Date d'écriture</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for comment in latestComments %}
+                    <tr>
+                        <th>{{ comment.game.name }}</th>
+                        <td class="text-break">{{ comment.user.email }}</td>
+                        <td>{{ comment.createdAt | date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6 p-2">
+            <p class="h2">Derniers jeux sortis</p>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Nom du jeu</th>
+                    <th scope="col">Date de sortie</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for game in latestGames %}
+                    <tr>
+                        <th>{{ game.name }}</th>
+                        <td>{{ game.publishedAt | date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6 p-2">
+            <p class="h2">Derniers utilisateurs inscrits</p>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Nom de l'utilisateur</th>
+                    <th scope="col">Date d'inscription</th>
+                    <th scope="col">Nombre de jeux</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in latestUsers %}
+                    <tr>
+                        <th class="text-break">{{ user.email }}</th>
+                        <td>{{ user.createdAt | date }}</td>
+                        <td>{{ user.userOwnGames | length }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+user:
+    email: 'Email :'
+    email_placeholder: 'john.doe@gmail.com'
+    name: 'Nom :'
+    name_placeholder: 'john'
+    nickname: 'Pseudonyme :'
+    nickname_placeholder: 'johndu69'
+    password: 'Mot de passe :'
+    password_placeholder: 'cacaetpipi'
+    profile_picture: 'Photo de profil :'
+    country: 'Nationalité :'
+
+category:
+    name: 'Nom :'
+    name_placeholder: 'Ex: Jeu de rôle'
+    image: "Url de l'image"
+    image_placeholder: "http://lepipietlecaca.fr/image.jpg"
