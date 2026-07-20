@@ -10,10 +10,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/{_locale}/admin/category/', name: 'admin_category_')]
 final class CategoryController extends AbstractController
 {
+
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+    )
+    {
+    }
 
     #[Route('new', name: 'new')]
     public function new(
@@ -47,12 +54,12 @@ final class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($categoryService->persistCategory($category)) {
                 if ($isEdit) {
-                    $this->addFlash('success', 'category.updated');
+                    $this->addFlash('success', $this->translator->trans('admin.category.updated', [], 'alert'));
                 } else {
-                    $this->addFlash('success', 'category.created');
+                    $this->addFlash('success', $this->translator->trans('admin.category.created', [], 'alert'));
                 }
             } else {
-                $this->addFlash('danger', 'category.error');
+                $this->addFlash('danger', $this->translator->trans('admin.error', [], 'alert'));
             }
 
             return $this->redirectToRoute('admin_category_new');

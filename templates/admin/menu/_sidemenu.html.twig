@@ -6,16 +6,16 @@
         <i class="fa-brands fa-steam fa-3x steamish-link"></i>
     </a>
     <ul class="list-unstyled ps-2">
-        <p>Catégories</p>
+        <p>{{ 'menu.category.title'|trans }}</p>
         <div class="ps-2">
             <li>
                 <a class="text-decoration-none steamish-link" href="{{ path('admin_category_new') }}">
-                    {{ 'category.index'|trans }}
+                    {{ 'menu.category.index'|trans }}
                 </a>
             </li>
             <li>
                 <a class="text-decoration-none steamish-link" href="{{ path('admin_category_new') }}">
-                    {{ 'category.new'|trans }}
+                    {{ 'menu.category.new'|trans }}
                 </a>
             </li>
         </div>

@@ -1,6 +1,18 @@
 
 home:
     title: "Dashboard SteamIsh"
+
+
+menu:
+    category:
+        title: "Catégories"
+        index: "Index"
+        new: "Nouvelle"
+
 category:
-    index: "Index"
-    new: "Nouvelle"
+    index:
+        title: "Les catégories"
+    new:
+        title: "Nouvelle catégorie"
+    edit:
+        title: 'Modifier la catégorie "%categ%"'
