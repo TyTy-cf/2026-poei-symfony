@@ -1,0 +1,15 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}
+    Recherche : "{{ search }}"
+{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <h1 class="text-center">Recherche : "{{ search }}"</h1>
+        {% include 'front/partials/_game_loop.html.twig' %}
+    </div>
+
+{% endblock %}
+

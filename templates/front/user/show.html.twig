@@ -10,13 +10,15 @@
         <div class="d-flex justify-content-around">
             <h1>{{ user.name }}</h1>
             {% if isMe %}
-                <button class="btn btn-warning">
-                    <i class="fa-solid fa-pen-alt"></i>
-                </button>
+                <div>
+                    <button class="btn btn-warning py-2" data-toggle-form>
+                        <i class="fa-solid fa-pen-alt"></i>
+                    </button>
+                </div>
             {% endif %}
         </div>
 
-        <section data-profile-form>
+        <section class="mt-4" data-profile-form>
             {% if form is not null %}
                 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 

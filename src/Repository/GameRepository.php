@@ -79,4 +79,15 @@ class GameRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findBySearch(string $search): array
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->where('g.name LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->orderBy('g.price', 'DESC')
+            ->addOrderBy('g.publishedAt', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

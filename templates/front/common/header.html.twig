@@ -3,6 +3,16 @@
         <a class="navbar-brand" href="{{ path("app_home") }}">
             <i class="fa-brands fa-steam fa-3x steamish-link"></i>
         </a>
+        <div>
+            <form action="{{ path('app_game_search') }}" method="POST">
+                <div class="btn-group">
+                    <input type="text" name="search" class="form-control">
+                    <button class="btn btn-primary">
+                        <span class="fa-solid fa-search"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
         <div class="ms-auto">
             {% if app.user is null %}
                 <a class="navbar-brand steamish-link" href="{{ path("app_login") }}">Login</a>
