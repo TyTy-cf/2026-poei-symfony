@@ -104,6 +104,17 @@ class GameRepository extends ServiceEntityRepository
       ->getResult();
   }
 
+  public function findBySlug(string $query): array
+  {
+    return $this->createQueryBuilder('g')
+      ->setParameter('slug', $query)
+      ->where('g.slug = :slug')
+      ->orWhere('g.slug LIKE :slugLike')
+      ->setParameter('slugLike', "%$query%")
+      ->getQuery()
+      ->getResult();
+  }
+
 
   //    public function findOneBySomeField($value): ?Game
   //    {

@@ -3,6 +3,10 @@
 		<a class="navbar-brand" href="{{ path("app_home") }}">
 			cacahoetehome
 		</a>
+<div class="ms-auto">
+{% include './front/component/search.html.twig' %}
+</div>
+
 		<div class="ms-auto">
 			{% if app.user is null %}
 				<a class="navbar-brand steamish-link" href="{{ path("app_login") }}">Login</a>

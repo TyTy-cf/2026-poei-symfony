@@ -25,7 +25,8 @@ final class GameController extends AbstractController
   ): Response {
     $game = $gameRepository->findOneFullBy($slug);
     $form = null;
-    
+
+
     $paginatedReviews = $paginator->paginate(
       $game->getReviews(),
       $request->query->getInt('page', 1),
@@ -69,6 +70,49 @@ final class GameController extends AbstractController
       'game' => $game,
       'paginatedReviews' => $paginatedReviews,
       'form' => $form,
+    ]);
+  }
+
+
+  #[Route('/{_locale}/search/', name: 'app_game_search')]
+  public function search(
+    Request $request,
+    GameRepository $gameRepository,
+    PaginatorInterface $paginator
+  ): Response {
+
+    $query = $request->query->get('query', '');
+    $games = $gameRepository->findBySlug($query);
+    $form = null;
+
+    if (!$games) {
+      $this->addFlash(
+        'danger',
+        'Game not found.'
+      );
+      return $this->redirectToRoute('app_home', [
+        '_locale' => $request->getDefaultLocale(),
+      ]);
+    }
+
+    $paginatedReviews = $paginator->paginate(
+      $games[0]->getReviews(),
+      $request->query->getInt('page', 1),
+      12
+    );
+
+
+    if ($games && count($games) > 1) {
+      return $this->render('front/game/index.html.twig', [
+        'controller_name' => 'GameController',
+        'searchGames' => $games,
+        'query' => $query,
+      ]);
+    }
+
+    return $this->redirectToRoute('app_game_show', [
+      'slug' => $games[0]->getSlug(),
+      '_locale' => $request->getDefaultLocale(),
     ]);
   }
 }

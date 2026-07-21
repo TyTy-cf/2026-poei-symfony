@@ -61,7 +61,7 @@
 					<div class="card border-0 shadow-sm">
 						<div class="card-body p-4 p-lg-5">
 							<h2 class="h3 mb-3">Add a Review</h2>
-							{% if app.user is not null %}
+							{% if app.user is not null and form != null %}
 								{% form_theme form 'bootstrap_5_layout.html.twig' %}
 								{{ form_start(form) }}
 								{{ form_row(form.content) }}

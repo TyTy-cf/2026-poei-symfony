@@ -1,0 +1,22 @@
+{# this is a page where multiple card game are displaued after a search #}
+{% extends './front/base.html.twig' %}
+
+
+{% block title %}
+	Results for "{{ query }}"
+			- Steam Ish
+{% endblock %}
+
+{% block body %}
+	<div class="container mb-5 h-50">
+		{%include './front/component/gameCard.html.twig' with  {
+
+        "games": searchGames,
+        "title": 'Results for "' ~ query ~ '"',
+
+        } %}
+
+	</div>
+
+
+{% endblock %}
