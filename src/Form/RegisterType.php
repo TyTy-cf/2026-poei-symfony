@@ -22,7 +22,6 @@ class RegisterType extends AbstractType
                 'label' => 'user.email',
                 'attr' => array(
                     'placeholder' => 'user.email_placeholder',
-                    ''
                 ),
             ])
             ->add('name', null, [

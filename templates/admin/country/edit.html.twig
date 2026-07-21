@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Country</title>
+
+{% block body %}
+    <h1>Edit Country</h1>
+
+    {{ include('admin/country/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_country_index') }}">back to list</a>
+
+    {{ include('admin/country/_delete_form.html.twig') }}
+{% endblock %}

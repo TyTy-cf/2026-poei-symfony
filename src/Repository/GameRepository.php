@@ -111,4 +111,13 @@ class GameRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findBySearch(mixed $searchValue)
+    {
+        $qb = $this->getQb()
+            ->where('g.name LIKE :search')
+            ->setParameter('search', '%' . strtolower($searchValue) . '%');
+
+        return $qb->getQuery()->getResult();
+    }
 }

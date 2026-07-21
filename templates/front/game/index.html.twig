@@ -61,6 +61,17 @@
         {% endif %}
         <div class="row mt-5" id="reviews">
             <h2>Avis des joueurs ({{ game.reviews.count }}) :</h2>
+            {% if app.user is not null %}
+                {% form_theme form 'bootstrap_5_layout.html.twig' %}
+                {{ form_start(form) }}
+                {{ form_row(form) }}
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-primary" type="submit">
+                        {{ 'button.confirm' | trans({}, 'component') }}
+                    </button>
+                </div>
+                {{ form_end(form) }}
+            {% endif %}
             <nav aria-label="Page navigation example">
                 <ul class="pagination mt-4">
                     <li class="page-item"><a class="page-link" href="{{ path('app_game', {slug: game.slug, page: currentPage-1}) }}#reviews">Previous</a></li>

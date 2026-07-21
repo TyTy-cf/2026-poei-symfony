@@ -17,7 +17,7 @@ final class PublisherController extends AbstractController
 
         $gamesPublisher = $gameRepository->findBy(['publisher' => $publisher], []);
 
-        return $this->render('publisher/index.html.twig', [
+        return $this->render('front/publisher/index.html.twig', [
             'controller_name' => 'PublisherController',
             'gamesPublisher' => $gamesPublisher,
             'publisher' => $publisher,

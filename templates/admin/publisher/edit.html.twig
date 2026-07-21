@@ -1,0 +1,10 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block mainTitle %}
+    {% include 'admin/partials/navigation.html.twig' with {entity: publisher, action: 'edit'} %}
+{% endblock %}
+
+{% block body %}
+
+    {{ include('admin/publisher/_form.html.twig', {'button_label': 'Update'}) }}
+{% endblock %}

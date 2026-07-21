@@ -29,7 +29,7 @@ final class UserController extends AbstractController
             $isMe = true;
         }
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('front/user/index.html.twig', [
             'controller_name' => 'UserController',
             'user' => $user,
             'games' => $games,

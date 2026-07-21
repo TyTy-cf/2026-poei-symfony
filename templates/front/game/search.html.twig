@@ -1,0 +1,20 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block body %}
+    <div class="jumbotron jumbotron-fluid bg-dark-subtle">
+        <div class="container p-5">
+            <h1 class="display-1">Resultats de la recherche : </h1>
+            <p class="lead">"{{ searchValue }}"</p>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row row-gap-3">
+            {% include 'front/partials/gameCardsSection.html.twig' with {'games': games } %}
+        </div>
+    </div>
+
+{% endblock %}
+

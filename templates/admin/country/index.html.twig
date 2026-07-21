@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des pays{% endblock %}
+{% block mainTitle %}{% include 'admin/partials/navigation.html.twig' with {routeName: 'admin_dashboard', } %}
+    Liste des pays <a href="{{ path('admin_country_new') }}"><i class="fa-solid fa-square-plus"></i></a>{% endblock %}
+
+{% block body %}
+    <h1>Country index</h1>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Nationality</th>
+                <th>Slug</th>
+                <th>UrlFlag</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for country in countries %}
+            <tr>
+                <td>{{ country.id }}</td>
+                <td>{{ country.code }}</td>
+                <td>{{ country.name }}</td>
+                <td>{{ country.nationality }}</td>
+                <td>{{ country.slug }}</td>
+                <td>{{ country.urlFlag }}</td>
+                <td>
+                    {% include 'admin/partials/actionButtonsSED.html.twig' with {type: 'country', slug: country.slug} %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -26,7 +26,7 @@ final class CategoryController extends AbstractController
     {
     }
 
-    #[Route('/index', name: 'admin_categories')]
+    #[Route(name: 'admin_category_index')]
     public function index(CategoryRepository $categoryRepository): Response
     {
         $categories = $categoryRepository->findAll();
@@ -36,7 +36,7 @@ final class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{slug}', name: 'admin_category')]
+    #[Route('/show/{slug}', name: 'admin_category_show')]
     public function show(#[MapEntity(mapping: ['slug' => 'slug'])] Category $category): Response
     {
 
@@ -45,13 +45,13 @@ final class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'admin_add_category')]
+    #[Route('/add', name: 'admin_category_new')]
     public function add(Request $request, CategoryService $categoryService): Response
     {
         return $this->handleForm($categoryService, new Category(), $request);
     }
 
-    #[Route('/edit/{slug}', name: 'admin_edit_category')]
+    #[Route('/edit/{slug}', name: 'admin_category_edit')]
     public function edit(
         #[MapEntity(mapping: ['slug' => 'slug'])] Category $category,
         Request $request, CategoryService $categoryService): Response
@@ -60,7 +60,7 @@ final class CategoryController extends AbstractController
     }
 
 
-    #[Route('/delete/{slug}', name: 'admin_delete_category')]
+    #[Route('/delete/{slug}', name: 'admin_category_delete')]
     public function delete(#[MapEntity(mapping: ['slug' => 'slug'])] Category $category, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($category);
@@ -99,7 +99,7 @@ final class CategoryController extends AbstractController
                 $this->addFlash('danger', $this->translator->trans('admin.error', [], 'alert'));
             }
 
-            return $this->redirectToRoute('admin_categories');
+            return $this->redirectToRoute('admin_category_index');
         }
 
         return $this->render('admin/category/form.html.twig', [

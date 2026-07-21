@@ -1,8 +1,8 @@
 <div class="d-flex align-items-stretch justify-content-evenly">
-    <a href="{{ path('admin_' ~ type, {slug: slug}) }}">
+    <a href="{{ path('admin_' ~ type ~ '_show', {slug: slug}) }}">
         <i class="fa-solid fa-eye"></i></a>
-    <a href="{{ path('admin_edit_' ~ type, {slug: slug}) }}">
+    <a href="{{ path('admin_' ~ type ~ '_edit', {slug: slug}) }}">
         <i class="fa-solid fa-pen"></i></a>
-    <a href="{{ path('admin_delete_' ~ type, {slug: slug}) }}">
+    <a href="{{ path('admin_' ~ type ~ '_delete', {slug: slug})}}">
         <i class="fa-solid fa-trash-can link-danger"></i></a>
 </div>

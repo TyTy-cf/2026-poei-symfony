@@ -21,7 +21,7 @@ final class HomeController extends AbstractController
         $gamesTrending = $gameRepository->findTrending();
         $gamesTop = $gameRepository->findTop();
 
-        return $this->render('home/index.html.twig', [
+        return $this->render('front/home/index.html.twig', [
             'controller_name' => 'HomeController',
             'gamesTrending' => $gamesTrending,
             'gamesBest' => $gamesBest,

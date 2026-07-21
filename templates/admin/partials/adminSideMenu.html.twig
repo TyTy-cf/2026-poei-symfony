@@ -3,10 +3,13 @@
         <a class="nav-link" href="{{ path('admin_dashboard') }}">Dashboard</a>
     </li>
     <li class="nav-item list-group-item">
-        <a class="nav-link" href="{{ path('admin_categories') }}" role="button">Catégories</a>
+        <a class="nav-link" href="{{ path('admin_category_index') }}" role="button">Catégories</a>
     </li>
     <li class="nav-item list-group-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="{{ path('admin_publisher_index') }}" role="button">Editeurs</a>
+    </li>
+    <li class="nav-item list-group-item">
+        <a class="nav-link" href="{{ path('admin_country_index') }}" role="button">Pays</a>
     </li>
     {% block sideMenu %}{% endblock %}
 </ul>
