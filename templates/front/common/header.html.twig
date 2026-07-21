@@ -3,6 +3,7 @@
         <a class="navbar-brand" href="{{ path("app_home") }}">
             <i class="fa-brands fa-steam fa-3x steamish-link"></i>
         </a>
+
         <div class="ms-auto">
             {% if app.user is null %}
                 <a class="navbar-brand steamish-link" href="{{ path("app_login") }}">Login</a>
