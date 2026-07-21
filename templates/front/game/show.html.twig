@@ -63,7 +63,8 @@
 							<div class="card-body p-4 p-lg-5">
 								<h2 class="h3 mb-3">Add a Review</h2>
 								{{ form_start(form) }}
-								{{ form_widget(form) }}
+								{{ form_row(form.content) }}
+								{{ form_row(form.rating) }}
 								<button type="submit" class="btn btn-primary">Submit</button>
 
 								{{ form_end(form) }}
@@ -100,5 +101,10 @@
 
 			</div>
 		</div>
-	</div>
-{% endblock %}
+
+	{% endblock %}
+
+	{% block javascripts %}
+		{{ parent() }}
+		{{ encore_entry_script_tags('stars') }}
+	{% endblock %}
