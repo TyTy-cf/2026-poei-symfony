@@ -56,6 +56,12 @@
             </div>
         </section>
 
+
+        {% include 'common/_form_.html.twig' with {
+            "form" : formReview
+        } %}
+
+
         {% if game.reviews|length > 0 %}
             <section class="mt-5">
                 <h2>{{ 'game.show.title.reviews'|trans }}</h2>
