@@ -64,3 +64,11 @@ country:
         title: "Nouveau pays"
     edit:
         title: "Modifier le pays %country%"
+
+
+publisher :
+    index :
+        title : 'Les éditeurs'
+    new :
+
+    edit :

@@ -41,3 +41,11 @@ uog:
 review:
     property:
         created_at: "Ecrit le"
+
+
+publisher:
+    property:
+        name: "Nom"
+        image: "Image"
+        slug: "Slug"
+        games: "Jeux"

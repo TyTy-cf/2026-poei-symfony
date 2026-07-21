@@ -18,7 +18,6 @@ class PublisherType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('name')
-            ->add('slug')
             ->add('website')
             ->add('country', EntityType::class, [
                 'class' => Country::class,

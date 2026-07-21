@@ -2,7 +2,7 @@
 
 
 {% block mainTitle %}
-    {{ 'category.index.title'|trans }}
+    {{ 'category.index.title'|trans({}, 'admin') }}
     {% include 'admin/partials/_table_action_link.html.twig' with {
         'actionPath': path('admin_category_new'),
         'action': 'new',
@@ -19,7 +19,7 @@
                 <th>{{ 'category.property.image'|trans({}, 'entity')}}</th>
                 <th>{{ 'category.property.slug'|trans({}, 'entity')}}</th>
                 <th>{{ 'category.property.games'|trans({}, 'entity')}}</th>
-                <th>{{ 'utils.table.actions.header'|trans }}</th>
+                <th>{{ 'utils.table.actions.header'|trans({}, 'admin') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -28,9 +28,9 @@
                     <td>{{ category.name }}</td>
                     <td>
                         {% if category.image is not null %}
-                            {{ 'utils.yes'|trans }}
+                            {{ 'utils.yes'|trans({}, 'admin') }}
                         {% else %}
-                            {{ 'utils.no'|trans }}
+                            {{ 'utils.no'|trans({}, 'admin') }}
                         {% endif %}
                     </td>
                     <td>{{ category.slug }}</td>

@@ -1,8 +1,17 @@
-<!DOCTYPE html>
+{% extends 'admin/base.html.twig' %}
 
-<title>Publisher index</title>
+{% trans_default_domain 'admin' %}
 
-{% block body %}
+{% block mainTitle %}
+    {{ 'publisher.index.title'|trans }}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_country_new'),
+        'action': 'new',
+        'cssClass': 'actions-link'
+    } %}
+{% endblock %}
+
+{% block content %}
     <h1>Publisher index</h1>
 
     <table class="table">
@@ -25,8 +34,8 @@
                 <td>{{ publisher.slug }}</td>
                 <td>{{ publisher.website }}</td>
                 <td>
-                    <a href="{{ path('app_publisher_show', {'id': publisher.id}) }}">show</a>
-                    <a href="{{ path('app_publisher_edit', {'id': publisher.id}) }}">edit</a>
+                    <a href="{{ path('admin_publisher_show', {'id': publisher.id}) }}">show</a>
+                    <a href="{{ path('admin_publisher_edit', {'id': publisher.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +46,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_publisher_new') }}">Create new</a>
+    <a href="{{ path('admin_publisher_new') }}">Create new</a>
 {% endblock %}
