@@ -1,9 +1,16 @@
 
 <div class="card-review">
     <div class="row">
-        {% for i in 1..review.rating %}
-            <i class="fa-solid fa-star"></i>
-        {% endfor %}
+        {% if review.rating > 0 %}
+            {% for i in 1..review.rating %}
+                <i class="fa-solid fa-star"></i>
+            {% endfor %}
+        {% endif %}
+        {% if review.rating < 5 %}
+            {% for i in 1..(5 - review.rating) %}
+                <i class="fa-regular fa-star"></i>
+            {% endfor %}
+        {% endif %}
     </div>
 
     {% if (hasGameLink is true) %}
@@ -25,11 +32,25 @@
         {% endif %}
     </p>
     <div class="mt-auto">
-        <p class="mb-0">Le {{ review.createdAt|date('d/m/Y') }}</p>
-        <a href="{{ path('app_user_show', {'name': review.user.name }) }}"
-           class="text-decoration-none text-light"
-        >
-            {{ 'review.card.nickname'|trans({'%nickname%': review.user.nickname})  }}
-        </a>
+        <div class="row">
+            <div class="col-6">
+                <p class="mb-0">Le {{ review.createdAt|date('d/m/Y') }}</p>
+                <a href="{{ path('app_user_show', {'name': review.user.name }) }}"
+                   class="text-decoration-none text-light"
+                >
+                    {{ 'review.card.nickname'|trans({'%nickname%': review.user.nickname})  }}
+                </a>
+            </div>
+            <div class="col-6">
+                <div class="card-review-votes">
+                    <span class="text-success" title="Votes positifs">
+                        {{ review.upvote }} <i class="fa-solid fa-thumbs-up"></i>
+                    </span>
+                        <span class="text-danger" title="Votes négatifs">
+                        {{ review.downvote }} <i class="fa-solid fa-thumbs-down"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,0 +1,56 @@
+{% extends 'admin/base.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+{% block mainTitle %}
+    {{ 'publisher.index.title'|trans }}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_publisher_new'),
+        'action': 'new',
+        'cssClass': 'actions-link'
+    } %}
+{% endblock %}
+
+{% block table_header %}
+    <th>{{ 'publisher.property.name'|trans({}, 'entity')}}</th>
+    <th>{{ 'publisher.property.created_at'|trans({}, 'entity')}}</th>
+    <th>{{ 'publisher.property.country'|trans({}, 'entity')}}</th>
+    <th>{{ 'publisher.property.games'|trans({}, 'entity')}}</th>
+{% endblock %}
+
+{% block table_body %}
+    {% for publisher in publishers %}
+        <tr>
+            <td>
+                <a href="{{ publisher.website }}"
+                   target="_blank"
+                   class="text-decoration-none steamish-link"
+                >
+                    {{ publisher.name }}
+                </a>
+            </td>
+            <td>{{ publisher.createdAt ? publisher.createdAt|date : '' }}</td>
+            <td>
+                <img src="{{ publisher.country.urlFlag }}">
+            </td>
+            <td>{{ publisher.games|length }}</td>
+            <td>
+                <div class="d-flex">
+                    {% include 'admin/partials/_table_action_link.html.twig' with {
+                        'actionPath': path('admin_publisher_edit', {'id': publisher.id}),
+                        'action': 'edit'
+                    } %}
+                    {% include 'admin/partials/_table_action_link.html.twig' with {
+                        'actionPath': path('admin_publisher_show', {'id': publisher.id}),
+                        'action': 'show'
+                    } %}
+                    {{ include('admin/publisher/_delete_form.html.twig') }}
+                </div>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

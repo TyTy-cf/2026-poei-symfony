@@ -1,0 +1,56 @@
+{% extends 'admin/base.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+{% block table_content %}
+{% endblock %}
+
+{% block mainTitle %}
+    {{ publisher.name}}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_publisher_index'),
+        'action': 'index',
+        'cssClass': 'actions-link'
+    } %}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_publisher_edit', {'id': publisher.id}),
+        'action': 'edit',
+        'cssClass': 'actions-link'
+    } %}
+{% endblock %}
+
+{% block content %}
+
+    <table class="table table-hover table-striped table-dark">
+        <tbody>
+            <tr>
+                <th>{{ 'publisher.property.name'|trans({}, 'entity')}}</th>
+                <td>
+                    <a href="{{ publisher.website }}"
+                       target="_blank"
+                       class="text-decoration-none steamish-link"
+                    >
+                        {{ publisher.name }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>{{ 'publisher.property.created_at'|trans({}, 'entity')}}</th>
+                <td>
+                    {{ publisher.createdAt ? publisher.createdAt|date : '' }}
+                </td>
+            </tr>
+            <tr>
+                <th>{{ 'publisher.property.country'|trans({}, 'entity')}}</th>
+                <td>
+                    <img src="{{ publisher.country.urlFlag }}">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% include 'admin/partials/_partial_games.html.twig' with {
+        'games': publisher.games
+    } %}
+
+{% endblock %}
