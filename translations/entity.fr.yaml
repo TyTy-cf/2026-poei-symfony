@@ -41,6 +41,8 @@ uog:
 review:
     property:
         created_at: "Ecrit le"
+        content : 'Laissez votre commentaire'
+        rating : 'Votre note'
 
 
 publisher:
