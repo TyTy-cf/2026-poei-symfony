@@ -24,7 +24,8 @@ final class GameController extends AbstractController
     string $slug
   ): Response {
     $game = $gameRepository->findOneFullBy($slug);
-
+    $form = null;
+    
     $paginatedReviews = $paginator->paginate(
       $game->getReviews(),
       $request->query->getInt('page', 1),
@@ -61,19 +62,13 @@ final class GameController extends AbstractController
           dump($e->getMessage());
         }
       }
-      return $this->render('front/game/show.html.twig', [
-        'controller_name' => 'GameController',
-        'game' => $game,
-        'paginatedReviews' => $paginatedReviews,
-        'form' => $form->createView(),
-      ]);
-    } else {
-
-      return $this->render('front/game/show.html.twig', [
-        'controller_name' => 'GameController',
-        'game' => $game,
-        'paginatedReviews' => $paginatedReviews,
-      ]);
     }
+
+    return $this->render('front/game/show.html.twig', [
+      'controller_name' => 'GameController',
+      'game' => $game,
+      'paginatedReviews' => $paginatedReviews,
+      'form' => $form,
+    ]);
   }
 }
