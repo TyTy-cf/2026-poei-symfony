@@ -18,13 +18,13 @@ class ReviewType extends AbstractType
     {
         $builder
             ->add('content', TextareaType::class, [
-                'label' => 'review.property.content',
+                'label' => 'Votre commentaire',
                 'attr' => [
-                    'placeholder' => 'review.property.comment',
+                    'placeholder' => 'Ecrivez votre commentaire ici',
                 ]
             ] )
             ->add('rating', ChoiceType::class, [
-                'label' => 'review.property.rating',
+                'label' => 'Votre note',
                 'choices' => [
                     '1' => 1,
                     '2' => 2,
