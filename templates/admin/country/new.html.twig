@@ -2,6 +2,9 @@
 
 {% trans_default_domain 'admin' %}
 
+{% block table_content %}
+{% endblock %}
+
 {% block mainTitle %}
     {{ 'country.new.title'|trans }}
     {% include 'admin/partials/_table_action_link.html.twig' with {

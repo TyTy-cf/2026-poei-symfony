@@ -1,38 +1,49 @@
-<!DOCTYPE html>
+{% extends 'admin/base.html.twig' %}
 
-<title>Publisher</title>
+{% trans_default_domain 'admin' %}
 
-{% block body %}
-    <h1>Publisher</h1>
+{% block table_content %}
+{% endblock %}
 
-    <table class="table">
+{% block mainTitle %}
+    {{ publisher.name}}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_publisher_index'),
+        'action': 'index',
+        'cssClass': 'actions-link'
+    } %}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_publisher_edit', {'id': publisher.id}),
+        'action': 'edit',
+        'cssClass': 'actions-link'
+    } %}
+{% endblock %}
+
+{% block content %}
+
+    <table class="table table-hover table-striped table-dark">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ publisher.id }}</td>
+                <th>{{ 'publisher.property.name'|trans({}, 'entity')}}</th>
+                <td>
+                    <a href="{{ publisher.website }}"
+                       target="_blank"
+                       class="text-decoration-none steamish-link"
+                    >
+                        {{ publisher.name }}
+                    </a>
+                </td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
-                <td>{{ publisher.createdAt ? publisher.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>{{ 'publisher.property.created_at'|trans({}, 'entity')}}</th>
+                <td>
+                    {{ publisher.createdAt ? publisher.createdAt|date : '' }}
+                </td>
             </tr>
             <tr>
-                <th>Name</th>
-                <td>{{ publisher.name }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ publisher.slug }}</td>
-            </tr>
-            <tr>
-                <th>Website</th>
-                <td>{{ publisher.website }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_publisher_index') }}">back to list</a>
 
-    <a href="{{ path('app_publisher_edit', {'id': publisher.id}) }}">edit</a>
-
-    {{ include('publisher/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,3 +1,5 @@
+{% trans_default_domain 'admin' %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,7 +27,26 @@
                 <div class="container-fluid mt-2">
                     {% include 'common/_alert.html.twig' %}
                     <h1 class="my-2">{% block mainTitle %}{% endblock %}</h1>
+
                     {% block content %}{% endblock %}
+
+                    {% block table_content %}
+                        <table class="table table-hover table-striped table-dark">
+                            <thead>
+                                <tr>
+                                    {% block table_header %}
+                                    {% endblock %}
+                                    {% block table_actions %}
+                                        <th>{{ 'utils.table.actions.header'|trans }}</th>
+                                    {% endblock %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% block table_body %}
+                                {% endblock %}
+                            </tbody>
+                        </table>
+                    {% endblock %}
                 </div>
             </div>
         </div>

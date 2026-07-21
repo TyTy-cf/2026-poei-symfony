@@ -41,13 +41,11 @@ uog:
 review:
     property:
         created_at: "Ecrit le"
-        content : 'Laissez votre commentaire'
-        rating : 'Votre note'
-
 
 publisher:
     property:
+        created_at: "Créé le"
         name: "Nom"
-        image: "Image"
-        slug: "Slug"
+        website: "Site Web"
+        country: "Pays d'origine"
         games: "Jeux"

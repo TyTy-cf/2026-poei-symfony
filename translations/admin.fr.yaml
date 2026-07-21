@@ -34,28 +34,18 @@ menu:
         title: "Pays"
         index: "Index"
         new: "Nouveau"
+    publisher:
+        title: "Editeurs"
+        index: "Index"
+        new: "Nouveau"
 
 category:
     index:
         title: "Les catégories"
-        nom : 'Nom'
-        image : 'Image ?'
-        slug : 'Slug'
-        jeux : "Jeux "
-        actions : 'Actions'
-        have_image : 'Oui'
-        no_image : 'Non'
-
     new:
         title: "Nouvelle catégorie"
     edit:
         title: 'Modifier la catégorie "%categ%"'
-    show :
-        title: 'Catégorie "%categ%"'
-        game : 'Les jeux "%categ%"'
-        price : 'Prix'
-
-
 
 country:
     index:
@@ -64,11 +54,10 @@ country:
         title: "Nouveau pays"
     edit:
         title: "Modifier le pays %country%"
-
-
-publisher :
-    index :
-        title : 'Les éditeurs'
-    new :
-
-    edit :
+publisher:
+    index:
+        title: "Les éditeurs"
+    new:
+        title: "Nouvel éditeur"
+    edit:
+        title: 'Modifier l éditeur "%publisher%"'

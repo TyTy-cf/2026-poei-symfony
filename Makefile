@@ -56,6 +56,9 @@ down:
 php:
 	@docker compose exec php bash
 
+exec-php:
+	@docker compose exec php symfony console $(cmd)
+
 node:
 	@docker compose exec node bash
 

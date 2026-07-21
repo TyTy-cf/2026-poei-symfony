@@ -4,6 +4,9 @@
 
 {% trans_default_domain 'admin' %}
 
+{% block table_content %}
+{% endblock %}
+
 {% block mainTitle %}
     {% if isEdit is true %}
         {{ 'category.edit.title'|trans({'%categ%': category.name}) }}

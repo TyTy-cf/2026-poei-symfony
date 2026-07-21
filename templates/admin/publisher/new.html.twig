@@ -1,11 +1,21 @@
-<!DOCTYPE html>
+{% extends 'admin/base.html.twig' %}
 
-<title>New Publisher</title>
+{% trans_default_domain 'admin' %}
 
-{% block body %}
-    <h1>Create new Publisher</h1>
+{% block table_content %}
+{% endblock %}
+
+{% block mainTitle %}
+    {{ 'publisher.new.title'|trans }}
+    {% include 'admin/partials/_table_action_link.html.twig' with {
+        'actionPath': path('admin_publisher_index'),
+        'action': 'index',
+        'cssClass': 'actions-link'
+    } %}
+{% endblock %}
+
+{% block content %}
 
     {{ include('admin/publisher/_form.html.twig') }}
 
-    <a href="{{ path('app_publisher_index') }}">back to list</a>
 {% endblock %}

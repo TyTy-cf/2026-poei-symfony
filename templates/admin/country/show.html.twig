@@ -2,6 +2,9 @@
 
 {% trans_default_domain 'admin' %}
 
+{% block table_content %}
+{% endblock %}
+
 {% block mainTitle %}
     {{ country.name}}
     {% include 'admin/partials/_table_action_link.html.twig' with {
@@ -21,24 +24,26 @@
     <table class="table table-hover table-striped table-dark">
         <tbody>
             <tr>
-                <th>Code</th>
+                <th>{{ 'country.property.code'|trans({}, 'entity')}}</th>
                 <td>{{ country.code }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>{{ 'country.property.name'|trans({}, 'entity')}}</th>
                 <td>{{ country.name }}</td>
             </tr>
             <tr>
-                <th>Nationality</th>
+                <th>{{ 'country.property.nationality'|trans({}, 'entity')}}</th>
                 <td>{{ country.nationality }}</td>
             </tr>
             <tr>
-                <th>Slug</th>
+                <th>{{ 'country.property.slug'|trans({}, 'entity')}}</th>
                 <td>{{ country.slug }}</td>
             </tr>
             <tr>
-                <th>UrlFlag</th>
-                <td>{{ country.urlFlag }}</td>
+                <th>{{ 'country.property.url_flag'|trans({}, 'entity')}}</th>
+                <td>
+                    <img src="{{ country.urlFlag }}">
+                </td>
             </tr>
         </tbody>
     </table>
