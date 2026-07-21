@@ -21,10 +21,10 @@ class Review
   private ?\DateTimeImmutable $createdAt = null;
 
   #[ORM\Column]
-  private ?int $downvote = null;
+  private ?int $downvote = 0;
 
   #[ORM\Column]
-  private ?int $upvote = null;
+  private ?int $upvote = 0;
 
   #[ORM\Column]
   private ?int $rating = null;

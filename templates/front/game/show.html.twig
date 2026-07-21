@@ -1,5 +1,8 @@
 {% extends './front/base.html.twig' %}
 
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+
 {% block title %}
 	{{ game.name }}
 	- Steam Ish
@@ -52,7 +55,23 @@
 		</div>
 
 		{# Reviews Section #}
-		<div class="container py-5">
+		{% if app.user is not null %}
+			<div class="container py-5">
+				<div class="row g-4">
+					<div class="col-12">
+						<div class="card border-0 shadow-sm">
+							<div class="card-body p-4 p-lg-5">
+								<h2 class="h3 mb-3">Add a Review</h2>
+								{{ form_start(form) }}
+								{{ form_widget(form) }}
+								<button type="submit" class="btn btn-primary">Submit</button>
+
+								{{ form_end(form) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
 
 			<div class="row g-4">
 				<div class="col-12">
