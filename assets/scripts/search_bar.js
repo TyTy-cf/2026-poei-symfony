@@ -1,16 +1,19 @@
 window.addEventListener("load", () => {
+    const searchForm = document.querySelector(".input-group");
     const searchInput = document.querySelector(
         '.input-group input[type="text"]',
     );
     const searchButton = document.querySelector(".input-group button");
 
-    if (!searchInput || !searchButton) return;
+    if (!searchForm || !searchInput || !searchButton) return;
 
     searchButton.addEventListener("click", () => {
         const query = searchInput.value.trim();
 
         if (query) {
-            window.location.href += `search?query=${encodeURIComponent(query)}`;
+            const url = new URL(searchForm.action, window.location.origin);
+            url.searchParams.set("query", query);
+            window.location.href = url.toString();
         }
     });
 
