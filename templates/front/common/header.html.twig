@@ -3,6 +3,10 @@
         <a class="navbar-brand" href="{{ path("app_home") }}">
             <i class="fa-brands fa-steam fa-3x steamish-link"></i>
         </a>
+        <form class="d-flex" method="post" action="{{ path('app_game_search') }}">
+            <input class="form-control me-2" name="query" type="search" placeholder="{{ 'game.search.placeholder'|trans }}"/>
+            <button class="btn btn-outline-success" type="submit">{{ 'game.search.button'|trans }}</button>
+        </form>
 
         <div class="ms-auto">
             {% if app.user is null %}

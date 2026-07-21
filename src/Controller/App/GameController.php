@@ -16,6 +16,31 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class GameController extends AbstractController
 {
+
+    #[Route('/{_locale}/game/search', name: 'app_game_search')]
+    public function search(
+        GameRepository         $gameRepository,
+        Request                $request,
+
+    ): Response
+    {
+        $query = $request->request->get('query');
+        dump($query);
+
+        if ($query === null) {
+            $games = $gameRepository->findBy([], ['name' => 'ASC']);
+        } else {
+            $games = $gameRepository->findByName($query);
+        }
+
+
+
+        return $this->render('front/game/search.html.twig', [
+            'games' => $games,
+            'query' => $query,
+        ]);
+    }
+
     #[Route('/{_locale}/game/{slug}', name: 'app_game_show')]
     public function show(
         GameRepository         $gameRepository,

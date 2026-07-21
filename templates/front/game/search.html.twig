@@ -1,0 +1,24 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}
+  {{ 'game.search.result'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <h1 class="m-2">{{ 'game.search.result'|trans }}</h1>
+        {% if query is not null %}
+            <p class="ms-2">
+                {{ 'game.search.for'|trans({'%query%': query, '%count%': games|length}) }}
+            </p>
+        {% endif %}
+        {% if games is null %}
+            <p class="ms-2">{{ 'game.search.empty'|trans }}</p>
+        {% else %}
+            <h2 class="m-2">{{ 'game.search.jeux'|trans }}</h2>
+            {% include 'front/partials/_game_loop.html.twig' %}
+        {% endif %}
+    </div>
+
+{% endblock %}

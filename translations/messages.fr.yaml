@@ -17,6 +17,13 @@ game:
         published_at: "Sortie le : %date%"
         available: "Disponible en "
         thumbnail_cover_alt: "Jeux %gameName%"
+    search :
+            result: 'Résultat de la recherche'
+            jeux: 'Jeux'
+            placeholder: 'Rechercher un jeu...'
+            button: 'Rechercher'
+            for: 'Résultats pour « %query% » (%count% jeu(x))'
+            empty: 'Aucun jeu trouvé.'
 
 register:
     title: "Inscription"
@@ -28,3 +35,4 @@ review:
 security:
     login:
         title: "Se connecter"
+
