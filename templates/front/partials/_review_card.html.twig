@@ -1,9 +1,16 @@
 
 <div class="card-review">
     <div class="row">
-        {% for i in 1..review.rating %}
-            <i class="fa-solid fa-star"></i>
-        {% endfor %}
+        {% if review.rating > 0 %}
+            {% for i in 1..review.rating %}
+                <i class="fa-solid fa-star my-auto"></i>
+            {% endfor %}
+        {% endif %}
+        {% if review.rating < 5 %}
+            {% for i in 1..(5 - review.rating) %}
+                <i class="fa-regular fa-star my-auto"></i>
+            {% endfor %}
+        {% endif %}
     </div>
 
     {% if (hasGameLink is true) %}

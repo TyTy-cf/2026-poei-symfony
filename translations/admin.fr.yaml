@@ -12,9 +12,18 @@ menu:
 category:
     index:
         title: "Les catégories"
+        table:
+            name: "Nom"
+            image: "Image"
+            slug: "Slug"
+            games_number: "Nombre de jeux"
+            actions: "Actions"
+            yes: "Oui"
+            no: "Non"
     new:
         title: "Nouvelle catégorie"
     edit:
         title: 'Modifier la catégorie "%categ%"'
     show:
-        title: '%categorie'
+        title: '%categ%'
+        games: "Jeux présents dans la catégorie:"

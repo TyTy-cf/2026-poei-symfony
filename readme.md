@@ -439,3 +439,19 @@ Utilisez cette fonction (dans un service !) pour générer le slug de la catégo
         - `show` => Lien vers le détail de la catégorie (à faire !), ici on affichera toutes les infos de la catégorie (y compris l'image) et si vous le souhaite, les jeux présent dans cette catégorie
         - PS : utiliser de belles icônes (Fontawsome ?) pour les différentes actions, c'est plus parlant... et ça prend moins de place
     - Vous pouvez, si vous le souhaiter, ajouter un lien vers le `new` pour une catégorie (genre un icone `+` à côté du titre de l'index)
+
+
+### 16. Faire le formulaire d'ajout d'un avis
+
+
+- Créer un `ReviewType`, il ne devra gérer que les propriétés `content` & `rating` (Regarder pour adapter le Type d'input de la propriété `content`, celle-ci peut être élevée...)
+- Tout va se passer dans le `app_game_show`
+- Si un utilisateur est connecté, alors on va créer le formulaire des commentaires et le passer à la vue
+- Dans le Twig, si le formulaire existe, alors on l'affiche (peut-être au début du bloc des avis ?)
+- Une fois le formulaire soumis, l'objet review doit `set` des valeurs par défaut :
+    - `createdAt` : la date actuelle
+    - `upVote` : toujours à 0 (déjà fait normalement)
+    - `downVote` : toujours à 0 (déjà fait normalement)
+    - `user` : l'utilisateur connecté
+    - `game` : le jeu de la page actuelle
+- Il n'y aura pas de redirection après, on revient sur la page du jeu

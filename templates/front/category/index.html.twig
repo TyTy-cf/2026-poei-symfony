@@ -1,6 +1,37 @@
-{% extends 'front/base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block body %}
 
+{% block mainTitle %}
+    Les catégories
 {% endblock %}
 
+{% block content %}
+    <div class="container">
+        <table class="table table-hover table-striped table-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Image</th>
+                <th>Nombre de jeux</th>
+                <th>Liste des jeux</th>
+            </tr>
+            {% for category in categories %}
+                <tr>
+                    <td><a href="{{ path('app_category_show',{slug: category.slug }) }}" class="text-decoration-none" >{{ category.name }}</a></td>
+                    <td>
+                        {% if category.image is null %}
+                            Imagine indisponible
+                        {% else %}
+                            <img src="{{ category.image }}" alt="">
+                        {% endif %}
+                    </td>
+                    <td>{{ category.games.count }}</td>
+                    <td>{% for game in category.games %}
+                            <ul class="list-unstyled">
+                                <li><a href="{{ path('app_game_show',{slug: game.slug }) }}" class="text-decoration-none" >{{ game.name }}</a></li>
+                            </ul>
+                        {% endfor %}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

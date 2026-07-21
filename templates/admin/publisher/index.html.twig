@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<title>Publisher index</title>
+
+{% block body %}
+    <h1>Publisher index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Website</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for publisher in publishers %}
+            <tr>
+                <td>{{ publisher.id }}</td>
+                <td>{{ publisher.createdAt ? publisher.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ publisher.name }}</td>
+                <td>{{ publisher.slug }}</td>
+                <td>{{ publisher.website }}</td>
+                <td>
+                    <a href="{{ path('app_admin_publisher_show', {'id': publisher.id}) }}">show</a>
+                    <a href="{{ path('app_admin_publisher_edit', {'id': publisher.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_publisher_new') }}">Create new</a>
+{% endblock %}

@@ -3,5 +3,17 @@
 {% trans_default_domain 'admin' %}
 
 {% block mainTitle %}
-    {{ 'category.show.title'|trans({'%categorie%': category.name}) }}
+    {{ 'category.show.title'|trans({'%categ%': category.name}) }}
+{% endblock %}
+
+
+{% block content %}
+    <p>id: {{ category.id }}</p>
+    <p>slug: {{ category.slug }}</p>
+    <img src="{{ category.image }}" alt="">
+    <ul> {{ 'category.show.games'|trans }}
+        {% for game in category.games %}
+            <li>{{ game.name }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

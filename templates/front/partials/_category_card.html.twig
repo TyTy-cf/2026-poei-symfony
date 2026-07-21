@@ -1,12 +1,13 @@
-
-<div class="card-category">
-    {% if category.image is not null %}
-        <img src="{{ category.image }}" alt="Catégorie {{ category.name }}">
-    {% else %}
-        <div class="fake-container">
+<a class="text-decoration-none text-white" href="{{ path('app_category_show', {'slug': category.slug}) }}">
+    <div class="card-category">
+        {% if category.image is not null %}
+            <img src="{{ category.image }}" alt="Catégorie {{ category.name }}">
+        {% else %}
+            <div class="fake-container">
+            </div>
+        {% endif %}
+        <div class="card-category-title">
+            {{ category.name }}
         </div>
-    {% endif %}
-    <div class="card-category-title">
-        {{ category.name }}
     </div>
-</div>
+</a>

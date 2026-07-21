@@ -1,0 +1,44 @@
+{% extends 'admin/base.html.twig' %}
+
+{% trans_default_domain 'admin' %}
+
+{% block title %} Country {% endblock %}
+
+{% block content %}
+    <h1>Country</h1>
+
+    <table class="table table-dark table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ country.id }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ country.code }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ country.name }}</td>
+            </tr>
+            <tr>
+                <th>Nationality</th>
+                <td>{{ country.nationality }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ country.slug }}</td>
+            </tr>
+            <tr>
+                <th>UrlFlag</th>
+                <td>{{ country.urlFlag }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_country_index') }}">back to list</a>
+
+    <a href="{{ path('app_country_edit', {'id': country.id}) }}">edit</a>
+
+    {{ include('admin/country/_delete_form.html.twig') }}
+{% endblock %}

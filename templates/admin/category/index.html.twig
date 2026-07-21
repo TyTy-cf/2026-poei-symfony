@@ -1,38 +1,37 @@
 {% extends 'admin/base.html.twig' %}
 
+{% trans_default_domain 'admin' %}
 
 {% block mainTitle %}
-    Les catégories
+    {{ "category.index.title"|trans }}
 {% endblock %}
 
 {% block content %}
     <div class="container">
         <table class="table table-hover table-striped table-dark">
             <tr>
-                <th>Nom</th>
-                <th>Image</th>
-                <th>Slug</th>
-                <th>Nombre de jeux</th>
-                <th>Actions</th>
+                <th>{{ "category.index.table.name"|trans }}</th>
+                <th>{{ "category.index.table.image"|trans }}</th>
+                <th>{{ "category.index.table.slug"|trans }}</th>
+                <th>{{ "category.index.table.games_number"|trans }}</th>
+                <th>{{ "category.index.table.actions"|trans }}</th>
             </tr>
                 {% for category in categories %}
                     <tr>
                         <td>{{ category.name }}</td>
                         <td>
                             {% if category.image is null %}
-                                Non
-                                {% else %}
-                                Oui
+                                {{ "category.index.table.no"|trans }}
+                            {% else %}
+                                {{ "category.index.table.yes"|trans }}
                             {% endif %}
                         </td>
                         <td>{{ category.slug }}</td>
                         <td>{{ category.games.count }}</td>
                         <td>
-                            <ul>
-                                <li><a href="{{ path('admin_category_edit',{slug: category.slug }) }}">Edit</a></li>
-                                <li><a href="{{ path('admin_category_delete',{slug: category.slug }) }}">Delete</a></li>
-                                <li><a href="{{ path('admin_category_show',{slug: category.slug }) }}">Show</a></li>
-                            </ul>
+                            <a href="{{ path('admin_category_edit',{slug: category.slug }) }}" class="fa-solid fa-pen-alt text-decoration-none"></a>
+                            <a href="{{ path('admin_category_show',{slug: category.slug }) }}" class="fa-solid fa-eye text-decoration-none text-success"></a>
+                            <a href="{{ path('admin_category_delete',{slug: category.slug }) }}" class="fa-solid fa-trash text-decoration-none text-danger"></a>
                         </td>
                     </tr>
                 {% endfor %}

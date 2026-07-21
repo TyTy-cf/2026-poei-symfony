@@ -4,14 +4,16 @@
             Steam Ish
         </a>
         {% if app.user is null %}
-            <a class="navbar-brand" href="{{ path("app_login") }}">Login</a>
-            <a class="navbar-brand" href="{{ path("app_register") }}">Inscription</a>
+            <a class="navbar-brand" href="{{ path("app_login") }}">{{ "header.login"|trans }}</a>
+            <a class="navbar-brand" href="{{ path("app_register") }}">{{ "header.inscription"|trans }}</a>
         {% else %}
-            <a class="navbar-brand" href="{{ path("app_user_show", {'name': app.user.name}) }}">Mon profil</a>
+            <a class="navbar-brand" href="{{ path("app_user_show", {'name': app.user.name}) }}">{{ "header.account"|trans }}</a>
             {% if is_granted("ROLE_ADMIN") %}
-                <a class="navbar-brand" href="{{ path("admin_category_new") }}">Créer une catégorie</a>
+                <a class="navbar-brand" href="{{ path("admin_category_new") }}">{{ "header.create_category"|trans }}</a>
             {% endif %}
-            <a class="navbar-brand" href="{{ path("app_logout") }}">Se déconnecter</a>
+            <a class="navbar-brand" href="{{ path("app_logout") }}">{{ "header.logout"|trans }}</a>
         {% endif %}
     </div>
 </nav>
+
+<hr class="text-danger">

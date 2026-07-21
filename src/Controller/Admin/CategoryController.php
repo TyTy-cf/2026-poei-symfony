@@ -38,7 +38,7 @@ final class CategoryController extends AbstractController
     ): Response
     {
         return $this->render('admin/category/show.html.twig', [
-            'category' => $categoryRepository->findBy(['slug' => $slug], ['name' => 'ASC']),
+            'category' => $categoryRepository->findOneBy(['slug' => $slug], ['name' => 'ASC']),
             'slug' => $slug,
         ]);
     }
@@ -49,7 +49,7 @@ final class CategoryController extends AbstractController
         string $slug,
     ): Response
     {
-        return $this->render('admin/category/show.html.twig', [
+        return $this->render('admin/category/delete.html.twig', [
             'category' => $categoryRepository->findBy(['slug' => $slug], ['name' => 'ASC']),
             'slug' => $slug,
         ]);

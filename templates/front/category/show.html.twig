@@ -1,6 +1,30 @@
 {% extends 'front/base.html.twig' %}
 
-{% block body %}
+{% trans_default_domain 'admin' %}
 
+{% block mainTitle %}
+    {{ 'category.show.title'|trans({'%categ%': category.name}) }}
 {% endblock %}
 
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="text-center">{{ category.slug }}</h1>
+        <div class="row">
+            <div class="col-6">
+                <ul class="list-unstyled"> {{ 'category.show.games'|trans }}
+                    {% for game in category.games %}
+                        <li><a class="text-decoration-none" href="{{ path('app_game_show',{slug: game.slug }) }}">{{ game.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-6">
+                <img src="{{ category.image }}" alt="">
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -22,10 +22,20 @@ register:
 review:
     card:
         nickname: "par %nickname%"
+    property:
+        content: "Ecrivez votre commentaire ici"
+        rating: "Note sur 5"
 
 security:
     login:
         title: "Se connecter"
+
+header:
+    login: "Se connecter"
+    inscription: "Inscription"
+    account: "Mon profil"
+    create_category: "Créer une catégorie"
+    logout: "Se déconnecter"
 
 footer:
     title:

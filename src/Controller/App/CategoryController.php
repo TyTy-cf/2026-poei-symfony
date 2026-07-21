@@ -19,11 +19,15 @@ final class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('{slug}', name: 'show')]
-    public function new(): Response
+    #[Route('show/{slug}', name: 'show')]
+    public function show(
+        CategoryRepository $categoryRepository,
+        string $slug,
+    ): Response
     {
         return $this->render('front/category/show.html.twig', [
-            'controller_name' => 'CategoryController',
+            'category' => $categoryRepository->findOneBy(['slug' => $slug], ['name' => 'ASC']),
+            'slug' => $slug,
         ]);
     }
 
