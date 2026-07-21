@@ -455,3 +455,16 @@ Utilisez cette fonction (dans un service !) pour générer le slug de la catégo
   - `user` : l'utilisateur connecté
   - `game` : le jeu de la page actuelle
 - Il n'y aura pas de redirection après, on revient sur la page du jeu
+
+
+### 17. Faire une barre de recherche
+
+
+- Elle sera placée dans le [header.html.twig](templates/front/common/header.html.twig)
+- Faites quelques chose de **simple** (voir Bootstrap : input group)
+- Au moment de valider le form, on renvoie sur une route du `GameController` : `search` (nom de la route : `app_game_search`, path de la route : `/{_locale}/game/search`) [PS : mettez la bien en premier dans le controller pour éviter les problèmes de route !]
+- La fonction doit récupérer tous les jeux avant la chaîne de caratère saisie dans le form, par exemple :
+  - Je saisie : "Wor"
+  - Je recherche les jeux dont le nom contient "%Wor%"
+- La template twig de la page affichera la **liste complète des jeux ayant la chaine de caractère**
+- Si la chaîne est vide, alors on affichera tous les jeux

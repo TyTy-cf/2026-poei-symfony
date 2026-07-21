@@ -2,12 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Game;
 use App\Entity\Review;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,18 +16,18 @@ class ReviewType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => 'review.property.content',
                 'attr' => [
+                    'rows' => 5,
                     'placeholder' => 'review.property.content',
                 ]
-            ] )
-            ->add('rating', ChoiceType::class, [
+            ])
+            ->add('rating', null, [
                 'label' => 'review.property.rating',
-                'choices' => [
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                    '5' => 5,
-                ],
+                'attr' => [
+                    'min' => 0,
+                    'max' => 5,
+                    'step' => 1,
+                    'placeholder' => 'review.property.rating',
+                ]
             ])
         ;
     }

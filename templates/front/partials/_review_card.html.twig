@@ -1,16 +1,23 @@
 
 <div class="card-review">
-    <div class="row">
-        {% if review.rating > 0 %}
-            {% for i in 1..review.rating %}
-                <i class="fa-solid fa-star"></i>
-            {% endfor %}
-        {% endif %}
-        {% if review.rating < 5 %}
-            {% for i in 1..(5 - review.rating) %}
-                <i class="fa-regular fa-star"></i>
-            {% endfor %}
-        {% endif %}
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            {% if review.rating > 0 %}
+                {% for i in 1..review.rating %}
+                    <i class="fa-solid fa-star my-auto ms-2"></i>
+                {% endfor %}
+            {% endif %}
+            {% if review.rating < 5 %}
+                {% for i in 1..(5 - review.rating) %}
+                    <i class="fa-regular fa-star my-auto ms-2"></i>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div>
+            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#reviewModal-{{ review.id }}">
+                <i class="fa-solid fa-eye text-primary"></i>
+            </button>
+        </div>
     </div>
 
     {% if (hasGameLink is true) %}
@@ -33,15 +40,15 @@
     </p>
     <div class="mt-auto">
         <div class="row">
-            <div class="col-6">
+            <div class="col-9">
                 <p class="mb-0">Le {{ review.createdAt|date('d/m/Y') }}</p>
                 <a href="{{ path('app_user_show', {'name': review.user.name }) }}"
-                   class="text-decoration-none text-light"
+                   class="text-decoration-none steamish-link"
                 >
                     {{ 'review.card.nickname'|trans({'%nickname%': review.user.nickname})  }}
                 </a>
             </div>
-            <div class="col-6">
+            <div class="col-3">
                 <div class="card-review-votes">
                     <span class="text-success" title="Votes positifs">
                         {{ review.upvote }} <i class="fa-solid fa-thumbs-up"></i>
@@ -53,4 +60,68 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="reviewModal-{{ review.id }}" tabindex="-1" aria-labelledby="Commentaire numéro {{ review.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex">
+                        {% if review.rating > 0 %}
+                            {% for i in 1..review.rating %}
+                                <i class="fa-solid fa-star my-auto ms-2"></i>
+                            {% endfor %}
+                        {% endif %}
+                        {% if review.rating < 5 %}
+                            {% for i in 1..(5 - review.rating) %}
+                                <i class="fa-regular fa-star my-auto ms-2"></i>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-review">
+
+                        {% if (hasGameLink is true) %}
+                            <a  class="text-decoration-none"
+                                href="{{ path('app_game_show', {'slug': review.game.slug}) }}"
+                            >
+                                {{ review.game.name }}
+                            </a>
+                        {% endif %}
+
+                        <p class="card-review-content">
+                            {{ review.content }}
+                        </p>
+                        <div class="mt-auto">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="mb-0">Le {{ review.createdAt|date('d/m/Y') }}</p>
+                                    <a href="{{ path('app_user_show', {'name': review.user.name }) }}"
+                                       class="text-decoration-none steamish-link"
+                                    >
+                                        {{ 'review.card.nickname'|trans({'%nickname%': review.user.nickname})  }}
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <div class="card-review-votes">
+                                    <span class="text-success" title="Votes positifs">
+                                        {{ review.upvote }} <i class="fa-solid fa-thumbs-up"></i>
+                                    </span>
+                                        <span class="text-danger" title="Votes négatifs">
+                                        {{ review.downvote }} <i class="fa-solid fa-thumbs-down"></i>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'modal.close.title'|trans({}, 'alert') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

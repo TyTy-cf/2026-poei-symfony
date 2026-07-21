@@ -41,6 +41,10 @@ uog:
 review:
     property:
         created_at: "Ecrit le"
+        content: "Contenu"
+        rating: "Note"
+        upvote: "Retours positifs"
+        downvote: "Retours négatifs"
 
 publisher:
     property:

@@ -26,4 +26,9 @@
         width: 3rem;
         margin-left: auto;
     }
+
+    .modal-body, .modal-header, .modal-footer {
+        color: var(--default-color);
+        background-color: var(--default-card-background-color);
+    }
 }
