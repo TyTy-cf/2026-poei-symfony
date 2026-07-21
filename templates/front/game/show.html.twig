@@ -1,7 +1,5 @@
 {% extends './front/base.html.twig' %}
 
-{% form_theme form 'bootstrap_5_layout.html.twig' %}
-
 
 {% block title %}
 	{{ game.name }}
@@ -56,6 +54,9 @@
 
 		{# Reviews Section #}
 		{% if app.user is not null %}
+			{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+
 			<div class="container py-5">
 				<div class="row g-4">
 					<div class="col-12">
