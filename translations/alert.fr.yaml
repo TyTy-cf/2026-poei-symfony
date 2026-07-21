@@ -4,6 +4,7 @@ game:
 register:
     success: "Votre compte a bien été créé, vous pouvez vous connecter"
     danger: "Une erreur est survenue lors de la création de votre compte"
+
 user:
   edit:
       success: "Modifications effectuées !"
@@ -15,3 +16,11 @@ admin:
         updated: "Catégorie modifiée !"
         created: "Catégorie ajoutée !"
         deleted: "Catégorie supprimée !"
+review:
+  edit:
+      success: "Commentaire ajouté !"
+      danger: "Une erreur est survenue lors de l'ajout du commentaire"
+
+modal:
+    close:
+        title: "Fermer"

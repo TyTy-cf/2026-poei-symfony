@@ -56,6 +56,19 @@
             </div>
         </section>
 
+        <section class="mt-5">
+            <h2>{{ 'game.show.title.new_review'|trans }}</h2>
+            {% if form is not null %}
+                {% include 'common/_form_.html.twig' %}
+            {% else %}
+                <a href="{{ path('app_login') }}"
+                   class="text-decoration-none steamish-link"
+                >
+                    {{ 'game.show.title.login'|trans }}
+                </a>
+            {% endif %}
+        </section>
+
         {% if game.reviews|length > 0 %}
             <section class="mt-5">
                 <h2>{{ 'game.show.title.reviews'|trans }}</h2>
