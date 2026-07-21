@@ -54,4 +54,24 @@
             </li>
         </ul>
     </div>
+
+    <hr>
+
+    <div class="ps-4">
+        <p class="p-0 m-0">{{ 'menu.publisher.title'|trans }}</p>
+        <ul class="list-unstyled ps-2">
+            <li>
+                {% include 'admin/partials/_menu_link.html.twig' with {
+                    'pathName': 'admin_publisher_index',
+                    'label':  'menu.publisher.index'|trans
+                } %}
+            </li>
+            <li>
+                {% include 'admin/partials/_menu_link.html.twig' with {
+                    'pathName': 'admin_publisher_new',
+                    'label':  'menu.publisher.new'|trans
+                } %}
+            </li>
+        </ul>
+    </div>
 </section>

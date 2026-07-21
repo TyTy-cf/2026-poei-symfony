@@ -6,9 +6,9 @@
 {% endblock %}
 
 {% block mainTitle %}
-    {{ 'country.edit.title'|trans({'%country%': country.name}) }}
+    {{ 'publisher.edit.title'|trans({'%publisher%': publisher.name}) }}
     {% include 'admin/partials/_table_action_link.html.twig' with {
-        'actionPath': path('admin_country_index'),
+        'actionPath': path('admin_publisher_index'),
         'action': 'index',
         'cssClass': 'actions-link'
     } %}
@@ -16,6 +16,6 @@
 
 {% block content %}
 
-    {{ include('admin/country/_form.html.twig') }}
+    {{ include('admin/publisher/_form.html.twig') }}
 
 {% endblock %}

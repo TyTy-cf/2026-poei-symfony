@@ -12,11 +12,18 @@
         color: var(--default-color);
     }
 
-    i {
+    i.fa-star {
         color: var(--yellow);
     }
 
     .card-review-content {
         color: var(--default-card-content-color);
+    }
+
+    .card-review-votes {
+        display: flex;
+        flex-direction: column;
+        width: 3rem;
+        margin-left: auto;
     }
 }

@@ -25,13 +25,17 @@ utils:
                 title: "Retour"
 
 menu:
-    dashboard: "Dasboard"
+    dashboard: "Dashboard"
     category:
         title: "Catégories"
         index: "Index"
         new: "Nouvelle"
     country:
         title: "Pays"
+        index: "Index"
+        new: "Nouveau"
+    publisher:
+        title: "Editeurs"
         index: "Index"
         new: "Nouveau"
 
@@ -50,3 +54,10 @@ country:
         title: "Nouveau pays"
     edit:
         title: "Modifier le pays %country%"
+publisher:
+    index:
+        title: "Les éditeurs"
+    new:
+        title: "Nouvel éditeur"
+    edit:
+        title: 'Modifier l éditeur "%publisher%"'

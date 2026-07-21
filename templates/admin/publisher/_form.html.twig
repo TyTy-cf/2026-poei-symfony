@@ -1,0 +1,20 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{{ form_start(form) }} {# <form> #}
+    <div class="row">
+        <div class="col-md-6 col-12">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-md-6 col-12">
+            {{ form_row(form.createdAt) }}
+        </div>
+        <div class="col-md-6 col-12">
+            {{ form_row(form.country) }}
+        </div>
+        <div class="col-md-6 col-12">
+            {{ form_row(form.website) }}
+        </div>
+    </div>
+    {{ form_row(form.games) }}
+    {% include 'common/_buttons_form.html.twig' %}
+{{ form_end(form) }} {# </form> #}
