@@ -1,0 +1,15 @@
+{% for label, messages in app.flashes %}
+	{% for message in messages %}
+		<div class="alert alert-{{ label }} d-flex align-items-center" role="alert">
+			{% if label == 'danger' %}
+				<i class="fa-solid fa-triangle-exclamation"></i>
+			{% elseif label == 'warning' %}
+				<i class="fa-solid fa-triangle-exclamation"></i>
+			{% elseif label == 'success' %}
+				<i class="fa-solid fa-circle-check"></i>
+			{% endif %}
+			<div class="ms-2">{{ message|raw }}</div>
+			<button type="button" class="btn-close ms-auto" aria-label="Close" data-bs-dismiss="alert"></button>
+		</div>
+	{% endfor %}
+{% endfor %}
